@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AdoreHome | ADMIN ADD PRODUCT </title>
+    <link rel="icon" href="/public/images/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="./style.css" type="text/css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Merriweather&family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg  nav">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="/public/images/LOGO Black.png" alt="" width="170" height="50">
+              </a>
+            
+              <ul class="navbar-nav  mb-2 mb-lg-0 navlist2">
+                <li class="nav-item">
+                    <a class="nav-link " href="#"><i class="fa-regular fa-user"></i></a>
+                  </li>
+              </ul>
+          </div>
+        </div>
+      </nav>
+      <form class="d-flex me-5  searchinput">
+        <input class="form-control me-2 searchbox pe-2" type="search" placeholder="Search for products." aria-label="Search">
+        <button class="btn " type="submit"><i class="fa-sharp fa-solid fa-magnifying-glass"></i></button>
+      </form>
+      
+    
+      
+      <main class="mainframe ">
+        <section class="sidenav">
+            <div class="text1 "><a href="">Dashboard</a></div>
+            <div class="text1"><a href="">Products</a></div>
+            <div class="text1 "><a href="">Users</a></div>
+            <div class="text1 selected"><a href="">Add Product</a></div>
+            <div class="text1"><a href="">Brand</a></div>
+            <div class="text1"><a href="">Category</a></div>
+            <div class="text1"><a href="">Rooms</a></div>
+            <div class="text1"><a href="">Coupon Generator</a></div>
+            <div class="text1"><a href="">Orders</a></div>
+            <div class="text1"><a href="">Sales Report</a></div>
+            <div class="text1"><a href="">Offers</a></div>
+            <div class="text1"><a href="">Banners</a></div>
+          </section>
+        
+          <section class="maincontent">
+                <div class="container">
+                    <div class="row">
+                        <div class="usermain p-3  col-md-12">
+                        <div class="titlemain"><h2 class="fw-bold ps-4  my-3">PRODUCTS</h2>
+                            <!-- <a class="pe-4  my-3" href=""><button type="submit">Add New Product</button></a> -->
+                        </div>
+                        <div class="container">
+                            <form action="">
+                            <div class="row">
+                                <div class="prolabel col-md-2">
+                                    <h4 class="fw-bold">1.General Info</h4>
+                                </div>
+                                <div class="proform col-md-10">
+                                    <label for="productname">Product Name</label>
+                                    <input type="text" id="productname" name="productname" class="form-control">
+                                    <label for="description">Description</label>
+                                    <!-- <input type="text" id="description" name="description" class="form-control"> -->
+                                    <textarea name="description" id="description" cols="30" rows="5" class="form-control"></textarea>
+                                    <label for="color">Color</label>
+                                    <input type="text" id="color" name="color" class="form-control">
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="prolabel col-md-2">
+                                    <h4 class="fw-bold">2.Brand</h4>
+                                </div>
+                                <div class="proform col-md-10">
+                                    <label for="brandname">Brand Name</label>
+                                    <!-- <input type="text" id="brandname" name="brandname" class="form-control"> -->
+                                    <select name="brandname" class="form-control" id="brandname">
+                                        <option value="">Strandmon</option>
+                                        <option value="">Strandmon</option>
+                                        <option value="">Strandmon</option>
+                                        <option value="">Strandmon</option>
+
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="prolabel col-md-2">
+                                    <h4 class="fw-bold">3.Category</h4>
+                                </div>
+                                <div class="proform col-md-10">
+                                    <label for="procategory">Product Category</label>
+                                    <select name="procategory" class="form-control" id="procategory">
+                                        <option value="">Furniture</option>
+                                        <option value="">Strandmon</option>
+                                        <option value="">Strandmon</option>
+                                        <option value="">Strandmon</option>
+
+                                    </select>
+                                    <label for="roomcategory">Room Category</label>
+                                    <select name="roomcategory" class="form-control" id="roomcategory">
+                                        <option value="">Living Room</option>
+                                        <option value="">Strandmon</option>
+                                        <option value="">Strandmon</option>
+                                        <option value="">Strandmon</option>
+
+                                    </select>
+                                    
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="prolabel col-md-2">
+                                    <h4 class="fw-bold">4.Pricing</h4>
+                                </div>
+                                <div class="proform col-md-10">
+                                    <label for="price">Price</label>
+                                    <input type="text" id="price" name="price" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="prolabel col-md-2">
+                                    <h4 class="fw-bold">5.Media</h4>
+                                </div>
+                                <div class="proform col-md-10">
+                                    <label for="mainimage">Main Image</label>
+                                    <input type="file" id="mainimage" name="mainimage" class="form-control">
+                                    <label for="img1"> Image</label>
+                                    <input type="file" id="img1" name="img1" class="form-control">
+                                    <label for="img2"> Image</label>
+                                    <input type="file" id="img2" name="img2" class="form-control">
+                                    <label for="img3"> Image</label>
+                                    <input type="file" id="img3" name="img3" class="form-control">
+                                    <label for="img4"> Image</label>
+                                    <input type="file" id="img4" name="img4" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="prolabel col-md-2">
+                                    <h4 class="fw-bold">6.Others</h4>
+                                </div>
+                                <div class="proform col-md-10">
+                                    <label for="price">Stock</label>
+                                    <input type="text" id="price" name="price" class="form-control">
+                                    <label for="offer">Offer</label>
+                                    <select name="offer" class="form-control" id="offer" >
+                                        <option value="">Combo Offer</option>
+                                        <option value="">Strandmon</option>
+                                        <option value="">Strandmon</option>
+                                        <option value="">Strandmon</option>
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="probtn mt-5 mb-2"><button type="submit" class="btn" >Add Product</button></div>
+                        </form>
+                        </div>
+                        
+                </div>
+                </div>
+                </div>              
+          </section>
+      </main>
+
+
+      
+
+      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+</body>
+</html>
