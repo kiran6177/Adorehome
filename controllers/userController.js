@@ -1,6 +1,6 @@
 const User = require("../models/userSchema");
 const otpModel = require("../models/otpSchema");
-const createtoken = require("../utils/jwt");
+const jwttoken = require("../utils/jwt");
 const otp = require('../utils/otp')
 const mailer = require('../utils/mailer')
 const bcrypt = require('bcrypt')
@@ -18,8 +18,8 @@ const login =async (req, res) => {
     const email = req.body.email
     const pwd = req.body.password
     const loggeduser = await User.findOne({email:email})
-    console.log(loggeduser)
-    console.log(loggeduser.length)
+    // console.log(loggeduser)
+    // console.log(loggeduser.length)
     if(loggeduser != null)
     {   console.log("hao")
         const passtrue = await bcrypt.compare(pwd,loggeduser.password)
@@ -44,7 +44,7 @@ let calledpost
 
 const otpload = async (req,res)=>{
     const uid = req.query.uid
-    console.log("otppload "+uid)
+    // console.log("otppload "+uid)
     calledpost = false
     try {
     res.render("user/otpsignup",{uid:uid})
@@ -113,7 +113,7 @@ const signup = async (req,res) =>{
         }
 
         const userexist = await User.find({email:email})
-        console.log(userexist)
+        // console.log(userexist)
         if(userexist.length === 0)
         {
             const userdata =await User.create(user)
@@ -203,7 +203,12 @@ const verifyotp = async (req,res)=>{
                 calledpost = true
                 const userconfirm = await User.findByIdAndUpdate({_id:uid},{$set:{isActive:1}})
                 if(userconfirm != null)
-                {
+                {   const id = userconfirm._id.toString()
+                    const payload ={
+                        _id:id,
+                    }
+                const token = jwttoken.createtoken(payload)
+                    res.cookie("token",token)
                     res.redirect("/home")
                 }
                 else{
@@ -226,6 +231,10 @@ const verifyotp = async (req,res)=>{
 
 const loadhome = async(req,res)=>{
     try {
+        const uid = req.userid
+        console.log("home "+uid)
+        const data = await User.findById({_id:uid})
+        // console.log(data)
         res.render('user/home')
     } catch (error) {
         console.log(error.message)

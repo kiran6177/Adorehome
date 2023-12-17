@@ -2,6 +2,7 @@ const express = require("express")
 const nocache = require('nocache')
 const path = require('path')
 const bcrypt = require('bcrypt')
+const cookieParser = require("cookie-parser")
 
 
 const app = express()
@@ -14,6 +15,7 @@ const userRoute = require('./routes/userRoute')
 
 connectDB.connection()
 
+app.use(cookieParser());
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.set("view engine","ejs")
