@@ -1,0 +1,35 @@
+
+<%- include('layouts/header.ejs') %>
+
+      <main class="main mb-4">
+        <div class="container">
+          <div class="row main-in">
+        <div class="card text-center maincard p-4 col-md-8 col-12 col-lg-6 " >
+            <div class="card-body mainbody">
+              <h5 class="card-title form-title mb-5"> ADMIN LOGIN</h5>
+              <form method="post" action="/admin/login" class="form w-100">
+                <% if(locals.err) { %> 
+                  <div class="error1 alert alert-danger w-75"><%= locals.err  %></div>
+                  <% } %>
+                <div class="mb-5 field w-75 ">
+                  <input type="email" class="form-control input " placeholder="" name="email" id="email" aria-describedby="emailHelp">
+                  <label for="email" class="form-label label">Email address</label>
+                </div>
+                <div class="my-2 field w-75 ">
+                  <input type="password" class="form-control input " placeholder="" name="password" id="password">
+                  <label for="password" class="form-label label">Password</label>
+                </div>
+                <input type="submit" class=" my-5 logbtn" value="LOGIN">
+
+              </form>
+            </div>
+          </div>
+        </div>
+        </div>
+      </main>
+      
+<%- include('layouts/footer.ejs') %>
+
+
+      
+

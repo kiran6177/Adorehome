@@ -12,6 +12,7 @@ const PORT = process.env.PORT
 
 const connectDB = require('./config/config')
 const userRoute = require('./routes/userRoute')
+const adminRoute = require('./routes/adminRoute')
 
 connectDB.connection()
 
@@ -24,6 +25,7 @@ app.use("/public",express.static(path.join(__dirname,"/public")))
 app.use(nocache())
 
 app.use("/",userRoute)
+app.use("/admin",adminRoute)
 
 
 app.listen(PORT,()=>{

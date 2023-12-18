@@ -17,7 +17,7 @@ const loginload =async (req, res) => {
 const login =async (req, res) => {
     const email = req.body.email
     const pwd = req.body.password
-    const loggeduser = await User.findOne({email:email})
+    const loggeduser = await User.findOne({email:email,type:"user"})
     // console.log(loggeduser)
     // console.log(loggeduser.length)
     if(loggeduser != null)
