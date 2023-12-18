@@ -1,0 +1,58 @@
+<%- include('layouts/header.ejs') %>
+<%- include('layouts/sidenav.ejs') %>
+
+        
+          <section class="maincontent">
+                <div class="container">
+                    <div class="row">
+                        <div class="usermain p-3  col-md-12">
+                        <div class="titlemain"><h2 class="fw-bold ps-4  my-3">CATEGORY</h2>
+                            <!-- <a class="pe-4  my-3" href=""><button type="submit">Add New Product</button></a> -->
+                        </div>
+                        <div class="container">
+                            <form action="/admin/category" method="post" enctype="multipart/form-data">
+                            <div class="row">
+                                <div class="prolabel col-md-12">
+                                    <h4 class="fw-bold">Add Category</h4>
+                                    <hr class="my-4">
+                                    <div class="catform">
+                                        <div class="catfield"><label for="catname">Category Name</label>
+                                        <input type="text" id="catname" name="catname" class="form-control"></div>
+                                        <div class="catfield"><label for="status">Status</label>
+                                                <select name="status" class="form-control" id="status" >
+                                                    <option value="1">Active</option>
+                                                    <option value="0">Inactive</option>
+                                                </select></div>
+                                                <div class="catfield"><label for="catimage">Category Image</label>
+                                                <input type="file" id="catimage" name="catimage" class="form-control"></div>
+                                    </div>
+                                    <div class="catbtn mt-5 mb-2"><button type="submit" class="btn" id="addcatbtn">Add Category</button></div>
+                        </form>
+                                </div>
+                                <hr class="my-5 ">
+                                <div class="row mb-5">
+                                    <div class="catlist col-md-12 my-4">
+                                        <h4 class="fw-bold">Category Details</h4>
+                                        <hr class="my-4">
+                                       <% if(locals.data) { %>
+                                       <% for(let i = 0 ; i < locals.data.length ; i++) { %>
+                                        <div class="catitem"><h6 class="my-auto fw-normal" id=""><%= locals.data[i].categoryname %></h6><a href="/admin/category/edit?id=<%= locals.data[i]._id  %>"><button type="button" >Edit</button></a><a href="/admin/category/delete?id=<%= locals.data[i]._id  %>"><button type="button" >Delete</button></a></div>
+                                        <hr class="my-3">
+                                            <%  } } %>
+                                    </div>
+
+                                </div>
+                            </div>
+                            
+                        </div>
+                        
+                </div>
+                </div>
+                </div>              
+          </section>
+      </main>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="/public/js/category.js"></script>
+<%- include('layouts/footer.ejs') %>

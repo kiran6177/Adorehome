@@ -1,0 +1,128 @@
+<%- include('layouts/header.ejs') %>
+<%- include('layouts/sidenav.ejs') %>
+        
+          <section class="maincontent">
+                <div class="container">
+                    <div class="row">
+                        <div class="usermain p-3  col-md-12">
+                        <div class="titlemain"><h2 class="fw-bold ps-4  my-3">PRODUCTS</h2>
+                            <!-- <a class="pe-4  my-3" href=""><button type="submit">Add New Product</button></a> -->
+                        </div>
+                        <div class="container">
+                            <form action="">
+                            <div class="row">
+                                <div class="prolabel col-md-2">
+                                    <h4 class="fw-bold">1.General Info</h4>
+                                </div>
+                                <div class="proform col-md-10">
+                                    <label for="productname">Product Name</label>
+                                    <input type="text" id="productname" name="productname" class="form-control">
+                                    <label for="description">Description</label>
+                                    <!-- <input type="text" id="description" name="description" class="form-control"> -->
+                                    <textarea name="description" id="description" cols="30" rows="5" class="form-control"></textarea>
+                                    <label for="color">Color</label>
+                                    <input type="text" id="color" name="color" class="form-control">
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="prolabel col-md-2">
+                                    <h4 class="fw-bold">2.Brand</h4>
+                                </div>
+                                <div class="proform col-md-10">
+                                    <label for="brandname">Brand Name</label>
+                                    <!-- <input type="text" id="brandname" name="brandname" class="form-control"> -->
+                                    <select name="brandname" class="form-control" id="brandname">
+                                        <option value="">Strandmon</option>
+                                        <option value="">Strandmon</option>
+                                        <option value="">Strandmon</option>
+                                        <option value="">Strandmon</option>
+
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="prolabel col-md-2">
+                                    <h4 class="fw-bold">3.Category</h4>
+                                </div>
+                                <div class="proform col-md-10">
+                                    <label for="procategory">Product Category</label>
+                                    <select name="procategory" class="form-control" id="procategory">
+                                        <option value="">Furniture</option>
+                                        <option value="">Strandmon</option>
+                                        <option value="">Strandmon</option>
+                                        <option value="">Strandmon</option>
+
+                                    </select>
+                                    <label for="roomcategory">Room Category</label>
+                                    <select name="roomcategory" class="form-control" id="roomcategory">
+                                        <option value="">Living Room</option>
+                                        <option value="">Strandmon</option>
+                                        <option value="">Strandmon</option>
+                                        <option value="">Strandmon</option>
+
+                                    </select>
+                                    
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="prolabel col-md-2">
+                                    <h4 class="fw-bold">4.Pricing</h4>
+                                </div>
+                                <div class="proform col-md-10">
+                                    <label for="price">Price</label>
+                                    <input type="text" id="price" name="price" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="prolabel col-md-2">
+                                    <h4 class="fw-bold">5.Media</h4>
+                                </div>
+                                <div class="proform col-md-10">
+                                    <label for="mainimage">Main Image</label>
+                                    <input type="file" id="mainimage" name="mainimage" class="form-control">
+                                    <label for="img1"> Image</label>
+                                    <input type="file" id="img1" name="img1" class="form-control">
+                                    <label for="img2"> Image</label>
+                                    <input type="file" id="img2" name="img2" class="form-control">
+                                    <label for="img3"> Image</label>
+                                    <input type="file" id="img3" name="img3" class="form-control">
+                                    <label for="img4"> Image</label>
+                                    <input type="file" id="img4" name="img4" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="prolabel col-md-2">
+                                    <h4 class="fw-bold">6.Others</h4>
+                                </div>
+                                <div class="proform col-md-10">
+                                    <label for="price">Stock</label>
+                                    <input type="text" id="price" name="price" class="form-control">
+                                    <label for="offer">Offer</label>
+                                    <select name="offer" class="form-control" id="offer" >
+                                        <option value="">Combo Offer</option>
+                                        <option value="">Strandmon</option>
+                                        <option value="">Strandmon</option>
+                                        <option value="">Strandmon</option>
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="probtn mt-5 mb-2"><button type="submit" class="btn" >Add Product</button></div>
+                        </form>
+                        </div>
+                        
+                </div>
+                </div>
+                </div>              
+          </section>
+      </main>
+
+
+      
+
+      <%- include('layouts/footer.ejs') %>

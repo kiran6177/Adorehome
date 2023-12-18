@@ -1,5 +1,6 @@
 const User = require("../models/userSchema");
 const otpModel = require("../models/otpSchema");
+
 const jwttoken = require("../utils/jwt");
 const otp = require('../utils/otp')
 const mailer = require('../utils/mailer')
@@ -41,13 +42,26 @@ const login = async (req,res)=>{
 }
 
 const loadhome = async (req,res)=>{
-    
+
     res.render("admin/dashboard")
 }
+
+const loadproducts = async (req,res)=>{
+    res.render("admin/productmanage")
+}
+const loadaddproducts = async (req,res)=>{
+    res.render("admin/addproduct")
+}
+
+
+
+
 
 module.exports = {
     loginredirect,
     loginload,
     login,
-    loadhome
+    loadhome,
+    loadproducts,
+    loadaddproducts,
 }

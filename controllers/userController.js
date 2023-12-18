@@ -200,10 +200,11 @@ const verifyotp = async (req,res)=>{
             const isverified = otp.verifyOTP(otpfrom,hashed.otp)
             if(isverified)
             {
-                calledpost = true
                 const userconfirm = await User.findByIdAndUpdate({_id:uid},{$set:{isActive:1}})
                 if(userconfirm != null)
-                {   const id = userconfirm._id.toString()
+                {   
+                    calledpost = true
+                    const id = userconfirm._id.toString()
                     const payload ={
                         _id:id,
                     }

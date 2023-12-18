@@ -1,0 +1,59 @@
+<%- include('layouts/header.ejs') %>
+<%- include('layouts/sidenav.ejs') %>
+
+        
+          <section class="maincontent">
+                <div class="container">
+                    <div class="row">
+                        <div class="usermain p-3  col-md-12">
+                        <div class="titlemain"><h2 class="fw-bold ps-4  my-3">BRANDS</h2>
+                            <!-- <a class="pe-4  my-3" href=""><button type="submit">Add New Product</button></a> -->
+                        </div>
+                        <div class="container">
+                            <form action="/admin/brands" method="post" enctype="multipart/form-data">
+                            <div class="row">
+                                <div class="prolabel col-md-12">
+                                    <h4 class="fw-bold">Add Brand</h4>
+                                    <hr class="my-4">
+                                    <div class="catform">
+                                        <div class="catfield"><label for="brandname">Brand Name</label>
+                                        <input type="text" id="brandname" name="brandname" class="form-control"></div>
+                                        <div class="catfield"><label for="status">Status</label>
+                                                <select name="status" class="form-control" id="status" >
+                                                    <option value="1">Active</option>
+                                                    <option value="0">Inactive</option>
+                                                   
+                                                </select></div>
+                                                <div class="catfield"><label for="brandimage">Brand Image</label>
+                                                <input type="file" id="brandimage" name="brandimage" class="form-control"></div>
+                                    </div>
+                                    <div class="catbtn mt-5 mb-2"><button type="submit" class="btn" >Add Brand</button></div>
+                        </form>
+                                </div>
+                                <hr class="my-5 ">
+                                <div class="row mb-5">
+                                    <div class="catlist col-md-12 my-4">
+                                        <h4 class="fw-bold">Brand Details</h4>
+                                        <hr class="my-4">
+                                        <% if(locals.data) { %>
+                                        <% for(let i = 0 ; i < locals.data.length ; i++) { %>
+                                        <div class="catitem"><h6 class="my-auto fw-normal"><%= locals.data[i].brandname %></h6><a href="/admin/brands/edit?id=<%= locals.data[i]._id %>"><button type="submit" >Edit</button></a><a href="/admin/brands/delete?id=<%= locals.data[i]._id %>"><button type="submit" >Delete</button></a></div>
+                                        <hr class="my-3">
+                                        <% } } %>
+                                    </div>
+
+                                </div>
+                            </div>
+                            
+                        </div>
+                        
+                </div>
+                </div>
+                </div>              
+          </section>
+      </main>
+
+
+      
+
+<%- include('layouts/footer.ejs') %>
