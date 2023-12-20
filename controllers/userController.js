@@ -114,7 +114,7 @@ const signup = async (req,res) =>{
             password:hashedpass,
         }
 
-        const userexist = await User.find({email:email,type:'user'})
+        const userexist = await User.find({email:email,type:'user',isActive:1})
         // console.log(userexist)
         if(userexist.length === 0)
         {
@@ -213,12 +213,12 @@ const verifyotplogin = async (req,res)=>{
                     res.redirect("/home")
             }
             else{
-                res.render("user/otpsignup",{err:"Invalid OTP !!",uid:uid})
+                res.render("user/otplogin",{err:"Invalid OTP !!",uid:uid})
             }
 
         }
         else{
-            res.render('user/otpsignup',{err:"OTP timed out!! Register again.",uid:uid})
+            res.render('user/otplogin',{err:"OTP timed out!! Register again.",uid:uid})
         }
 
     } catch (error) {

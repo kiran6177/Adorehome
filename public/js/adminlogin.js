@@ -1,7 +1,6 @@
 const email = document.getElementById('email')
 const password = document.getElementById('password')
-const logbtn = document.getElementById('logbtn')
-const logform = document.getElementById('userlogform')
+const logform = document.getElementById('adminlogform')
 const error1 = document.getElementById('emailerror')
 const error2 = document.getElementById('passerror')
 

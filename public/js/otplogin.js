@@ -4,14 +4,41 @@ const email = document.getElementById('email')
 const timerview = document.getElementById('timerview')
 const uid = document.getElementById('uid')
 const error1 = document.getElementById('error1')
+const error2 = document.getElementById('error2')
+const otpform = document.getElementById('otpform')
+const otp = document.getElementById('otp')
 
 
+function otpval(data)
+{
+    if(data.trim()==="")
+    {
+        error2.innerHTML = "Please Enter OTP."
+        error2.style.display = "block"
+    }
+    else if(data.length!==6)
+    {
+        error2.innerHTML = "Please Enter 6-Digits."
+        error2.style.display = "block"
+    }
+    else{
+        error2.innerHTML = ""
+        error2.style.display = "none"
+    }
+}
 
 
-// function openModal() {
-//     var myModal = new bootstrap.Modal(document.getElementById('myModal'));
-//     myModal.show();
-//   }
+otpform.addEventListener('submit',(event)=>{
+    console.log('verify')
+    const otpdata = otp.value
+    otpval(otpdata)
+
+    if(error2.innerHTML !== "")
+    {
+        event.preventDefault()
+    }
+})
+
 
 
 function send(uiddata){
