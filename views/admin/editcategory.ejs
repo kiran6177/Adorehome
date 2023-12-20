@@ -1,0 +1,67 @@
+<%- include('layouts/header.ejs') %>
+<script>
+    if(window.history.replaceState)
+    {
+      window.history.replaceState(null,null,window.location.href)
+    }
+  </script>
+<%- include('layouts/sidenav.ejs') %>
+
+        
+          <section class="maincontent">
+                <div class="container">
+                    <div class="row">
+                        <div class="usermain p-3  col-md-12">
+                        <div class="titlemain"><h2 class="fw-bold ps-4  my-3">CATEGORY</h2>
+                            <!-- <a class="pe-4  my-3" href=""><button type="submit">Add New Product</button></a> -->
+                        </div>
+                        <div class="container">
+                            <form action="/admin/category/edit" method="post" enctype="multipart/form-data">
+                            <div class="row">
+                                <div class="prolabel col-md-12">
+                                    <h4 class="fw-bold">Add Category</h4>
+                                    <hr class="my-4">
+                                    <div class="catform1">
+                                        <div class="w-100"><label for="catname">Category Name</label>
+                                            <% if(locals.cat) { %>
+                                        <input type="text" id="catname" name="catname" class="form-control" value="<%= locals.cat.categoryname %>"></div>
+                                        <div class="w-100"><label for="status">Status</label>
+                                                <select name="status" class="form-control" id="status" >
+                                                    <% if(locals.cat.status === "1") { %>
+                                                    <option value="1">Active</option>
+                                                    <option value="0">Inactive</option>
+                                                    <% } else { %>
+                                                        <option value="0">Inactive</option>
+                                                        <option value="1">Active</option>
+                                                        <% } %>
+                                                </select></div>
+                                                <div class="catpre w-100">
+                                                    <div class="w-50"><label for="catimage">Category Image</label>
+                                                <input type="file" id="catimage" name="catimage" class="form-control"></div>
+                                                <div class="w-25">
+                                                    <img src="/assets/<%= locals.cat.image %>" alt="" height="150px">
+                                                    <input type="hidden" name="oldimage" value="<%= locals.cat.image %>">
+                                                    <input type="hidden" name="catid" value="<%= locals.cat._id %>">
+                                                    <p>Preview</p>
+                                                </div>
+                                            </div>
+                                    </div>
+                                    <% } %>
+                                    <div class="catbtn mt-5 mb-2"><button type="submit" class="btn" id="addcatbtn">Edit Category</button></div>
+                        </form>
+                                </div>
+                                
+                            </div>
+                            
+                        </div>
+                        
+                </div>
+                </div>
+                </div>              
+          </section>
+      </main>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="/public/js/category.js"></script>
+<%- include('layouts/footer.ejs') %>

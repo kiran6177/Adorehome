@@ -1,5 +1,10 @@
 <%- include('layouts/header.ejs') %>
-
+<script>
+  if(window.history.replaceState)
+  {
+    window.history.replaceState(null,null,window.location.href)
+  }
+</script>
       <main class="main mb-4">
         <div class="container">
           <div class="row main-in">

@@ -2,6 +2,7 @@ const Brand = require('../models/brandSchema')
 
 const loadbrand = async (req,res)=>{
 
+    try{
     const getbrand = await Brand.find()
     if(getbrand != null)
     {
@@ -11,9 +12,14 @@ const loadbrand = async (req,res)=>{
         res.render("admin/brand")
         console.log(getbrand)
     }
+}catch(error)
+{
+    console.log(error.message)
+}
 }
 
 const brandadd = async (req,res)=>{
+try{    
     const brandname = req.body.brandname
     const status = req.body.status
     const image = req.file.filename
@@ -31,6 +37,9 @@ const brandadd = async (req,res)=>{
     else{
         console.log(roomdata)
     }
+}catch(error){
+    console.log(error.message)
+}
 }
 
 module.exports = {

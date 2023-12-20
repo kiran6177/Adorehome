@@ -2,6 +2,7 @@ const Room = require("../models/roomSchema")
 
 
 const loadroom = async (req,res)=>{
+try{    
     const roomdat = await Room.find()
     if(roomdat)
     {
@@ -11,9 +12,14 @@ const loadroom = async (req,res)=>{
         res.render("admin/room")
         console.log(roomdat)
     }
+}catch(error)
+{
+    console.log(error.message)
+}
 }
 
 const roomadd = async (req,res)=>{
+try{    
     const roomname = req.body.roomname
     const status = req.body.status
     const image = req.file.filename
@@ -28,6 +34,10 @@ const roomadd = async (req,res)=>{
     {   
         res.redirect("/admin/rooms")
     }
+}catch(error)
+{
+    console.log(error.message)
+}
 }
 
 module.exports = {

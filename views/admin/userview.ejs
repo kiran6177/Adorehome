@@ -1,0 +1,55 @@
+<%- include('layouts/header.ejs') %>
+
+<script>
+    if(window.history.replaceState)
+    {
+      window.history.replaceState(null,null,window.location.href)
+    }
+  </script>
+<%- include('layouts/sidenav.ejs') %>
+        
+          <section class="maincontent">
+                <div class="container">
+                    <div class="row">
+                        <div class="usermain p-5  col-md-12">
+                        <h2 class="fw-bold mb-3">Users List</h2>
+                        <div class="usersearch"><form action="" ><input type="text" name="search"  placeholder="Search user">&nbsp;<button type="submit" class="btn" ><i class="fa-solid fa-magnifying-glass"></i></button></form></div>
+                        <div class="usertable mt-3">
+                           <table class="table text-center table-hover">
+                                <tr >
+                                    <th>Name</th>
+                                    <th>E-mail</th>
+                                    <th>Mobile</th>
+                                    <th>Wallet</th>
+                                    <th colspan="3">Options</th>
+                                </tr>
+                                <% if(locals.udata) { for(let i = 0 ; i < locals.udata.length ; i++) { %>
+                                <tr>
+                                    <td><%= locals.udata[i].firstname  %> <%= locals.udata[i].lastname  %></td>
+                                    <td><%= locals.udata[i].email %></td>
+                                    <td><%= locals.udata[i].mobile %></td>
+                                    <td>Rs.500</td>
+                                    <td>
+                                    <% if(locals.udata[i].isActive == 1) { %>
+                                        
+                                    <button type="button" class="btn btn-outline-warning" id="blockbtn1" data-uid="<%= locals.udata[i]._id %>">Block</button>
+                                        <% } else { %>
+                                        <button type="button" class="btn btn-outline-info" id="unblockbtn1" data-uid="<%= locals.udata[i]._id %>">Unblock</button>
+                                        <% } %>
+                                        &nbsp; &nbsp;
+                                    <a href="/admin/users/deleteuser?id=<%= locals.udata[i]._id %>"><button class="btn btn-outline-danger" >Delete</button></a></td>
+
+                                </tr>
+                                <% } } %>
+                            </table>
+                        </div> 
+                </div>
+                </div>
+                </div>              
+          </section>
+      </main>
+
+
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="/public/js/userview.js"></script>
+<%- include('layouts/footer.ejs') %>

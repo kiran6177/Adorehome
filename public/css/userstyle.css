@@ -745,7 +745,7 @@ transition: top 200ms ease-in;
 }
 
 .product .card img{
-    max-height: fit-content;
+    max-height:280px;
 }
 .product .cardhead{
     position: absolute;
@@ -1098,7 +1098,7 @@ transition: top 200ms ease-in;
     gap: 20px;
 }
 .proimg img{
-    object-fit: fill;
+    object-fit: scale-down;
 }
 .prodetail .proimg .img{
     width: 185px;
@@ -1109,6 +1109,9 @@ transition: top 200ms ease-in;
 }
 .prodetail .prodesc .prostock{
     color: rgb(49, 251, 49);
+}
+.prodetail .prodesc .prostockd{
+    color: rgb(251, 49, 56);
 }
 .prodetail .prodesc .proprice{
     color: #ff3f00;
@@ -1175,13 +1178,14 @@ transition: top 200ms ease-in;
     gap: 70px;
     border-bottom: 2px solid #666666
 }
-.probody .heading a{
+.probody .heading button{
     color: black;
-    text-decoration: none;
+    background: none;
+    border: none;
 }
-.probody .heading a:hover{
+.probody .heading button:hover{
     color: #ff3f00;
 }
-.probody .headsection .headbody h4{
-    line-height: 70px;
+.probody .headsection .headbody h5{
+    line-height: 30px;
 }

@@ -1,5 +1,10 @@
 <%- include('layouts/header.ejs') %>
-
+<script>
+  if(window.history.replaceState)
+  {
+    window.history.replaceState(null,null,window.location.href)
+  }
+</script>
       <main class="main mb-4">
         <div class="container">
           <div class="row main-in">
@@ -11,7 +16,7 @@
                 <% } %>
 
                 <div class="error1 alert alert-danger" id="error1" style="display: none;"></div>
-              <form method="post" action="/verifyotp" class="form w-100">
+              <form method="post" action="/verifyotplogin" class="form w-100">
 
                 <input type="button" id="sendOTP" class="logbtn1 mt-4 " value="Send OTP">
                 <div class="logbtn1" id="timerview" style="display: none;"></div>

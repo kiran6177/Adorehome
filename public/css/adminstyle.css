@@ -728,6 +728,11 @@ transition: top 200ms ease-in;
 .proform input , .proform textarea , .proform select{
     margin: 0px 0px 20px 0px;
 }
+.imgdiv{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
 .probtn{
     display: flex;
     align-items: center;
@@ -750,6 +755,13 @@ transition: top 200ms ease-in;
     display: flex;
     justify-content: space-around;
 }
+.catform1{
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    gap: 40px;
+    justify-content: space-around;
+}
 .catbtn{
     display: flex;
     align-items: center;
@@ -770,6 +782,10 @@ transition: top 200ms ease-in;
 }
 .catfield{
     width: 30%;
+}
+.catpre{
+    display: flex;
+    justify-content: space-between
 }
 .catitem{
     width: 100%;

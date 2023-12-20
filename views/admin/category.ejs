@@ -1,4 +1,10 @@
 <%- include('layouts/header.ejs') %>
+<script>
+    if(window.history.replaceState)
+    {
+      window.history.replaceState(null,null,window.location.href)
+    }
+  </script>
 <%- include('layouts/sidenav.ejs') %>
 
         

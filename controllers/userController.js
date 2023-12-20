@@ -3,7 +3,8 @@ const otpModel = require("../models/otpSchema");
 const jwttoken = require("../utils/jwt");
 const otp = require('../utils/otp')
 const mailer = require('../utils/mailer')
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcrypt');
+const Product = require("../models/productSchema");
 const saltRounds = 10;
 
 
@@ -17,11 +18,10 @@ const loginload =async (req, res) => {
 const login =async (req, res) => {
     const email = req.body.email
     const pwd = req.body.password
-    const loggeduser = await User.findOne({email:email,type:"user"})
-    // console.log(loggeduser)
-    // console.log(loggeduser.length)
+    const loggeduser = await User.findOne({email:email,type:"user",isActive:1})
+    
     if(loggeduser != null)
-    {   console.log("hao")
+    {   
         const passtrue = await bcrypt.compare(pwd,loggeduser.password)
         if(passtrue)
         {
@@ -65,6 +65,8 @@ const otpload = async (req,res)=>{
     }
 
 }
+
+
 
 const otplogin = async (req,res)=>{
     const uid = req.query.uid
@@ -112,7 +114,7 @@ const signup = async (req,res) =>{
             password:hashedpass,
         }
 
-        const userexist = await User.find({email:email})
+        const userexist = await User.find({email:email,type:'user'})
         // console.log(userexist)
         if(userexist.length === 0)
         {
@@ -190,6 +192,41 @@ catch(error)
 }
 }
 
+const verifyotplogin = async (req,res)=>{
+    try {
+        const otpfrom = req.body.otp
+        const uid = req.body.uid
+        const hashed = await otpModel.findOne({user_id:uid})
+        if(hashed != null)
+        {
+            const isverified = otp.verifyOTP(otpfrom,hashed.otp)
+            if(isverified)
+            {
+                
+                    calledpost = true
+                    const id = userconfirm._id.toString()
+                    const payload ={
+                        _id:id,
+                    }
+                const token = jwttoken.createtoken(payload)
+                    res.cookie("token",token,{ secure:true , httpOnly:true })
+                    res.redirect("/home")
+            }
+            else{
+                res.render("user/otpsignup",{err:"Invalid OTP !!",uid:uid})
+            }
+
+        }
+        else{
+            res.render('user/otpsignup',{err:"OTP timed out!! Register again.",uid:uid})
+        }
+
+    } catch (error) {
+        console.log(error.message)
+    }
+}
+
+
 const verifyotp = async (req,res)=>{
     try {
         const otpfrom = req.body.otp
@@ -209,7 +246,7 @@ const verifyotp = async (req,res)=>{
                         _id:id,
                     }
                 const token = jwttoken.createtoken(payload)
-                    res.cookie("token",token)
+                    res.cookie("token",token,{ secure:true , httpOnly:true })
                     res.redirect("/home")
                 }
                 else{
@@ -217,12 +254,12 @@ const verifyotp = async (req,res)=>{
                 }
             }
             else{
-                res.render("user/otpsignup",{err:"Invalid OTP !!"})
+                res.render("user/otpsignup",{err:"Invalid OTP !!",uid:uid})
             }
 
         }
         else{
-            res.render('user/otpsignup',{err:"OTP timed out!! Register again."})
+            res.render('user/otpsignup',{err:"OTP timed out!! Register again.",uid:uid})
         }
 
     } catch (error) {
@@ -235,8 +272,9 @@ const loadhome = async(req,res)=>{
         const uid = req.userid
         console.log("home "+uid)
         const data = await User.findById({_id:uid})
-        // console.log(data)
-        res.render('user/home')
+        const pdata = await Product.find().limit(8)
+        console.log(data)
+        res.render('user/home',{products:pdata})
     } catch (error) {
         console.log(error.message)
     }
@@ -251,6 +289,7 @@ module.exports = {
   signup,
   otpload,
   verifyotp,
+  verifyotplogin,
   loadhome,
   otplogin
 };

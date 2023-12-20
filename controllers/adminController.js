@@ -29,7 +29,7 @@ const login = async (req,res)=>{
                 id: admin._id.toString()
             }
             const token =  jwttoken.createtoken(payload)
-            res.cookie("admintoken",token)
+            res.cookie("admintoken",token,{ secure:true , httpOnly:true })
             res.redirect("/admin/home")
         }
         else{
@@ -46,12 +46,6 @@ const loadhome = async (req,res)=>{
     res.render("admin/dashboard")
 }
 
-const loadproducts = async (req,res)=>{
-    res.render("admin/productmanage")
-}
-const loadaddproducts = async (req,res)=>{
-    res.render("admin/addproduct")
-}
 
 
 
@@ -62,6 +56,4 @@ module.exports = {
     loginload,
     login,
     loadhome,
-    loadproducts,
-    loadaddproducts,
 }

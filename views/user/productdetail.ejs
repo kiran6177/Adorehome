@@ -1,0 +1,91 @@
+<%- include('layouts/header.ejs') %>
+
+        <% if(locals.product) { %>
+        <% let desc = locals.product.description.split('.')[0] %>
+      <div class="content">
+      <section class="prodetail pt-5">
+        <div class="container">
+            <div class="row">
+                <div class="proimg col-md-8 mt-5 pb-5">
+                    <img src="/assets/<%= locals.product.mainimage %>" class="mainimg" alt="">
+                    <div class="subimg">
+                    <img src="/assets/<%= locals.product.image[0] %>" class="img"  alt="">
+                    <img src="/assets/<%= locals.product.image[1] %>" class="img" alt="">
+                    <img src="/assets/<%= locals.product.image[2] %>" class="img" alt="">
+                    <img src="/assets/<%= locals.product.image[3] %>" class="img" alt="">
+                </div>
+                </div>
+                <div class="prodesc mt-5  col-md-4">
+                    <h2 class="proname fw-bold my-4"><%= locals.product.productname %></h2>
+                    <% if(locals.product.stock > 0) { %>
+                    <h6 class="prostock my-2">In Stock </h6>
+                    <% } else { %>
+                    <h6 class="prostockd my-2">Out of Stock </h6>
+                    <% } %>
+                    <h5 class="proprice my-2">Rs.<%= locals.product.price %></h5>
+                    <h6 class="desc"><%= desc %></h6>
+                    <hr style="width: 300px;">
+                    <h5 class="procolor mt-5 mb-4">Color : <%= locals.product.color %></h5>
+                    <!-- <h5 class="procolor my-4">Dimensions : Diameter: 285mm <br> Length : 760mm</h5> -->
+                    <div class="probuttons my-4">
+                    <span class="addbtn "><a href=""><i class="fa-solid fa-minus"></i></a><div>1</div><a href=""><i class="fa-solid fa-plus"></i></a></span>
+                    <span class="buy "><a href=""><button class="btn ">Buy Now</button></a></span>
+                    <span class="cartlogo "><a href=""><i class="fa-solid fa-cart-shopping"></i></a></span>
+                </div>
+                </div>
+            </div>
+        </div>
+      </section>
+
+        <section class="probody">
+            <div class="container">
+                <div class="row">
+            <div class="headsection  col-md-8">
+            <div class="heading"><button type="button"><h4>Description</h4></button><button type="button"><h4>Review</h4></button></div>
+                <div class="headbody pt-4">
+                    <h4><%= locals.product.productname %></h4><br>
+                   <h5> <% const descarray = locals.product.description.split('.') %>     
+                    <% for(let i = 0; i < descarray.length ; i++) { %>    
+                    <%= descarray[i]  %> <br>
+                    <% } %>
+                    </h5>
+                </div>
+            </div>
+            <div class="writereview col-md-4">
+
+            </div>
+        </div>
+        </div>
+        </section>
+        <% } %>
+      
+      <section class="products ">
+        <div class="container">
+            <div class="row p-5">
+                <!-- <h6><img src="/public/images/pin.png" class="pin" alt=""> Our Products</h6> -->
+                <h5>Related Products</h5>
+                <% if(locals.rel) { for(let i = 0 ; i < locals.rel.length ; i ++) { %>
+                    <% let desc = locals.rel[i].description.split('.')[0] %>
+                    <% let pname = locals.rel[i].productname.split(' ')[0] %>
+                <div class="product col-md-3 mt-3">   
+                    <div class="card">
+                        <a href=""><img src="/assets/<%= locals.rel[i].mainimage %>" class="card-img-top" alt="..."></a>
+                        <div class="card-body">
+                          <h5 class="card-title cardhead"><%= pname %></h5>
+                          <div class="carddesc"><p class="card-text"><%= desc %></p></div>
+                          <div class="cardprice"><p class="card-text ">Rs.<%= locals.rel[0].price %></p></div>
+                          <div class="wish wbtn"><i class="fa-regular fa-heart"></i></div>
+                          <div class="wish1 wbtn"><i class="fa-solid fa-heart"></i></div>
+                        </div>
+                      </div>
+                </div>
+                <% } } %>
+                <button class="btn viewbtn my-4 text-center p-3"><a href="/products">View All Products</a></button>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+
+<%- include('layouts/footer.ejs') %>

@@ -10,18 +10,21 @@
                         <div class="titlemain"><h2 class="fw-bold ps-4  my-3">PRODUCTS</h2><a class="pe-4  my-3" href="/admin/products/addproduct"><button type="submit">Add New Product</button></a></div>
                         <div class="container">
                             <div class="row">
+                                <% if(locals.products) { for(let i = 0 ; i < locals.products.length ; i++) { %>
+                                <% let desc = locals.products[i].description.split('.')[0] %>
+                                <% let pname = locals.products[i].productname.split(' ')[0] %>
                                 <div class="product col-md-3">
                                     <div class="card">
-                                        <a href=""><img src="/public/images/holmsund-corner-sofa-bed-orrsta-light-blue__0728013_pe735994_s5.jpg" class="card-img-top" alt="..."></a>
+                                        <a href=""><img src="/assets/<%= locals.products[i].mainimage %>" class="card-img-top" alt="..."></a>
                                         <div class="card-body">
-                                          <h5 class="card-title cardhead">HOLMSUND</h5>
-                                          <div class="carddesc"><p class="card-text">corner sofa-bed</p></div>
-                                          <div class="cardprice mb-4"><div><a href="">Edit</a></div><div><a href="">Delete</a></div><div><a href="">Review</a></div></div>
+                                          <h5 class="card-title cardhead"><%= pname %></h5>
+                                          <div class="carddesc"><p class="card-text"><%= desc %></p></div>
+                                          <div class="cardprice mb-4"><div><a href="/admin/products/editproduct?id=<%= locals.products[i]._id %>">Edit</a></div><div><a href="/admin/products/deleteproduct?id=<%= locals.products[i]._id %>">Delete</a></div><div><a href="/admin/products/review?id=<%= locals.products[i]._id %>">Review</a></div></div>
                                           
                                         </div>
                                       </div>
                                 </div>
-
+                                <% } } %>
 
                             </div>
                         </div>

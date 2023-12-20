@@ -1,6 +1,12 @@
 <%- include('layouts/header.ejs') %>
+<script>
+    if(window.history.replaceState)
+    {
+      window.history.replaceState(null,null,window.location.href)
+    }
+  </script>
 <%- include('layouts/sidenav.ejs') %>
-        
+   
           <section class="maincontent">
                 <div class="container">
                     <div class="row">
@@ -9,7 +15,7 @@
                             <!-- <a class="pe-4  my-3" href=""><button type="submit">Add New Product</button></a> -->
                         </div>
                         <div class="container">
-                            <form action="">
+                            <form action="/admin/products/addproduct" method="post" enctype="multipart/form-data">
                             <div class="row">
                                 <div class="prolabel col-md-2">
                                     <h4 class="fw-bold">1.General Info</h4>
@@ -33,11 +39,9 @@
                                     <label for="brandname">Brand Name</label>
                                     <!-- <input type="text" id="brandname" name="brandname" class="form-control"> -->
                                     <select name="brandname" class="form-control" id="brandname">
-                                        <option value="">Strandmon</option>
-                                        <option value="">Strandmon</option>
-                                        <option value="">Strandmon</option>
-                                        <option value="">Strandmon</option>
-
+                                        <% if(locals.brand) { for(let i = 0 ; i < locals.brand.length ; i ++) { %>
+                                        <option value="<%= locals.brand[i]._id %>"><%= locals.brand[i].brandname %></option>
+                                        <% } } %>
                                     </select>
                                 </div>
                             </div>
@@ -49,18 +53,16 @@
                                 <div class="proform col-md-10">
                                     <label for="procategory">Product Category</label>
                                     <select name="procategory" class="form-control" id="procategory">
-                                        <option value="">Furniture</option>
-                                        <option value="">Strandmon</option>
-                                        <option value="">Strandmon</option>
-                                        <option value="">Strandmon</option>
+                                        <% if(locals.category) { for(let i = 0 ; i < locals.category.length ; i ++) { %>
+                                            <option value="<%= locals.category[i]._id %>"><%= locals.category[i].categoryname %></option>
+                                            <% } } %>
 
                                     </select>
                                     <label for="roomcategory">Room Category</label>
                                     <select name="roomcategory" class="form-control" id="roomcategory">
-                                        <option value="">Living Room</option>
-                                        <option value="">Strandmon</option>
-                                        <option value="">Strandmon</option>
-                                        <option value="">Strandmon</option>
+                                        <% if(locals.room) { for(let i = 0 ; i < locals.room.length ; i ++) { %>
+                                            <option value="<%= locals.room[i]._id %>"><%= locals.room[i].roomname %></option>
+                                            <% } } %>
 
                                     </select>
                                     
@@ -73,7 +75,7 @@
                                 </div>
                                 <div class="proform col-md-10">
                                     <label for="price">Price</label>
-                                    <input type="text" id="price" name="price" class="form-control">
+                                    <input type="number" id="price" name="price" class="form-control">
                                 </div>
                             </div>
 
@@ -85,13 +87,13 @@
                                     <label for="mainimage">Main Image</label>
                                     <input type="file" id="mainimage" name="mainimage" class="form-control">
                                     <label for="img1"> Image</label>
-                                    <input type="file" id="img1" name="img1" class="form-control">
+                                    <input type="file" id="img1" name="img1" class="form-control" >
                                     <label for="img2"> Image</label>
-                                    <input type="file" id="img2" name="img2" class="form-control">
+                                    <input type="file" id="img2" name="img2" class="form-control" >
                                     <label for="img3"> Image</label>
-                                    <input type="file" id="img3" name="img3" class="form-control">
+                                    <input type="file" id="img3" name="img3" class="form-control" >
                                     <label for="img4"> Image</label>
-                                    <input type="file" id="img4" name="img4" class="form-control">
+                                    <input type="file" id="img4" name="img4" class="form-control" >
                                 </div>
                             </div>
 
@@ -101,14 +103,14 @@
                                 </div>
                                 <div class="proform col-md-10">
                                     <label for="price">Stock</label>
-                                    <input type="text" id="price" name="price" class="form-control">
+                                    <input type="number" id="stock" name="stock" class="form-control">
                                     <label for="offer">Offer</label>
                                     <select name="offer" class="form-control" id="offer" >
-                                        <option value="">Combo Offer</option>
-                                        <option value="">Strandmon</option>
-                                        <option value="">Strandmon</option>
-                                        <option value="">Strandmon</option>
-
+                                        <% if(locals.offer) { %>
+                                        <option value="combo">Combo Offer</option>
+                                            <% } else { %>
+                                        <option value="NA">NA</option>
+                                                <% } %>
                                     </select>
                                 </div>
                             </div>

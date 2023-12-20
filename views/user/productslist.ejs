@@ -1,0 +1,35 @@
+<%- include('layouts/header.ejs') %>
+
+
+      <main class="promain ">
+      <div class="filters pt-5">
+        <h3>Filters</h3>
+      </div>
+      <section class="products pt-5 pt-sm-5">
+        <div class="container">
+            <div class="row p-3">
+                <!-- <h6><img src="/public/images/pin.png" class="pin" alt=""> Our Products</h6> -->
+                <h2>Products</h2>
+                <% if(locals.products) { for(let i = 0;i < locals.products.length ; i++) { %>
+                <% let desc = locals.products[i].description.split('.')[0] %>
+                <% let pname = locals.products[i].productname.split(' ')[0] %>
+                <div class="product col-md-3 mt-4">
+                    <div class="card">
+                        <a href="/products/viewproduct?id=<%= locals.products[i]._id %>"><img src="/assets/<%= locals.products[i].mainimage %>" class="card-img-top" alt="..."></a>
+                        <div class="card-body">
+                          <h5 class="card-title cardhead"><%= pname %></h5>
+                          <div class="carddesc"><p class="card-text"><%= desc %></p></div>
+                          <div class="cardprice"><p class="card-text ">Rs.<%= locals.products[i].price %></p></div>
+                          <div class="wish wbtn"><i class="fa-regular fa-heart"></i></div>
+                          <div class="wish1 wbtn"><i class="fa-solid fa-heart"></i></div>
+                        </div>
+                      </div>
+                </div>
+                <% } } %>
+                <!-- <button class="btn viewbtn my-4 text-center p-3"><a href="">View All Products</a></button> -->
+            </div>
+        </div>
+    </section>
+    </main>
+
+    <%- include('layouts/footer.ejs') %>
