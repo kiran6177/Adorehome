@@ -16,7 +16,7 @@
                             <!-- <a class="pe-4  my-3" href=""><button type="submit">Add New Product</button></a> -->
                         </div>
                         <div class="container">
-                            <form action="/admin/category/edit" method="post" enctype="multipart/form-data">
+                            <form action="/admin/category/edit" method="post" id="catform" enctype="multipart/form-data">
                             <div class="row">
                                 <div class="prolabel col-md-12">
                                     <h4 class="fw-bold">Add Category</h4>
@@ -24,7 +24,9 @@
                                     <div class="catform1">
                                         <div class="w-100"><label for="catname">Category Name</label>
                                             <% if(locals.cat) { %>
-                                        <input type="text" id="catname" name="catname" class="form-control" value="<%= locals.cat.categoryname %>"></div>
+                                        <input type="text" id="catname" name="catname" class="form-control" value="<%= locals.cat.categoryname %>">
+                                        <p class="perror mb-2" id="error1" style="display: none;"></p>       
+                                    </div>
                                         <div class="w-100"><label for="status">Status</label>
                                                 <select name="status" class="form-control" id="status" >
                                                     <% if(locals.cat.status === "1") { %>
@@ -63,5 +65,5 @@
 
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="/public/js/category.js"></script>
+<script src="/public/js/editcategory.js"></script>
 <%- include('layouts/footer.ejs') %>

@@ -16,7 +16,7 @@
                 <% } %>
 
                 <div class="error1 alert alert-danger" id="error1" style="display: none;"></div>
-              <form method="post" action="/verifyotplogin" id="otpform" class="form w-100">
+              <form method="post" action="/otplogin" id="otpform" class="form w-100">
 
                 <input type="button" id="sendOTP" class="logbtn1 mt-4 " value="Send OTP">
                 <div class="logbtn1" id="timerview" style="display: none;"></div>
@@ -25,14 +25,14 @@
                 <div class="my-4 field w-75 ">
                   <input type="text" class="form-control input " placeholder="" name="otp" id="otpbox" aria-describedby="emailHelp">
                   <label for="otpbox" class="form-label label">Enter OTP</label>
-                  <p class="error mb-2" id="error2" style="display: none;">fgdhfgf</p>
+                  <p class="error " id="error2" style="display: none;"></p>
 
                 </div>
                 <input type="hidden" id="uid" name="uid" value="<%= locals.uid %>">
                 
                 
                 
-                <input type="submit" class="logbtn my-3" value="VERIFY">
+                <input type="submit" class="logbtn my-4" value="VERIFY">
 
               </form>
             </div>

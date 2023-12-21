@@ -16,7 +16,7 @@
                 <% } %>
 
                 <div class="error1 alert alert-danger" id="error1" style="display: none;"></div>
-              <form method="post" action="/verifyotp" class="form w-100">
+              <form method="post" action="/otpload" id="otpsign" class="form w-100">
 
                 <input type="button" id="sendOTP" class="logbtn1 mt-4 " value="Send OTP">
                 <div class="logbtn1" id="timerview" style="display: none;"></div>
@@ -25,35 +25,12 @@
                 <div class="my-4 field w-75 ">
                   <input type="text" class="form-control input " placeholder="" name="otp" id="otpbox" aria-describedby="emailHelp">
                   <label for="otpbox" class="form-label label">Enter OTP</label>
+                  <p class="error " id="error2" style="display: none;"></p>
                 </div>
                 <input type="hidden" id="uid" name="uid" value="<%= locals.uid %>">
-                <!-- <div class="my-2 field w-75 ">
-                  <input type="password" class="form-control input " placeholder="" name="password" id="exampleInputPassword1">
-                  <label for="exampleInputPassword1" class="form-label label">Password</label>
-                </div> -->
-                <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Modal Title</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                      </div>
-                      <div class="modal-body">
-                        <!-- Modal Body Content -->
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
                 
-                
-                <!-- <div class="form-text forgot mt-3"><a href="">Resend OTP</a></div> -->
                 <input type="submit" class="logbtn my-3" value="VERIFY">
 
-                <!-- <div class="form-text forgot">Don't have an account ?.<a href="">Create account</a></div> -->
               </form>
             </div>
           </div>

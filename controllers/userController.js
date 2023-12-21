@@ -198,11 +198,16 @@ const verifyotplogin = async (req,res)=>{
         const uid = req.body.uid
         const hashed = await otpModel.findOne({user_id:uid})
         if(hashed != null)
-        {
-            const isverified = otp.verifyOTP(otpfrom,hashed.otp)
+        {   console.log("hashed"+hashed)
+         
+            const isverified = await otp.verifyOTP(otpfrom,hashed.otp)
+            console.log(isverified)
+
             if(isverified)
-            {
-                
+            {   console.log(isverified)
+                const userconfirm = await User.findById({_id:uid})
+                if(userconfirm != null)
+                {   
                     calledpost = true
                     const id = userconfirm._id.toString()
                     const payload ={
@@ -211,6 +216,10 @@ const verifyotplogin = async (req,res)=>{
                 const token = jwttoken.createtoken(payload)
                     res.cookie("token",token,{ secure:true , httpOnly:true })
                     res.redirect("/home")
+                }
+            else{
+                    console.log("user is not confirmed")
+                 }
             }
             else{
                 res.render("user/otplogin",{err:"Invalid OTP !!",uid:uid})
@@ -234,7 +243,7 @@ const verifyotp = async (req,res)=>{
         const hashed = await otpModel.findOne({user_id:uid})
         if(hashed != null)
         {
-            const isverified = otp.verifyOTP(otpfrom,hashed.otp)
+            const isverified =await otp.verifyOTP(otpfrom,hashed.otp)
             if(isverified)
             {
                 const userconfirm = await User.findByIdAndUpdate({_id:uid},{$set:{isActive:1}})
@@ -270,10 +279,10 @@ const verifyotp = async (req,res)=>{
 const loadhome = async(req,res)=>{
     try {
         const uid = req.userid
-        console.log("home "+uid)
+        // console.log("home "+uid)
         const data = await User.findById({_id:uid})
         const pdata = await Product.find().limit(8)
-        console.log(data)
+        // console.log(data)
         res.render('user/home',{products:pdata})
     } catch (error) {
         console.log(error.message)

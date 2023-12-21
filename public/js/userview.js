@@ -17,6 +17,7 @@ function block(id){
                     title: data.data,
                     icon: "warning"
                   });
+                  window.location.reload()
             }
             else{
                 Swal.fire({
@@ -53,6 +54,7 @@ function unblock(id){
                     title: data.data,
                     icon: "warning"
                   });
+                  window.location.reload()
             }
             else{
                 Swal.fire({
@@ -93,21 +95,3 @@ if(unblockbtn){
     })
 }
 
-// if(blockbtn1){
-//     blockbtn1.addEventListener('click',()=>{
-//         const id = blockbtn1.dataset.uid
-//         block(id)
-//         blockbtn1.style.display = "none"
-//         unblockbtn1.style.display = "inline-block"
-//     })
-// }
-
-// if(unblockbtn1){
-//     unblockbtn1.addEventListener('click',()=>{
-//     console.log("called")
-//     const id = unblockbtn1.dataset.uid
-//     unblock(id)
-//     unblockbtn1.style.display = "none"
-//     blockbtn1.style.display = "inline-block"
-// })
-// }

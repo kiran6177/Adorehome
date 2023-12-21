@@ -1,8 +1,6 @@
 const catname = document.getElementById('catname')
-const catimage = document.getElementById('catimage')
 const catform = document.getElementById('catform')
 const error1 = document.getElementById('error1')
-const error2 = document.getElementById('error2')
 
 function notnull(data)
 {
@@ -17,17 +15,7 @@ function notnull(data)
     }
 }
 
-function imgval(data)
-{
-    if(data === 0)
-    {
-        error2.innerHTML = "Please Select an Image."
-        error2.style.display = "block"
-    }else{
-        error2.innerHTML = ""
-        error2.style.display = "none"
-    }
-}
+
 
 catname.addEventListener('keyup',()=>{
     const cdata = catname.value
@@ -38,20 +26,15 @@ catname.addEventListener('blur',()=>{
     notnull(cdata)
 })
 
-catimage.addEventListener('blur',()=>{
-    const i1data = catimage.files.length
-    imgval(i1data)
-})
+
 
 catform.addEventListener('submit',(e)=>{
 
     const cdata = catname.value
-    const i1data = catimage.files.length
 
-    imgval(i1data)
     notnull(cdata)
 
-    if(error1.innerHTML !== "" || error2.innerHTML !== "")
+    if(error1.innerHTML !== "")
     {
         e.preventDefault()
     }

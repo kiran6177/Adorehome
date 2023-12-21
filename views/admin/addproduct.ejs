@@ -15,7 +15,7 @@
                             <!-- <a class="pe-4  my-3" href=""><button type="submit">Add New Product</button></a> -->
                         </div>
                         <div class="container">
-                            <form action="/admin/products/addproduct" method="post" enctype="multipart/form-data">
+                            <form action="/admin/products/addproduct" method="post" id="proform" enctype="multipart/form-data">
                             <div class="row">
                                 <div class="prolabel col-md-2">
                                     <h4 class="fw-bold">1.General Info</h4>
@@ -23,11 +23,13 @@
                                 <div class="proform col-md-10">
                                     <label for="productname">Product Name</label>
                                     <input type="text" id="productname" name="productname" class="form-control">
+                                    <p class="perror mb-2" id="error1" style="display: none;"></p>
                                     <label for="description">Description</label>
-                                    <!-- <input type="text" id="description" name="description" class="form-control"> -->
                                     <textarea name="description" id="description" cols="30" rows="5" class="form-control"></textarea>
+                                    <p class="perror mb-2" id="error2" style="display: none;"></p>
                                     <label for="color">Color</label>
                                     <input type="text" id="color" name="color" class="form-control">
+                                    <p class="perror mb-2" id="error3" style="display: none;"></p>
                                 </div>
                             </div>
                             
@@ -37,7 +39,6 @@
                                 </div>
                                 <div class="proform col-md-10">
                                     <label for="brandname">Brand Name</label>
-                                    <!-- <input type="text" id="brandname" name="brandname" class="form-control"> -->
                                     <select name="brandname" class="form-control" id="brandname">
                                         <% if(locals.brand) { for(let i = 0 ; i < locals.brand.length ; i ++) { %>
                                         <option value="<%= locals.brand[i]._id %>"><%= locals.brand[i].brandname %></option>
@@ -76,6 +77,7 @@
                                 <div class="proform col-md-10">
                                     <label for="price">Price</label>
                                     <input type="number" id="price" name="price" class="form-control">
+                                    <p class="perror mb-2" id="error4" style="display: none;"></p>
                                 </div>
                             </div>
 
@@ -86,14 +88,19 @@
                                 <div class="proform col-md-10">
                                     <label for="mainimage">Main Image</label>
                                     <input type="file" id="mainimage" name="mainimage" class="form-control">
+                                    <p class="perror mb-2" id="error6" style="display: none;"></p>
                                     <label for="img1"> Image</label>
                                     <input type="file" id="img1" name="img1" class="form-control" >
+                                    <p class="perror mb-2" id="error7" style="display: none;"></p>
                                     <label for="img2"> Image</label>
                                     <input type="file" id="img2" name="img2" class="form-control" >
+                                    <p class="perror mb-2" id="error8" style="display: none;"></p>
                                     <label for="img3"> Image</label>
                                     <input type="file" id="img3" name="img3" class="form-control" >
+                                    <p class="perror mb-2" id="error9" style="display: none;"></p>
                                     <label for="img4"> Image</label>
                                     <input type="file" id="img4" name="img4" class="form-control" >
+                                    <p class="perror mb-2" id="error10" style="display: none;"></p>
                                 </div>
                             </div>
 
@@ -104,6 +111,7 @@
                                 <div class="proform col-md-10">
                                     <label for="price">Stock</label>
                                     <input type="number" id="stock" name="stock" class="form-control">
+                                    <p class="perror mb-2" id="error5" style="display: none;"></p>
                                     <label for="offer">Offer</label>
                                     <select name="offer" class="form-control" id="offer" >
                                         <% if(locals.offer) { %>
@@ -126,5 +134,5 @@
 
 
       
-
+<script src="/public/js/addproduct.js"></script>
       <%- include('layouts/footer.ejs') %>

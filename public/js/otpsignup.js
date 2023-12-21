@@ -4,14 +4,52 @@ const email = document.getElementById('email')
 const timerview = document.getElementById('timerview')
 const uid = document.getElementById('uid')
 const error1 = document.getElementById('error1')
+const error2 = document.getElementById('error2')
+const otpform = document.getElementById('otpsign')
+const otp = document.getElementById('otpbox')
+
+
+function otpval(data)
+{
+    if(data.trim()==="")
+    {
+        error2.innerHTML = "Please Enter OTP."
+        error2.style.display = "block"
+    }
+    else if(data.length!==6)
+    {
+        error2.innerHTML = "Please Enter 6-Digits."
+        error2.style.display = "block"
+    }
+    else{
+        error2.innerHTML = ""
+        error2.style.display = "none"
+    }
+}
+
+otp.addEventListener('blur',()=>{
+    const otpdata = otp.value
+    otpval(otpdata)
+})
+
+otp.addEventListener('keyup',()=>{
+    const otpdata = otp.value
+    otpval(otpdata)
+})
+
+otpform.addEventListener('submit',(event)=>{
+    console.log('verify')
+    const otpdata = otp.value
+    otpval(otpdata)
+
+    if(error2.innerHTML !== "")
+    {
+        event.preventDefault()
+    }
+})
 
 
 
-
-// function openModal() {
-//     var myModal = new bootstrap.Modal(document.getElementById('myModal'));
-//     myModal.show();
-//   }
 
 
 function send(uiddata){
@@ -20,7 +58,6 @@ function send(uiddata){
     return res.json()
 }).then((data)=>{
     console.log(data.data)
-    // openModal()
     if(data.data)
     {
         Swal.fire({

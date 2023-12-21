@@ -6,7 +6,7 @@ const uid = document.getElementById('uid')
 const error1 = document.getElementById('error1')
 const error2 = document.getElementById('error2')
 const otpform = document.getElementById('otpform')
-const otp = document.getElementById('otp')
+const otp = document.getElementById('otpbox')
 
 
 function otpval(data)
@@ -27,6 +27,15 @@ function otpval(data)
     }
 }
 
+otp.addEventListener('blur',()=>{
+    const otpdata = otp.value
+    otpval(otpdata)
+})
+
+otp.addEventListener('keyup',()=>{
+    const otpdata = otp.value
+    otpval(otpdata)
+})
 
 otpform.addEventListener('submit',(event)=>{
     console.log('verify')
