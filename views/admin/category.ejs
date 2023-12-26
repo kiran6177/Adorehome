@@ -46,7 +46,7 @@
                                         <hr class="my-4">
                                        <% if(locals.data) { %>
                                        <% for(let i = 0 ; i < locals.data.length ; i++) { %>
-                                        <div class="catitem"><h6 class="my-auto fw-normal" id=""><%= locals.data[i].categoryname %></h6><a href="/admin/category/edit?id=<%= locals.data[i]._id  %>"><button type="button" >Edit</button></a><a href="/admin/category/delete?id=<%= locals.data[i]._id  %>"><button type="button" >Delete</button></a></div>
+                                        <div class="catitem"><h6 class="my-auto fw-normal" title="<%= locals.data[i].categoryname %>" id=""><%= locals.data[i].categoryname %></h6><a href="/admin/category/edit?id=<%= locals.data[i]._id  %>"><button type="button" >Edit</button></a><a href="/admin/category/delete?id=<%= locals.data[i]._id  %>"><button type="button" >Delete</button></a></div>
                                         <hr class="my-3">
                                             <%  } } %>
                                     </div>

@@ -13,7 +13,7 @@
                 <% if(locals.products) { for(let i = 0;i < locals.products.length ; i++) { %>
                 <% let desc = locals.products[i].description.split('.')[0] %>
                 <% let pname = locals.products[i].productname.split(' ')[0] %>
-                <div class="product col-md-3 mt-4">
+                <div class="product product1 col-md-3 mt-4">
                     <div class="card">
                         <a href="/products/viewproduct?id=<%= locals.products[i]._id %>"><img src="/assets/<%= locals.products[i].mainimage %>" class="card-img-top" alt="..."></a>
                         <div class="card-body">

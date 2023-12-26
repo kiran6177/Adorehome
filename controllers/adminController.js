@@ -1,11 +1,7 @@
 const User = require("../models/userSchema");
-const otpModel = require("../models/otpSchema");
 
 const jwttoken = require("../utils/jwt");
-const otp = require('../utils/otp')
-const mailer = require('../utils/mailer')
 const bcrypt = require('bcrypt')
-const saltRounds = 10;
 
 const loginredirect = async (req,res)=>{
     res.redirect('/admin/login')

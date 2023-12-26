@@ -1,4 +1,5 @@
 const jwttoken = require('../utils/jwt')
+const User = require('../models/userSchema')
 
 const isLogin = async (req,res,next)=>{
     if(req.cookies.token)
@@ -6,9 +7,18 @@ const isLogin = async (req,res,next)=>{
         const decoded = await jwttoken.verifytoken(req.cookies.token)
         // console.log(decoded)
         if(decoded)
-        {
-            req.userid = decoded._id
-            next()
+        {   
+            const udata = await User.findOne({_id:decoded._id,isActive:1})
+            // console.log(udata)
+            if(udata === null)
+            {
+                res.redirect('/login')
+            }
+            else{
+                req.userid = decoded._id
+                next()
+            }
+            
         }
         else{
             res.redirect("/login")
@@ -24,11 +34,19 @@ const isLogout =async (req,res,next)=>{
     if(req.cookies.token != undefined)
     {   
         const decoded =await jwttoken.verifytoken(req.cookies.token)
-        console.log(decoded)
+        // console.log(decoded)
         if(decoded)
-        {
-            req.userid = decoded._id
-            res.redirect("/home")
+        {   
+            const udata = await User.findOne({_id:decoded._id,isActive:1})
+            if(udata === null)
+            {
+                next()
+            }
+            else{
+                req.userid = decoded._id
+                res.redirect("/home")
+            }
+
         }
         else{
             // console.log("error in authentication")

@@ -28,15 +28,8 @@ const loadaddproducts = async (req,res)=>{
 }
 const addproducts = async (req,res)=>{
    try{ 
-    const proname = req.body.productname
-    const desc = req.body.description
-    const color = req.body.color
-    const brandid = req.body.brandname
-    const catid = req.body.procategory
-    const roomid = req.body.roomcategory
-    const price = req.body.price
-    const stock = req.body.stock
-    const offerid = req.body.offer
+    const {productname,description,color,brandname,procategory,roomcategory,price,stock,offer} = req.body
+
     const main = req.files['mainimage'][0].filename
     const img1 = req.files['img1'][0].filename
     const img2 = req.files['img2'][0].filename
@@ -46,17 +39,17 @@ const addproducts = async (req,res)=>{
     const img = [img1,img2,img3,img4]
 
     const prodata = {
-        productname:proname,
-        description:desc,
-        color:color,
-        brand_id:brandid,
-        category_id:catid,
-        room_id:roomid,
-        price:price,
+        productname,
+        description,
+        color,
+        brand_id:brandname,
+        category_id:procategory,
+        room_id:roomcategory,
+        price,
         mainimage:main,
         image:img,
-        stock:stock,
-        offer_id:offerid
+        stock,
+        offer_id:offer
     }
 
     // console.log(prodata)
@@ -80,7 +73,7 @@ const loadeditproducts = async (req,res)=>{
     try {
         const pid = req.query.id
         const pdata = await Product.findById({_id:pid}).populate('brand_id category_id room_id')
-        // console.log(pdata)
+         console.log(pdata)
         if(pdata)
         {
         res.render('admin/editproduct',{prodata:pdata})
@@ -95,22 +88,9 @@ const loadeditproducts = async (req,res)=>{
 
 const editproducts = async (req,res)=>{
     try {
-    const proid = req.body.proid    
-    const proname = req.body.productname
-    const desc = req.body.description
-    const color = req.body.color
-    const brandid = req.body.brandname
-    const catid = req.body.procategory
-    const roomid = req.body.roomcategory
-    const price = req.body.price
-    const stock = req.body.stock
-    const offerid = req.body.offer
-    const oldmain  = req.body.oldmain
-    const oldimg1 = req.body.oldimg1
-    const oldimg2 = req.body.oldimg2 
-    const oldimg3 = req.body.oldimg3 
-    const oldimg4 = req.body.oldimg4 
-    console.log("hi"+oldimg2)
+        const {proid,productname,description,color,brandname,procategory,roomcategory,price,stock,offer,oldmain,oldimg1,oldimg2,oldimg3,oldimg4} = req.body
+
+    // console.log("hi"+oldimg2)
     let main
     let img1
     let img2
@@ -156,20 +136,20 @@ const editproducts = async (req,res)=>{
     }
 
     const prodata = {
-        productname:proname,
-        description:desc,
+        productname,
+        description,
         color:color,
-        brand_id:brandid,
-        category_id:catid,
-        room_id:roomid,
-        price:price,
+        brand_id:brandname,
+        category_id:procategory,
+        room_id:roomcategory,
+        price,
         ...(main!==null && {mainimage:main}),
         ...(img1!== undefined  && {"image.0":img1}),
         ...(img2!== undefined  && {"image.1":img2}),
         ...(img3!== undefined  && {"image.2":img3}),
         ...(img4!== undefined  && {"image.3":img4}),
-        stock:stock,
-        offer_id:offerid
+        stock,
+        offer_id:offer
     }
      console.log(prodata)
      const edit = await Product.findByIdAndUpdate({_id:proid},{$set:prodata})

@@ -50,10 +50,17 @@ function colorval(data)
 }
 
 function priceval(data)
-{
+{   
+    const nonNegPattern = /^\d+$/;
+
     if(data.trim()==="")
     {
         error4.innerHTML = "Please Enter Price."
+        error4.style.display = "block"
+    }
+    else if(!nonNegPattern.test(data))
+    {
+        error4.innerHTML = "Please Enter Valid Price."
         error4.style.display = "block"
     }
     else{
@@ -63,10 +70,17 @@ function priceval(data)
 }
 
 function stockval(data)
-{
+{   
+    const nonNegPattern = /^\d+$/;
+
     if(data.trim()==="")
     {
         error5.innerHTML = "Please Enter Stock Quantity."
+        error5.style.display = "block"
+    }
+    else if(!nonNegPattern.test(data))
+    {
+        error5.innerHTML = "Please Enter valid Quantity."
         error5.style.display = "block"
     }
     else{

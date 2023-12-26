@@ -1,19 +1,18 @@
-const User = require("../models/userSchema");
 const path = require('path')
 const fs = require('fs').promises
 const Category = require("../models/categorySchema")
 
 const loadcategory = async (req,res)=>{
 try{    
-    const getcat = await Category.find()
-    console.log(getcat)
-    if(getcat != null)
+    const catdet = await Category.find()
+    
+    if(catdet != null)
     {
-    res.render("admin/category",{data:getcat})
+    res.render("admin/category",{data:catdet})
     }
     else{
     res.render("admin/category")
-        console.log(getcat)
+        
     }
 }catch(error)
 {

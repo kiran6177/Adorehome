@@ -15,9 +15,15 @@ function block(id){
             {
                 Swal.fire({
                     title: data.data,
-                    icon: "warning"
-                  });
-                  window.location.reload()
+                    icon: "warning",
+                    confirmButtonText:"OK"
+                }).then(res=>{
+                  if(res.isConfirmed)
+                  {
+                      window.location.reload()
+                  }
+
+                })
             }
             else{
                 Swal.fire({
@@ -52,9 +58,17 @@ function unblock(id){
             {
                 Swal.fire({
                     title: data.data,
-                    icon: "warning"
-                  });
-                  window.location.reload()
+                    icon: "warning",
+                    confirmButtonText:"OK"
+                  }).then(res=>{
+                    if(res.isConfirmed)
+                    {
+                        window.location.reload()
+                    }
+
+                  })
+                  
+                 
             }
             else{
                 Swal.fire({

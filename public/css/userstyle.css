@@ -9,24 +9,118 @@
 .nav{
     background-color: white;
     color: #666666;
-    height: 10vh;
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
     position: fixed !important;
     width: 100%;
-    z-index: 4;
+    height: 80px;
+    z-index: 2;
+    
+}
+.fullnav{
+    display: flex;
+    justify-content: space-between;
+}
+.navleft{
+    display: flex;
+    align-items: center;
+}
+.navright{
+    display: flex;
+}
+.navham{
+    display: none;
+    margin-top: 22px;
+    margin-right: 40px;
 }
 .nav a{
     color: #666666;
     font-size: 18px;
 }
 .navlist1{
+    margin-top: 20px;
     margin-left: 40px;
     gap: 20px;
     color: #666666;
 }
-/* .navlist1 .item select{
-    appearance: none;
-} */
+.navlist2{
+    display: flex;
+    margin-top: 20px;
+    margin-right: 20px;
+    gap: 40px;
+    color: #666666;
+    align-items: center;
+}
+.navlist2 li{
+    list-style-type: none;
+}
+.dropcont{
+    display: flex;
+    flex-direction: column;
+}
+.link1:hover .dropcont{
+    display: flex !important;
+}
+
+
+
+
+.navlist1 ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+  }
+
+  .navlist1 ul li {
+    margin-right: 20px;
+  }
+
+  nav ul li:last-child {
+    margin-right: 0;
+  }
+
+  nav a {
+    text-decoration: none;
+    color: white;
+  }
+
+  /* Style the dropdown */
+  .dropdown {
+    position: relative;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 160px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+  }
+
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+
+  .dropdown-content a {
+    color: #666666;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+
+  .dropdown-content a:hover {
+    color: #555;
+  }
+
+
+
+
+
+
+
+
+
+
 .item{
     position: relative;
     background-color: white !important;
@@ -79,89 +173,296 @@
     border: none;
     transition: width 200ms ease-in;
 }
-.navlist2{
-    margin-right: 20px;
-    gap: 30px;
-}
+
 .navlist2 i{
     color: black;
     font-size: 1.5rem;
 }
+
+.navham i{
+    color: black;
+    font-size: 2rem;
+}
+
 .searchinput{
-    position: absolute;
-    z-index: 4;
-    top: 15px;
-    right: 170px;
+    z-index: 3;
+    display: flex;
+    
+}
+.searchbar{
     position: fixed;
-    max-width: 200px;
+    width: 100%;
+    height: 100%;
+    z-index: 4;
+    margin: 80px 0px;
+    background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0,0.4);
+    display: none;
+    justify-content: center;
+}
+.searchcontent{
+    position: relative;
+    background-color: white;
+    width: 100% !important;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.searchcontent form{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.close{
+    position: absolute;
+    top: 0;
+    right: 10px;
+    font-size: 2.5rem;
+}
+.closebtn{
+    border: none !important;
+    background: none;
+}
+.searchbox{
+    width: 50% !important;
+}
+.searchcontent button{
+    border: 1px solid black;
 }
 .searchinput input{
 font-size: 11px;
 background-color: rgb(236, 236, 236);
 }
 .searchinput button{
-    color: #666666;
-    border: 1px solid #959595;
+    color:black;
+    background: none;
+    border: none;
 }
-.searchinput button:hover{
-    color: white;
-    background-color: #959595;
-    border: 1px solid #666666;
+
+.searchinput input{
+font-size: 11px;
+background-color: rgb(236, 236, 236);
 }
-/* .searchbox{
-    min-width: 200px;
-} */
+
+
 .nav a:active{
     color: #ff3f00;
 }
 
-@media screen and (max-width:992px) {
+.carticon button{
+    background: none;
+    border: none;
+}
+
+
+.overlay {
+    position: fixed;
+    top: 80px;
+    left: 0;
+    width: 100%;
+    height: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+    transition: all 200ms ease-in-out;
+  }
+
+
+.cartslide{
+    width: 0%;
+    padding: 10px 20px;
+    position: absolute;
+    top: 80px;
+    right: 0;
+    height: 100%;
+    background-color: white;
+    z-index: 2;
+    position: fixed;
+    transition: all 500ms ease;
+}
+.cartslide a{
+    text-decoration: none;
+    color: #313131;
+}
+.cartslide a:hover{
+    color: #555;
+}
+
+.cartslideitem {
+    display: flex;
+    align-items:center;
+    justify-content: space-between;
+}
+.cartslideitem img{
+    aspect-ratio: 1/1;
+}
+
+.qtybtn{
+    display: flex;
+    align-items: center;
+    text-align: center;
+    gap: 8px;
+}
+.qtybtn button{
+    width: 40px;
+    height: 40px;
+    padding: 10px;
+    border: 1px solid #ff3f00;
+    background-color: rgb(250, 247, 242);
+    border-radius: 50%;
+    transition: all 0.2s ease;
+}
+.qtybtn p{
+    margin: 0;
+    width: 40px;
+    height: 40px;
+    padding: 10px;
+    border: 1px solid #ff3f00;
+    border-radius: 50%;
+    text-align: center;
+}
+#minusbtn:hover{
+    transform: scale(1.1);
+}
+#plusbtn:hover{
+    transform: scale(1.1);
+}
+/* .cartslide h4{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 100%;
+} */
+.cartlink{
+    text-decoration: none;
+    color: black;
+}
+.cartlink:hover{
+    color: black;
+}
+
+@media (max-width:1180px) {
+    .cartslideitem{
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+}
+
+@media (max-width:1024px) {
+    .navham{
+        display: block;
+    }
+    .overlay{
+        height: 100%;
+    }
     .navlist1{
-    gap: 0px;
-    margin-left: 0px;
-    }
-    .searchinput{
-        min-width: 400px;
-    }
-    .navlist2{
-        gap: 5px;
-    }
-}
-@media screen and (max-width:865px) {
-    .searchinput {
-        min-width: 300px;
-    }
-}
-@media screen and (max-width:750px) {
-    .searchinput {
-    min-width: 250px;
-    right: 100px;
-    }
-}
-@media screen and (max-width:600px) {
-    .searchinput {
-    right: 30px;
-    }
-}
-@media screen and (max-width:520px) {
-    .searchinput {
-        position: static;
+        display: none;
         position: absolute;
-    right: 70px;
-    top: 90px;
-    z-index: 3;
+        top: 80px;
+        left: 0;
+        background-color: white;
+        z-index: 3;
+        margin: 0;
+        width: 50%;
+    }
+    .navlist1 ul{
+        flex-direction: column;
     }
 }
-@media screen and (max-width:450px) {
-    .searchinput {
-    right: 30px;
+@media (max-width:768px) {
+.navlist2{
+    gap: 35px;
+
+}
+.navlist2 i{
+    font-size: 1.2rem;
+}
+.navham{
+    margin-right: 10px;
+}
+}
+@media (max-width:600px) {
+    .navlist2{
+        gap: 19px;
+        margin-left: 0px;
+        margin-right: 0;
+        padding-left: 0px;
+    }
+    .navleft img{
+        width: 150px;
+        height: 43px;
+    }
+    .navlist2 i{
+        font-size: 1rem;
+    }
+    .navham i{
+        margin-top: 9px;
+        font-size: 1.2rem;
+    }
+    .cartslideitem{
+        align-items: center;
     }
 }
-@media screen and (max-width:390px) {
-    .searchinput {
-    right: 10px;
+@media (max-width:565px) {
+    .qtybtn button{
+        width: 30px;
+        height: 30px;
+        padding: 6px;
+    }
+    .qtybtn p{
+        width: 30px;
+        height: 30px;
+        padding: 6px;
+    }
+    .cartproname h6{
+        font-size: 0.9rem;
+    }
+    .cartproname p{
+        font-size: 0.8rem;
     }
 }
+@media (max-width:475px) {
+    .qtybtn button{
+        width: 25px;
+        height: 25px;
+        padding: 0px;
+    }
+    .qtybtn p{
+        width: 25px;
+        height: 25px;
+        padding: 0px;
+    }
+    .qtybtn i{
+        font-size: 0.7rem;
+    }
+    .cartproname h6{
+        font-size: 0.8rem;
+    }
+    .cartproname p{
+        font-size: 0.7rem;
+    }
+}
+
+@media (max-width:475px) {
+    .qtybtn button{
+        width: 23px;
+        height: 23px;
+        padding: 0;
+    }
+    .qtybtn p{
+        width: 23px;
+        height: 23px;
+        font-size: 0.8rem;
+        padding: 0;
+    }
+    .qtybtn i{
+        font-size: 0.6rem;
+    }
+}
+
+
+
 .main{
     /* padding: 100px 0px; */
     padding-top: 150px;
@@ -754,6 +1055,7 @@ transition: top 200ms ease-in;
 .product .card img{
     max-height:280px;
 }
+
 .product .cardhead{
     position: absolute;
     top: 220px;
@@ -1195,4 +1497,201 @@ transition: top 200ms ease-in;
 }
 .probody .headsection .headbody h5{
     line-height: 30px;
+}
+
+
+
+
+
+
+.category .card{
+    position: relative;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.184);
+}
+
+.category .card img{
+    border-radius: 5px;
+    aspect-ratio: 1/1;
+  max-width: 400px; 
+  object-fit: cover;
+}
+
+.category .cardhead{
+    position: absolute;
+    bottom:30px;
+    left: 50px;
+    font-size: 1.2rem;
+    color: aliceblue;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease-in-out;
+}
+.category .carddesc {
+    position: absolute;
+    overflow: hidden;
+    bottom: 15px;
+    left: 50px;
+    opacity: 0;
+    transition: all 0.5s ease;
+    
+}
+.category .carddesc button{
+    border-radius: 30px;
+    padding: 6px 20px;
+    background: none;
+    color: white;
+    border: 1px solid #eb501de4;
+    font-size: 0.9rem;
+}
+.category .card-body{
+    position: absolute;
+    background: linear-gradient( to top,black,transparent);
+    width: 100%;
+    height: 35%;
+    bottom: 0;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    transition: all 0.5s ease-in-out;
+}
+.category .card-body:hover {
+    height: 50%;
+}
+.category .card-body:hover .cardhead {
+    bottom: 70px;
+}
+.category .card-body:hover .carddesc {
+    bottom: 25px;
+    opacity: 1;
+}
+
+
+
+
+.room .card{
+    position: relative;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.184);
+}
+
+.room .card img{
+    border-radius: 5px;
+    aspect-ratio: 16/9;
+     max-width: 619px; 
+     object-fit: cover;
+}
+
+.room .cardhead{
+    position: absolute;
+    bottom:30px;
+    left: 50px;
+    font-size: 1.2rem;
+    color: aliceblue;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease-in-out;
+}
+.room .carddesc {
+    position: absolute;
+    overflow: hidden;
+    bottom: 15px;
+    left: 50px;
+    opacity: 0;
+    transition: all 0.5s ease;
+    
+}
+.room .carddesc button{
+    border-radius: 30px;
+    padding: 6px 20px;
+    background: none;
+    color: white;
+    border: 1px solid #eb501de4;
+    font-size: 0.9rem;
+}
+.room .card-body{
+    position: absolute;
+    background: linear-gradient( to top,black,transparent);
+    width: 100%;
+    height: 35%;
+    bottom: 0;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    transition: all 0.5s ease-in-out;
+}
+.room .card-body:hover {
+    height: 50%;
+}
+.room .card-body:hover .cardhead {
+    bottom: 70px;
+}
+.room .card-body:hover .carddesc {
+    bottom: 25px;
+    opacity: 1;
+}
+
+
+
+
+.profile{
+    position: relative;
+}
+.profileicon{
+    border: 5px solid black;
+    padding: 10px 15px;
+    border-radius: 50%;
+}
+.prohead{
+    text-align: center;
+}
+.logoutbtn{
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+.logoutbtn button{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    border: 1px solid #ff3f00;
+    border-radius: 30px;
+    background-color: white;
+    padding: 5px 10px;
+}
+.prolink a{
+    text-decoration: none;
+    color: #313131;
+    font-size: 1.2rem;
+}
+.prolink a:hover{
+    color: #ff3f00;
+}
+
+.proutils .card{
+    box-shadow: 0px 0px 15px rgba(83, 83, 83, 0.311);
+    padding-bottom: 70px;
+    border-radius: 10px;
+    position: relative;
+}
+.proutils a{
+    text-decoration: none;
+}
+.proutils a:hover{
+    color: black;
+}
+.proutils h1{
+    font-weight: 600;
+    color: #ff3f00;
+}
+.varypro{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: absolute;
+    bottom: 5px;
+    right: 35px;
+    color: #313131;
+    
+}
+.varypro h2{
+    font-size: 2.5rem;
+    margin: 0;
+}
+.varypro h6{
+    margin: 0;
 }
