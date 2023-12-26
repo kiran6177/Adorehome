@@ -1054,6 +1054,7 @@ transition: top 200ms ease-in;
 
 .product .card img{
     max-height:280px;
+    aspect-ratio: 1/1;
 }
 
 .product .cardhead{
@@ -1121,8 +1122,25 @@ transition: top 200ms ease-in;
 .product:hover .cardhead{
     top: 170px;
 }
+.product:hover .addcart{
+    opacity: 1;
+}
 .product .wish{
     opacity: 1;
+}
+.addcart{
+    opacity: 0;
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    padding: 10px 13px;
+    border: 1px solid #ff3f00;
+    border-radius: 50%;
+    background-color: #f8e2db;
+    transition: all .3s ease-in-out;
+}
+.addcart:hover{
+    transform: scale(1.1);
 }
 .wish1{
     color: rgb(240, 74, 74);
@@ -1205,23 +1223,27 @@ transition: top 200ms ease-in;
         top: 10px;
         right: 10px;
     }
+    .addcart{
+        padding: 6px 9px;
+        font-size: 0.8rem;
+    }
 }
 @media (max-width:767px){
     .product .cardhead{
         font-size: 1.7rem;
-        top: 325px;
+        top: 235px;
         padding: 10px 40px;
     }
     .product:hover .cardhead{
-        top: 260px;
+        top: 140px;
     }
     .product .carddesc{
-        top: 322px ;
+        top: 205px ;
         font-size: 1.2rem;
         padding: 8px 30px;
     }
     .product .cardprice{
-        top: 380px;
+        top: 245px;
         font-size: 1rem;
         padding: 8px 30px;
     }
@@ -1241,19 +1263,19 @@ transition: top 200ms ease-in;
 @media (max-width:548px){
     .product .cardhead{
         font-size: 1.5rem;
-        top: 300px;
+        top: 240px;
         padding: 8px 35px;
     }
     .product:hover .cardhead{
-        top: 250px;
+        top: 150px;
     }
     .product .carddesc{
-        top: 310px ;
+        top: 210px ;
         font-size: 1rem;
         padding: 5px 30px;
     }
     .product .cardprice{
-        top: 360px;
+        top: 260px;
         font-size: 1rem;
         padding: 5px 30px;
     }
@@ -1266,19 +1288,19 @@ transition: top 200ms ease-in;
 @media (max-width:500px){
     .product .cardhead{
         font-size: 1.5rem;
-        top: 280px;
+        top: 230px;
         padding: 10px 40px;
     }
     .product:hover .cardhead{
-        top: 215px;
+        top: 140px;
     }
     .product .carddesc{
-        top: 275px ;
+        top: 200px ;
         font-size: 1rem;
         padding: 5px 30px;
     }
     .product .cardprice{
-        top: 320px;
+        top: 250px;
         font-size: 1rem;
         padding: 5px 30px;
     }

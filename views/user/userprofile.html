@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AdoreHome | LOGIN</title>
+    <link rel="icon" href="/public/images/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="./userstyle.css" type="text/css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Merriweather&family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <nav class="nav">
+        <div class="container-fluid fullnav">
+            <div class="navleft">
+                <a class="" href="/home">
+                    <img src="/public/images/LOGO Black.png" alt="" width="170" height="50">
+                  </a>
+    
+              <div class="navlist1" id="">
+                
+
+                <ul>
+                    <li class="dropdown item">
+                        <span><h5 class="fw-normal">All</h5></span>
+                        <div class="dropdown-content">
+                          <a href="#">Coupons</a>
+                          <a href="#">Orders</a>
+                          <a href="#">Brands</a>
+                          
+                        </div>
+                    <hr class="hr-nav1">
+                      </li>
+                    <li class="item"><h5 class="fw-normal"><a class="" href="/products">Products</a></h5>
+                        <hr class="hr-nav">
+                    </li>
+                    <li class="item"><h5 class="fw-normal"><a class="" href="#">Rooms</a></h5>
+                        <hr class="hr-nav2"></li>
+                    <li class="item"><h5 class="fw-normal"><a class="" href="#">Category</a></h5>
+                        <hr class="hr-nav">
+                    </li>
+                    
+                  </ul>
+
+              </div>
+
+            </div>
+            
+            <div class="navright">
+
+                <ul class=" navlist2">
+                    <li class=" ">
+                        <div class="searchinput"><button  id="searchtoggle" type="button"><i class="fa-sharp fa-solid fa-magnifying-glass"></i></button></div>
+                     </li>
+                    <li class="">
+                        <a class="" href="#"><i class="fa-regular fa-user"></i></a>
+                      </li>
+                    <li class="">
+                      <a class=""  href="#"><i class="fa-regular fa-heart"></i></a>
+                    </li>
+                    <li class="">
+                     <div class="carticon"><button  id="cartbtn" type="button"><i class="fa-solid fa-cart-shopping"></i></button></div>
+                    </li>
+                  </ul>
+                  <div class="navham ms-4 ">
+                    <i class="fa-solid fa-bars"></i>
+                </div>
+            </div>
+            
+          
+        </div>
+      </nav>
+      <div class="searchbar" >
+        <div class="searchcontent">
+        <form action="">
+        <input class="form-control me-2 searchbox pe-2" type="search" placeholder="Search for products." aria-label="Search" >
+        <button class="btn btn-outline-dark" type="button"><i class="fa-sharp fa-solid fa-magnifying-glass"></i></button>
+        </form>
+        <span class="close" ><button class="closebtn" id="closebtn">&times;</button></span>
+    </div>
+    </div>
+
+    <div class="overlay" style="display: none;"></div>
+
+    <div class="cartslide" style="display: none;">
+        <h2 class="mb-4"><a href="" class="cartlink">CART</a></h2>
+        <hr class="my-4">
+        <div class="cartslidedetails">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-body cartslideitem">
+                                <a href=""><img src="/public/images/Chair1.jpg" alt="" width="80px" height="80px"></a>
+                                <div class="cartproname"><h6 class="card-title fw-bold my-0">ProductNAme</h6><p class="my-0">prodetail</p></div>
+                                <div class="qtybtn"><button type="button" id="minusbtn"><i class="fa-solid fa-minus"></i></button><span><p>1</p></span><button type="button" id="plusbtn"><i class="fa-solid fa-plus"></i></button></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+      <main class="promain pb-5">
+        <section class="products pt-5 pt-sm-5">
+          <div class="container">
+              <div class="row p-3">
+                    <h2 class="text-center mt-4"><span class="profileicon"><i class="fa-solid fa-user"></i></span></h2>
+                  <h2 class="text-center my-4">Sinta Joseph</h2>
+                  <div class="profile  col-md-12 mt-4">
+                      <div class="card" >
+                          <div class="card-body">
+                            <h4 class="card-title my-5 prohead fw-bold text-decoration-underline">Account Dashboard</h4>
+                            <div class="logoutbtn"><button type="button"><i class="fa-solid fa-power-off"></i><p class="card-text">Logout</p></button></div>
+                            <div class="container-fluid">
+                                <div class="row">
+                                    
+                                    <div class="col-md-12 col-lg-6">
+                                    <div class="profiledet my-5">
+                                        <h4 class="prohead text-start">Profile Details</h4>
+                                        <h5 class="card-subtitle mt-3 fw-normal">E-mail : sinta@gmail.com</h5>
+                                        <h5 class="card-subtitle mt-3 fw-normal">Mobile : 9088776655</h5>
+                                    </div>
+                                    <div class="personaldet my-5">
+                                        <h4 class="prohead text-start">Personal Information</h4>
+                                        <p class="card-text prolink"><a href="">Add Address</a></p>
+                                        <p class="card-text prolink"><a href="">Manage Address</a></p>
+                                        <p class="card-text prolink"><a href="">Edit Profile</a></p>
+                                    </div>
+                                    <div class="accountinfo my-5">
+                                        <h4 class="prohead text-start">Account Information</h4>
+                                        <p class="card-text prolink"><a href="">My Orders</a></p>
+                                        <p class="card-text prolink"><a href="">My Cart</a></p>
+                                        <p class="card-text prolink"><a href="">My Wallet</a></p>
+                                    </div>
+                                    </div>
+                                    
+                                    
+
+                                    
+
+                                    <div class="col-md-12 col-lg-6 proutils">
+                                        <div class="ordercard  mb-5" style="min-width: 281px;"><a href=""><div class="card w-75">
+                                            <div class="card-body">
+                                                <div class="card-title "><h1>Orders</h1></div>
+                                                <div class="card-title varypro"><h2>2</h2><h6>orders</h6></div>
+                                            </div>
+                                        </div></a></div>
+
+                                        <div class="walletcard  my-5" style="min-width: 281px;"><a href=""><div class="card w-75">
+                                            <div class="card-body">
+                                                <div class="card-title"><h1>Wallet</h1></div>
+                                                <div class="card-title varypro "><h2>&#8377;250</h2><h6>Balance</h6></div>
+                                            </div>
+                                        </div></a></div>
+
+                                        <div class="cartcard  my-5" style="min-width: 281px;"><a href=""><div class="card w-75">
+                                            <div class="card-body">
+                                                <div class="card-title"><h1>Cart</h1></div>
+                                                <div class="card-title varypro"><h2>2</h2><h6>Items</h6></div>
+                                            </div>
+                                        </div></a></div>
+
+                                    </div>
+
+
+                                    
+                                </div>
+                            </div>
+                          </div>
+                        </div>
+                  </div>
+                  
+                  
+
+              </div>
+          </div>
+      </section>
+      </main>
+
+
+
+
+      <footer>
+        <div class="footbody">
+          <div class="container-fluid">
+            <div class="row ">
+              <div class="foot1 col-sm-12 col-md-12 col-lg-4 col-xl-3">
+          <div class="img m-5" ><img src="/public/images/LOGO White.png" class="img-fluid " alt="logo"  ></div>
+          <div class="card updatebody " >
+            <div class="card-body">
+              <h5 class="card-title mb-1"><i class="fa-solid fa-right-to-bracket me-2"></i>SIGNUP FOR UPDATES</h5>
+              <h6 class="card-subtitle mb-3 ">We can provide you with latest updates once you signed in.</h6>
+              
+              <form class="signmail">
+                <div class="mb-3">
+                  <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+                </div>
+               
+                <button type="submit" >Submit</button>
+              </form>
+    
+            </div>
+          </div>
+          </div>
+    
+          <div class="card col-sm-12 col-md-12 col-lg-3 col-xl-2 footcard mt-3 p-4 ">
+            <div class="card-body ">
+              <h5 class="card-title mb-4">Categories</h5>
+              <a href=""><h6 class="card-subtitle mb-3 ">Decorative Lights</h6></a>
+              <a href=""><h6 class="card-subtitle mb-3 ">Mattresses</h6></a>
+              <a href=""><h6 class="card-subtitle mb-3 ">Kitchen Equipments</h6></a>
+              <a href=""><h6 class="card-subtitle mb-3 ">Sofas</h6></a>
+    
+            </div>
+    
+          </div>
+    
+          <div class="card col-sm-12 col-md-12 col-lg-2 col-xl-1 footcard mt-3 p-4">
+            <div class="card-body ">
+              <h5 class="card-title mb-4">Rooms</h5>
+              <a href=""><h6 class="card-subtitle mb-3 ">Living Room</h6></a>
+              <a href=""><h6 class="card-subtitle mb-3 ">Bathroom</h6></a>
+              <a href=""><h6 class="card-subtitle mb-3 ">Kitchen</h6></a>
+              <a href=""><h6 class="card-subtitle mb-3 ">Bedroom</h6></a>
+            </div>
+            <div class="card-body ">
+              <h5 class="card-title mb-4">About Us</h5>
+              <a href=""><h6 class="card-subtitle mb-3 ">Ernakulam,<br>India</h6></a>
+            </div>
+          </div>
+    
+          <div class="card col-sm-12 col-md-12 col-lg-3 col-xl-2 footcard mt-3 p-4 ">
+            <div class="card-body ">
+              <h5 class="card-title mb-4">For Contacts</h5>
+              <h6 class="card-subtitle mb-3 cardtext">adorehomeshoppe@gmail.com</h6>
+              <h6 class="card-subtitle mb-3 cardtext">Phone : 0484-2766440</h6>
+    
+            </div>
+            <div class="card-body mt-2">
+              <h5 class="card-title mt-4 mb-4">Keep in touch</h5>
+              <h6 class="card-subtitle mb-3 "><a href=""><i class="fa-brands fa-square-x-twitter"></i></a> &nbsp; <a href=""><i class="fa-brands fa-square-facebook"></i></a>  &nbsp; <a href=""><i class="fa-brands fa-square-instagram"></i></a> &nbsp; <a href=""><i class="fa-brands fa-square-threads"></i></a></h6>
+            </div>
+          </div>
+    
+        <div class="card col-sm-12 col-md-12 col-lg-12 col-xl-4 footbody1 mt-3 p-4">
+            <div class="card-body bodycard ms-5">
+              <h1 class="card-title mb-4"><i class="fa-sharp fa-solid fa-house"></i></h1>
+              <div class="content mb-3"><a href=""><h5 class="card-subtitle  my-2 ">A Complete Home Store.</h5></a>
+                <h6 class="card-subtitle  small">A Complete Solutions for Home Appliances.</h6>
+              </div>
+            </div>
+            <div class="card-body bodycard ms-5">
+              <h1 class="card-title mb-4"><i class="fa-solid fa-shield-halved"></i></h1>
+              <div class="content mb-3"><a href=""><h5 class="card-subtitle my-2  ">Secure Purchase</h5></a>
+                <h5 class="card-subtitle   small">Safe and Secure Purchase.</h5>
+              </div>
+            </div>
+          </div>
+    
+        </div>
+      </div>
+    </div>
+    </footer>
+    <script>
+         const searchtoggle = document.getElementById('searchtoggle')
+        const searchbar = document.querySelector('.searchbar')
+        const closebtn = document.getElementById('closebtn')
+
+        searchtoggle.addEventListener('click',()=>{
+            searchbar.style.display = "flex"
+        })
+        closebtn.addEventListener('click',()=>{
+            searchbar.style.display = "none"
+
+        })
+    </script>
+    <script>
+        const ham = document.querySelector('.navham')
+        const nav1 = document.querySelector('.navlist1')
+        const overlay = document.querySelector('.overlay')
+
+        ham.addEventListener('click',()=>{
+            if(overlay.style.display == "none" )
+            {
+                overlay.style.display = "block"
+                overlay.style.height = '100%'
+                nav1.style.display = "flex"
+            }
+            else{
+                overlay.style.height = '0%'
+                overlay.style.display = 'none'
+                nav1.style.display = "none"
+
+            }
+        })
+    </script>
+    <script>
+        const cartbtn = document.getElementById('cartbtn')
+        const cartslide = document.querySelector('.cartslide')
+        
+        cartbtn.addEventListener('click',()=>{
+            if(overlay.style.display =='none')
+            {
+                overlay.style.display = "block"
+                overlay.style.height = '100%'
+                cartslide.style.display = 'block'
+                cartslide.style.width = "43%"
+            }
+            else{
+                overlay.style.height = '0%'
+                overlay.style.display = "none"
+                cartslide.style.display = 'none'
+                cartslide.style.width = "0%"
+            }
+        })
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    </body>
+    </html>
