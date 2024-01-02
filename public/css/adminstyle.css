@@ -448,6 +448,11 @@ transition: top 200ms ease-in;
         padding: 45% 5%;
     }
   }
+  @media (max-width:659px) {
+    .mainframe .maincontent .usermain{
+        margin-top: 30px;
+    }
+  }
   @media (max-width:600px){
     .mainframe .sidenav{
         padding: 20px 30px;
@@ -456,6 +461,9 @@ transition: top 200ms ease-in;
     .mainframe .maincontent{
         width: 100%;
         padding: 50% 5%;
+    }
+    .mainframe .maincontent .usermain{
+        margin-top: 20px;
     }
   }
   @media (max-width:540px){
@@ -889,4 +897,209 @@ transition: top 200ms ease-in;
 }
 .changepass{
     width: 100%;
+}
+
+
+.stat{
+    padding: 5px 15px;
+    background-color: rgb(145, 217, 145);
+    border-radius: 20px;
+}
+.stat1{
+    padding: 5px 15px;
+    background-color:#81e4fd;
+    border-radius: 20px;
+}.stat2{
+    padding: 5px 15px;
+    background-color:  #fdf581;
+    border-radius: 20px;
+}
+.stat3{
+    padding: 5px 15px;
+    background-color: rgb(180, 186, 247);
+    border-radius: 20px;
+}
+.stat4{
+    padding: 5px 15px;
+    background-color: rgb(246, 142, 142);
+    border-radius: 20px;
+}
+.actionbtns{
+    display: flex;
+    gap: 10px;
+}
+.actionbtns button{
+    padding: 5px 10px;
+    background: none;
+    border: 1px solid #ff3f00;
+    border-radius: 5px;
+}
+@media (max-width:992px) {
+    .adminorder .table1
+    {
+        display: none;
+    }
+    .adminorder .table2
+    {
+        display: table !important;
+    }
+}
+.ordersumbody{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.ordersumbody img{
+    aspect-ratio: 1/1;
+}
+.prodiv{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+.prodiv span{
+    display: inline-block;
+    width: 170px;
+}
+.delstat{
+    width: 100%;
+    background-color: #81fd81;
+    padding: 5px;
+    border-radius: 10px;
+    height: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #232323;
+}
+.delstat h3{
+    letter-spacing: 1px;
+    color: white;
+    text-shadow:0px 0px 15px #31313190;
+}
+.processstat{
+    width: 100%;
+    border-radius: 10px;
+    background-color: #81e4fd;
+    padding: 5px;
+    height: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #232323;
+}
+.processstat h3{
+    letter-spacing: 1px;
+    color: white;
+    text-shadow:0px 0px 15px #31313190;
+}
+.shipstat{
+    width: 100%;
+    background-color: #fdf581;
+    padding: 5px;
+    border-radius: 10px;
+    height: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #232323;
+}
+.shipstat h3{
+    letter-spacing: 1px;
+    color: white;
+    text-shadow:0px 0px 15px #31313190;
+}
+.dispstat{
+    width: 100%;
+    background-color:  rgb(180, 186, 247);
+    padding: 5px;
+    border-radius: 10px;
+    height: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #232323;
+}
+.dispstat h3{
+    letter-spacing: 1px;
+    color: white;
+    text-shadow:0px 0px 15px #31313190;
+}
+.cancelstat{
+    width: 100%;
+    background-color: rgb(246, 142, 142);
+    padding: 5px;
+    border-radius: 10px;
+    height: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #232323;
+}
+.cancelstat h3{
+    letter-spacing: 1px;
+    color: white;
+    text-shadow:0px 0px 15px #31313190;
+}
+.backbtn{
+    padding: 10px 20px;
+    background: none;
+    border: 1px solid #ff3f00;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+.paydiv{
+    display: flex;
+    justify-content: space-between;
+}
+.statuschanger{
+    width: 100%;
+}
+.statuschanger select{
+    width: 45%;
+    height: 50px;
+    padding: 10px;
+    font-size: 1.2rem;
+    border: 1px solid #ff3f00;
+    border-radius: 10px;
+}
+.statdiv{
+    display: flex;
+    justify-content: space-between;
+}
+@media (max-width:550px) {
+    .statuschanger select{
+        font-size: 0.9rem;
+        padding: 5px;
+    }
+    .processstat h3{
+        margin: auto;
+        font-size: 1rem;
+    }
+    .delstat h3{
+        margin: auto;
+        font-size: 1rem;
+    }
+    .dispstat h3{
+        margin: auto;
+        font-size: 1rem;
+    }
+    .shipstat h3{
+        margin: auto;
+        font-size: 1rem;
+    }
+    .cancelstat h3{
+        margin: auto;
+        font-size: 1rem;
+    }
+}
+@media (max-width:500px) {
+    .prodiv img{
+        width: 225px;
+        height: 225px;
+    }
+    .prodiv span{
+        width: 100px;
+    }
 }

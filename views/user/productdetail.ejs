@@ -28,9 +28,20 @@
                     <h5 class="procolor mt-5 mb-4">Color : <%= locals.product.color %></h5>
                     <!-- <h5 class="procolor my-4">Dimensions : Diameter: 285mm <br> Length : 760mm</h5> -->
                     <div class="probuttons my-4">
-                    <span class="addbtn "><a href=""><i class="fa-solid fa-minus"></i></a><div>1</div><a href=""><i class="fa-solid fa-plus"></i></a></span>
+                    <span class="addbtn "><button type="button" id="minusbtn1"><i class="fa-solid fa-minus"></i></button><div id="qtyfield">
+                        <% if(locals.qty) { %>
+                            <%= locals.qty %>
+                        <% } else if(locals.udata && locals.udata.cart) { let filtered = locals.udata.cart.filter(element => { element.product_id === locals.product._id })%>
+                        <% if(filtered.length != 0) { %>
+                            <%= locals.udata.cart.qty %>
+                            <% } else { %>
+                        <%= "1" %>
+                        <% } } else { %>
+                            <%= "1" %>
+                            <% } %>
+                    </div><button type="button" id="plusbtn1"><i class="fa-solid fa-plus"></i></button></span>
                     <span class="buy "><a href=""><button class="btn ">Buy Now</button></a></span>
-                    <span class="cartlogo "><a href=""><i class="fa-solid fa-cart-shopping"></i></a></span>
+                    <span class="cartlogo "><button type="button" id="cartaddbtn" data-productid="<%= locals.product._id %>"><i class="fa-solid fa-cart-shopping"></i></button></span>
                 </div>
                 </div>
             </div>
@@ -73,10 +84,10 @@
                         <div class="card-body">
                           <h5 class="card-title cardhead"><%= pname %></h5>
                           <div class="carddesc"><p class="card-text"><%= desc %></p></div>
-                          <div class="cardprice"><p class="card-text ">Rs.<%= locals.rel[0].price %></p></div>
+                          <div class="cardprice"><p class="card-text ">Rs.<%= locals.rel[i].price %></p></div>
                           <div class="wish wbtn"><i class="fa-regular fa-heart"></i></div>
                           <div class="wish1 wbtn"><i class="fa-solid fa-heart"></i></div>
-                        <div class="addcart"><i class="fa-solid fa-cart-plus"></i></div>
+                        <div class="addcart"><button type="button" id="addcartbtn" data-proid="<%= locals.rel[i]._id %>"><i class="fa-solid fa-cart-plus"></i></button></div>
                         </div>
                       </div>
                 </div>
@@ -87,6 +98,6 @@
     </section>
 </div>
 
-
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="/public/js/productdetail.js"></script>
 <%- include('layouts/footer.ejs') %>

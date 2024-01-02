@@ -280,10 +280,11 @@ const loadhome = async(req,res)=>{
     try {
         const uid = req.userid
         // console.log("home "+uid)
-        const data = await User.findById({_id:uid})
+        const data = await User.findById({_id:uid}).populate('cart.product_id')
+        // console.log(data.cart)
         const pdata = await Product.find().limit(8)
         // console.log(data)
-        res.render('user/home',{products:pdata})
+        res.render('user/home',{products:pdata,udata:data})
     } catch (error) {
         console.log(error.message)
     }

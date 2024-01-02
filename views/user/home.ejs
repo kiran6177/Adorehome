@@ -1,4 +1,4 @@
-<%- include('layouts/header.ejs') %>
+<%- include('layouts/header.ejs') , {udata:locals.udata} %>
 
       <main class="home ">
         <div class="container-fluid">
@@ -41,7 +41,7 @@
                               <div class="cardprice"><p class="card-text ">Rs.<%= locals.products[i].price %></p></div>
                               <div class="wish wbtn"><i class="fa-regular fa-heart"></i></div>
                               <div class="wish1 wbtn"><i class="fa-solid fa-heart"></i></div>
-                        <div class="addcart"><i class="fa-solid fa-cart-plus"></i></div>
+                            <div class="addcart"><button type="button" id="addcartbtn" data-proid="<%= locals.products[i]._id %>"><i class="fa-solid fa-cart-plus"></i></button></div>
                             </div>
                           </div>
                     </div>
@@ -51,4 +51,7 @@
             </div>
         </section>
 
+  
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="/public/js/home.js"></script>        
 <%- include('layouts/footer.ejs') %>
