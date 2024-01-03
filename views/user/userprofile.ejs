@@ -1,0 +1,90 @@
+<%- include('layouts/header.ejs') , {udata:locals.udata} %>
+
+      <main class="promain pb-5">
+        <section class="products pt-5 pt-sm-5">
+          <div class="container">
+              <div class="row p-3">
+                    <h2 class="text-center mt-4"><span class="profileicon"><i class="fa-solid fa-user"></i></span></h2>
+                    <% if(locals.udata) { %>
+                  <h2 class="text-center my-4"><%= locals.udata.firstname + " " + locals.udata.lastname %></h2>
+                  <div class="profile  col-md-12 mt-4">
+                      <div class="card" >
+                          <div class="card-body">
+                            <h4 class="card-title my-5 prohead fw-bold text-decoration-underline">Account Dashboard</h4>
+                            <div class="logoutbtn"><button type="button" id="logoutbtn"><i class="fa-solid fa-power-off"></i><p class="card-text">Logout</p></button></div>
+                            <div class="container-fluid">
+                                <div class="row">
+                                    
+                                    <div class="col-md-12 col-lg-6">
+                                    <div class="profiledet my-5">
+                                        <h4 class="prohead text-start">Profile Details</h4>
+                                        <h5 class="card-subtitle mt-3 fw-normal">E-mail : <%= locals.udata.email %></h5>
+                                        <h5 class="card-subtitle mt-3 fw-normal">Mobile : <%= locals.udata.mobile.toString().split('').slice(2,12).join('') %></h5>
+                                    </div>
+                                    <div class="personaldet my-5">
+                                        <h4 class="prohead text-start">Personal Information</h4>
+                                        <p class="card-text prolink"><a href="/address/addaddress">Add Address</a></p>
+                                        <p class="card-text prolink"><a href="/address">Manage Address</a></p>
+                                        <p class="card-text prolink"><a href="">Edit Profile</a></p>
+                                    </div>
+                                    <div class="accountinfo my-5">
+                                        <h4 class="prohead text-start">Account Information</h4>
+                                        <p class="card-text prolink"><a href="">My Orders</a></p>
+                                        <p class="card-text prolink"><a href="/cart">My Cart</a></p>
+                                        <p class="card-text prolink"><a href="">My Wallet</a></p>
+                                    </div>
+                                    </div>
+                                    
+                                    
+
+                                    
+
+                                    <div class="col-md-12 col-lg-6 proutils">
+                                        <div class="ordercard  mb-5" style="min-width: 281px;"><a href=""><div class="card w-75">
+                                            <div class="card-body">
+                                                <div class="card-title "><h1>Orders</h1></div>
+                                                <div class="card-title varypro"><h2>2</h2><h6>orders</h6></div>
+                                            </div>
+                                        </div></a></div>
+
+                                        <div class="walletcard  my-5" style="min-width: 281px;"><a href=""><div class="card w-75">
+                                            <div class="card-body">
+                                                <div class="card-title"><h1>Wallet</h1></div>
+                                                <div class="card-title varypro "><h2>&#8377;250</h2><h6>Balance</h6></div>
+                                            </div>
+                                        </div></a></div>
+
+                                        <div class="cartcard  my-5" style="min-width: 281px;"><a href=""><div class="card w-75">
+                                            <div class="card-body">
+                                                <div class="card-title"><h1>Cart</h1></div>
+                                                <div class="card-title varypro"><h2>
+                                                    <% if(locals.udata.cart.length > 0) { %>
+                                                        <%= locals.udata.cart.length %></h2><h6>Items</h6></div>
+                                                    <% } else { %>
+                                                        Empty!!
+                                                    <% } %>
+                                                    
+                                            </div>
+                                        </div></a></div>
+
+                                    </div>
+
+
+                                    <% } %>
+                                </div>
+                            </div>
+                          </div>
+                        </div>
+                  </div>
+                  
+                  
+
+              </div>
+          </div>
+      </section>
+      </main>
+
+
+
+<script src="/public/js/userprofile.js"></script>
+<%- include('layouts/footer.ejs')  %>

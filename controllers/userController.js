@@ -290,6 +290,15 @@ const loadhome = async(req,res)=>{
     }
 }
 
+const logout = async (req,res)=>{
+    try {
+        res.clearCookie('token').json({data:"Logout Successful."})
+        
+    } catch (error) {
+        console.log(error.message)
+    }
+}
+
 module.exports = {
   loginredirect,
   loginload,
@@ -301,5 +310,6 @@ module.exports = {
   verifyotp,
   verifyotplogin,
   loadhome,
-  otplogin
+  otplogin,
+  logout
 };

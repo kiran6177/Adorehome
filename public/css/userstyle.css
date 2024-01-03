@@ -2093,6 +2093,12 @@ transition: top 200ms ease-in;
 .address1{
     padding-left: 35px;
 }
+.address1 h6 , .address1 p{
+    width: 26rem;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
 @media (max-width:1200px) {
     .checkpro{
         flex-direction: column;
@@ -2117,8 +2123,14 @@ transition: top 200ms ease-in;
     .proceedbtn a{
         padding: 10px 20px;
     }
+    .address1 h6 , .address1 p{
+        width: 17rem;
+    }
 }
 @media (max-width:768px) {
+    .address1 h6 , .address1 p{
+        width: 20rem;
+    }
     .checkpro{
         flex-direction: row;
     }
@@ -2133,13 +2145,14 @@ transition: top 200ms ease-in;
     .checkprodet{
         margin-top: 0px;
     }
+    .addresscard{
+        flex-direction: column;
+    }
 }
 
 
 @media (max-width:667px) {
-    .addresscard{
-        flex-direction: column;
-    }
+    
     .addaction{
         flex-direction: row;
         width: 100%;
@@ -2169,6 +2182,9 @@ transition: top 200ms ease-in;
     .checkprodet{
         margin-top: 15px;
     }
+    .address1 h6 , .address1 p{
+        width: 12rem;
+    }
 }
 
 .addfield{
@@ -2188,6 +2204,7 @@ transition: top 200ms ease-in;
 .addressbody input,.addressbody textarea , .addressbody select{
     border: 1px solid #313131;
     border-radius: 2px;
+    padding: 5px;
 }
 .addressbody input:hover , .addressbody textarea:hover , .addressbody select:hover{
     border: 1px solid #ff3f00;

@@ -1,0 +1,97 @@
+<%- include('layouts/header.ejs') , {udata:locals.udata} %>
+
+
+      <main class="promain pb-5">
+        <section class="products pt-5 pt-sm-5">
+          <div class="container-fluid ">
+              <div class="row px-2  py-3 px-sm-5">
+                  <h2 class=" mt-4 mb-3">CHECKOUT</h2>
+                  <div class="checkaddress col-md-7 mt-4">
+                    <div class="card">
+                        <div class="card-body checkaddbody">
+                            <div class="head"><h4 class="card-title  fw-bold my-4">Select Address</h4> <a href=""><button type="button">Add Address</button></a></div>
+                            
+                            <div class="card">
+                                <div class="card-body addresscard">
+                                    <input type="radio" name="address" value="">
+                                    <div class="address">
+                                        <h6>Name</h6>
+                                        <p>Mobile</p>
+                                        <p>StreetAddress</p>
+                                        <p>Landmark</p>
+                                        <p>district</p>
+                                        <p>state</p>
+                                        <p>country</p>
+                                        <p>pincode</p>
+                                    </div>
+                                    <div class="addaction">
+                                        <a href=""><button type="button">Edit Address</button></a>
+                                        <a href=""><button type="button">Remove Address</button></a>
+                                    </div>
+                                </div>
+                            </div>
+                            
+
+                        </div>
+                    </div>
+                </div>
+                <div class="checkorder   col-md-5 mt-4">
+                    
+                      <div class="card " >
+                          <div class="card-body checkout">
+                            <h4 class="card-title  fw-bold ">Your Order</h4>
+
+                            <div class="cartdetails">
+                                <h4 class="card-title  fw-normal ">Product Details</h4>
+                                <div class="card  col-lg-6 col-xl-12 ">
+                                    <div class="card-body checkpro">
+                                    <a href=""><img src="/public/images/bed1.jpg" alt="" width="70px" height="70px"></a>
+                                        <div class="checkprodet"><h5>Productname</h5> <p>Description</p><p>price</p></div>
+                                        <div class="checkproqty mt-2 mt-sm-0"><h6>Quantity</h6><p>2 Items</p></div>
+                                    </div>
+                                </div>
+                                <h4 class="card-title mt-5 mb-4 fw-normal ">Coupon</h4>
+                                <form action="" class="couponform">
+                                <input type="text" id="coupon" name="coupon" >
+                                <button type="button" >Apply Coupon</button>
+                                </form>
+                                <h4 class="card-title mt-5 mb-4 fw-normal ">Order Summary</h4>
+                            </div>
+                            <div class="checkpricepro">
+                            <h6>Products</h6>
+                                <p>Rs.50000</p>
+                            </div>
+                            <div class="checkdisc">
+                                <h6>Discount</h6>
+                                <p>500</p>
+                            </div>
+                            <div class="checkdel">
+                                <h6>Delivery Charges</h6>
+                                <p>50000</p>
+                            </div>
+                                  <hr>
+                                  <div class="checktotal"><h6>Total Amount</h6><p>Rs.100000</p></div>
+                          <div class="proceedbtn my-5 text-center "><a href="">Proceed To Payment</a></div>
+                                  
+                                </div>
+                            </div>
+
+                </div>
+
+
+
+                          
+
+                        </div>
+                  </div>
+                  
+                  
+
+              </div>
+          </div>
+      </section>
+      </main>
+
+
+
+      <%- include('layouts/footer.ejs')  %>

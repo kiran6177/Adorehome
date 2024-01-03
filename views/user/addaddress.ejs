@@ -1,0 +1,86 @@
+<%- include('layouts/header.ejs') , {udata:locals.udata} %>
+
+
+      <main class="promain pb-5">
+        <section class="products pt-5 pt-sm-5">
+          <div class="container ">
+              <div class="row px-4">
+                  <h2 class=" mt-4 mb-3">ADDRESSES</h2>
+                  <div class="addaddress col-md-12 mt-4">
+                    <div class="card">
+                        <div class="card-body addressbody ">
+                            <div class="head"><h4 class="card-title  fw-bold my-4">Add Address</h4></div>
+                            <form action="/address/addaddress" method="post">
+                                <div class="combine my-4">
+                                    <div class="addfield ">
+                                    <label for="name">Name</label>
+                                    <input type="text" id="name" name="name">
+                                    </div>
+                                    <div class="addfield ">
+                                        <label for="mobile">Mobile</label>
+                                        <input type="number" id="mobile" name="mobile">
+                                        </div>
+                                </div>
+
+                                <div class="combine my-4">
+                                        <div class="addfield ">
+                                        <label for="district">District</label>
+                                        <input type="text" id="district" name="district">
+                                        </div>
+                                        <div class="addfield ">
+                                            <label for="pin">Pincode</label>
+                                            <input type="number" id="pin" name="pincode">
+                                        </div>
+                                </div>
+
+                            <div class="combine my-4">
+                            <div class="addfield ">
+                            <label for="country">Country</label>
+                            <select name="country" class="form-control" id="country">                               
+                                <option value="" selected="selected">--Select Country--</option>
+                            </select>
+                            </div>
+                            <div class="addfield ">
+                                <label for="state">State</label>
+                                <select name="state" class="form-control" id="state">                               
+                                    <option value="" selected="selected">--Select State--</option>
+                                </select>
+                                </div>
+                            </div>
+
+                            <div class="addfield1 my-4">
+                                <label for="street">Street Address</label>
+                                <textarea name="streetAddress" id="street" cols="30" rows="5" class="form-control"></textarea>
+                                <p class="perror mb-2" id="error2" style="display: none;"></p>
+                            </div>
+                            <div class="addfield1 my-4">
+                                <label for="landmark">Landmark</label>
+                                <textarea name="landmark" id="landmark" cols="30" rows="5" class="form-control"></textarea>
+                                <p class="perror mb-2" id="error2" style="display: none;"></p>
+                            </div>
+
+                            <div class="subbtn mt-5 mb-4 text-center"><button type="submit">Add Address</button></div>
+                        </form>
+                        </div>
+                    </div>
+                </div>
+                
+
+
+
+                          
+
+                        </div>
+                  </div>
+                  
+                  
+
+              </div>
+          </div>
+      </section>
+      </main>
+
+
+
+<script src="/public/js/addaddress.js"></script>
+      <%- include('layouts/footer.ejs') %>

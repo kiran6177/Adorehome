@@ -1,0 +1,45 @@
+<%- include('layouts/header.ejs') , {udata:locals.udata} %>
+
+
+
+      <main class="promain pb-5">
+        <section class="products pt-5 pt-sm-5">
+          <div class="container">
+              <div class="row p-3">
+                  <h2>Rooms</h2>
+                  <% if(locals.rdata && locals.rdata.length > 0) { locals.rdata.forEach(element => { %>
+                  <div class="room  col-md-6 mt-4">
+                      <div class="card">
+                          <a href="/products"><img src="/assets/<%= element.image %>" class="card-img-top" alt="..."></a>
+                          <div class="card-body">
+                            <h5 class="card-title cardhead"><%= element.roomname %></h5>
+                            <div class="carddesc"><button type="button"><p class="card-text">Explore Now</p></button></div>
+                            
+                          </div>
+                        </div>
+                  </div>
+                  
+                  
+                  <% }) } else {%>
+                    <div class="room  col-lg-12 mt-4">
+              
+                      <div class="card m-auto border-0 h-100 ">
+                        <div class="card-body h-100 d-flex justify-content-center align-items-center">
+                          <div class="card-title d-flex flex-column justify-content-center align-items-center ">
+                            <img src="/public/images/oops.png" alt="" width="300rem" height="300rem">
+                            <h2>?No Rooms Available!!</h2>
+                          </div>
+                        </div>
+                      </div>
+                      </div>
+                    <% } %>
+
+              </div>
+          </div>
+      </section>
+      </main>
+
+
+
+
+<%- include('layouts/footer.ejs') %>

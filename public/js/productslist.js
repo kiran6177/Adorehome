@@ -23,10 +23,17 @@ function addCart(proid,qty)
             })
 
         }
+        else if(data.stockerr)
+        {
+            Swal.fire({
+                title: "Out Of Stock",
+                icon: "error"
+                })
+        }
         else if(data.err){
             Swal.fire({
                 title: data.err,
-                icon: "error",
+                icon: "warning",
                 confirmButtonText:"OK"
                 })
                 .then(res=>{
