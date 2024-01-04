@@ -36,6 +36,20 @@ function addCart(proid,qty)
                     }
                 })  
         }
+        else if(data.stockerr)
+        {
+            Swal.fire({
+                title: data.stockerr,
+                icon: "error",
+                confirmButtonText:"OK"
+                })
+                .then(res=>{
+                    if(res.isConfirmed)
+                    {
+                        window.location.reload()
+                    }
+                }) 
+        }
     })
 }
 

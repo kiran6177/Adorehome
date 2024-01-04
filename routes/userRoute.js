@@ -8,6 +8,8 @@ const userCartController = require('../controllers/userCartController')
 const userProfileController = require('../controllers/userProfileController')
 const userRoomController = require('../controllers/userRoomController')
 const userAddressController = require('../controllers/userAddressController')
+const userCheckoutController = require('../controllers/userCheckoutController')
+const userPaymentController = require('../controllers/userPaymentController')
 
 router.get('/',userController.loginredirect)
 
@@ -47,5 +49,8 @@ router.get('/address/editaddress',userAuth.isLogin,userAddressController.loadEdi
 router.post('/address/editaddress',userAuth.isLogin,userAddressController.editAddress)
 router.get('/address/removeaddress',userAuth.isLogin,userAddressController.removeAddress)
 
+router.get('/checkout',userAuth.isLogin,userCheckoutController.loadCheckout)
+
+router.get('/payment',userAuth.isLogin,userPaymentController.loadPayment)
 
 module.exports = router

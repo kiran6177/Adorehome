@@ -1,0 +1,131 @@
+<%- include('layouts/header.ejs') , {udata:locals.udata} %>
+
+
+      <main class="promain pb-5">
+        <section class="products pt-5 pt-sm-5">
+          <div class="container-fluid ">
+              <div class="row px-2  py-3 px-sm-5">
+                  <h2 class=" mt-4 mb-3">PAYMENT</h2>
+                  <div class="payment col-md-7 mt-4">
+                    <div class="card">
+                        <div class="card-body paybody">
+                            <div class="head"><h4 class="card-title  fw-bold my-4">Select Payment Method</h4> </div>
+                            
+                            <div class="card">
+                                <div class="card-body paycard">
+                                    <input type="radio" name="paymethod" value="RazorPay">
+                                    <div class="paydet">
+                                        <h4 class="fw-normal">Pay With <b>RazorPay</b></h4>
+                                    </div>
+                                    <div class="payimg"><img src="/public/images/25a56e6107516d307793626b23c66ce6.jpg" alt="" width="150px" height="150px"></div>
+                                </div>
+
+                            </div>
+                            <div class="card my-4">
+                                <div class="card-body paycard">
+                                    <input type="radio" name="paymethod" value="COD">
+                                    <div class="paydet">
+                                        <h4 class="fw-normal">Pay With <b>Cash</b></h4>
+                                    </div>
+                                    <div class="payimg"><img src="/public/images/imgonline-com-ua-Transparent-background-jRrhjYBIiRpjBA.png" alt="" width="150px" height="150px"></div>
+                                </div>
+                                
+                            </div>
+                            <div class="card my-4">
+                                <div class="card-body paycard">
+                                    <input type="radio" name="paymethod" value="Wallet">
+                                    <div class="paydet">
+                                        <h4 class="fw-normal">Pay With <b>Wallet</b></h4>
+                                    </div>
+                                    <div class="payimg"><img src="/public/images/wallet.png" alt="" width="150px" height="150px"></div>
+                                </div>
+                                
+                            </div>
+                            <div class="placeorderbtn text-center  my-4"><a href=""><button class="w-75" type="button">Place Order</button></a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="checkorder   col-md-5 mt-4">
+                    
+                      <div class="card " >
+                          <div class="card-body checkout">
+                            <h4 class="card-title  fw-bold ">Your Order</h4>
+
+                            <div class="cartdetails">
+                                <h4 class="card-title  fw-normal ">Product Details</h4>
+                                
+                                <% if(locals.udata && locals.udata.cart && locals.udata.cart.length > 0) { locals.udata.cart.forEach(element => { %>
+                                <div class="card  col-lg-6 col-xl-12 my-4">
+                                    <div class="card-body checkpro">
+                                    <a href=""><img src="/assets/<%= element.product_id.mainimage %>" alt="" width="70px" height="70px"></a>
+                                        <div class="checkprodet"><h5><%= element.product_id.productname %></h5> <p><%= element.product_id.description.split(",")[0] %></p><p><%= element.product_id.price %></p></div>
+                                        <div class="checkproqty mt-2 mt-sm-0"><h6>Quantity</h6><p><%= element.qty %>
+                                            <% if(element.qty === 1) { %>
+                                            Item
+                                        <% } else { %>
+                                        Items 
+                                    <% } %></p></div>
+                                    </div>
+                                </div>
+                                           
+                                <% }) } %> 
+
+                                <hr class="my-4">
+                                <h4 class="card-title  fw-normal ">Delivery Details</h4>
+                                <div class="addp">
+                                <% if(locals.addData) { %>
+                                <p><%= locals.addData.name %> </p>
+                                <p><%= locals.addData.mobile %></p>
+                                <p><%= locals.addData.landmark %>,<%= locals.addData.streetAddress %></p>
+                                <p><%= locals.addData.district %>,<%= locals.addData.state %>,<%= locals.addData.country %></p>
+                                <p><%= locals.addData.pincode %></p>
+                                <% } %>
+                                </div>
+                                <hr>
+                                <h4 class="card-title mt-4 mb-4 fw-normal ">Coupon</h4>
+                                <form action="" class="couponform">
+                                <input type="text" id="coupon" name="coupon" >
+                                <button type="button"  >Apply Coupon</button>
+                                </form>
+                                <hr class="my-4">
+                                <h4 class="card-title mt-5 mb-4 fw-normal ">Order Summary</h4>
+                            </div>
+                            <div class="checkpricepro">
+                            <h6>Products</h6>
+                                <p>Rs.50000</p>
+                            </div>
+                            <div class="checkdisc">
+                                <h6>Discount</h6>
+                                <p>500</p>
+                            </div>
+                            <div class="checkdel">
+                                <h6>Delivery Charges</h6>
+                                <p>50000</p>
+                            </div>
+                                  <hr>
+                                  <div class="checktotal"><h6>Total Amount</h6><p>Rs.100000</p></div>
+                          <!-- <div class="proceedbtn my-5 text-center "><a href="">Proceed To Payment</a></div> -->
+                                  
+                                </div>
+                            </div>
+
+                </div>
+
+
+
+                          
+
+                        </div>
+                  </div>
+                  
+                  
+
+              </div>
+          </div>
+      </section>
+      </main>
+
+
+
+
+      <%- include('layouts/footer.ejs')  %>
