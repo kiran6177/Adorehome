@@ -1895,6 +1895,12 @@ transition: top 200ms ease-in;
     white-space: nowrap;
     max-width: 210px;
 }
+.addp h6 ,.addp p {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 30rem;
+}
 .cartprice , .carttotal{
     width: 10%;
 }
@@ -2040,7 +2046,7 @@ transition: top 200ms ease-in;
     border: 1px solid #7d7c7c;
     border-radius: 7px;
 }
-.proceedbtn a{
+.proceedbtn button{
     display: inline-block;
     width: 70%;
     height: auto;
@@ -2053,7 +2059,7 @@ transition: top 200ms ease-in;
     color: white;
     text-decoration: none;
 }
-.proceedbtn a:hover{
+.proceedbtn button:hover{
     color: black;
     background-color: white;
     border:1px solid #ff3f00;
@@ -2120,7 +2126,7 @@ transition: top 200ms ease-in;
     .couponform button{
         font-size: 0.7rem;
     }
-    .proceedbtn a{
+    .proceedbtn button{
         padding: 10px 20px;
     }
     .address1 h6 , .address1 p{
