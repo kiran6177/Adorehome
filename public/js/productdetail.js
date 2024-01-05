@@ -1,4 +1,5 @@
 const cartaddbtn = document.getElementById('cartaddbtn')
+const buynowbtn = document.getElementById('buynowbtn')
 const minusbtn1 = document.getElementById('minusbtn1')
 const plusbtn1 = document.getElementById('plusbtn1')
 const qtyfield = document.getElementById('qtyfield')
@@ -38,6 +39,51 @@ function addCart(proid,qty)
                         window.location.reload()
                     }
                 })  
+        }
+        else if(data.stockerr)
+        {
+            Swal.fire({
+                title: data.stockerr,
+                icon: "info"
+                })
+        }
+    })
+}
+
+function addBuyCart(proid,qty)
+{
+    fetch(`/cart/addcart?proid=${proid}&qty=${qty}`)
+    .then(res =>{
+        return res.json()    
+    })
+    .then(data =>{
+        if(data.data)
+        {
+            Swal.fire({
+            title: data.data,
+            icon: "success",
+            confirmButtonText:"OK"
+            })
+            .then(res=>{
+                if(res.isConfirmed)
+                {
+                    window.location.href = '/checkout'
+                }
+            })
+
+        }
+        else if(data.err){
+            Swal.fire({
+                title: data.err,
+                icon: "success",
+                confirmButtonText:"OK"
+                })
+                .then(res=>{
+                    if(res.isConfirmed)
+                    {
+                        window.location.href = '/checkout'
+                    }
+                })
         }
         else if(data.stockerr)
         {
@@ -91,3 +137,9 @@ plusbtn1.addEventListener('click',function(){
 
 })
 
+buynowbtn.addEventListener('click',function(){
+    let proid = this.dataset.productid
+    let qty = parseInt(qtyfield.innerHTML.trim())
+    addBuyCart(proid,qty)
+
+})

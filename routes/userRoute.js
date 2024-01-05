@@ -10,6 +10,7 @@ const userRoomController = require('../controllers/userRoomController')
 const userAddressController = require('../controllers/userAddressController')
 const userCheckoutController = require('../controllers/userCheckoutController')
 const userPaymentController = require('../controllers/userPaymentController')
+const userOrderController = require('../controllers/userOrderController')
 
 router.get('/',userController.loginredirect)
 
@@ -41,6 +42,11 @@ router.get('/cart/qtysub',userAuth.isLogin,userCartController.qtySub)
 router.get('/cart/delcart',userAuth.isLogin,userCartController.delCart)
 
 router.get('/profile',userAuth.isLogin,userProfileController.profileLoad)
+router.get('/profile/editprofile',userAuth.isLogin,userProfileController.editProfileLoad)
+router.post('/profile/editprofile',userAuth.isLogin,userProfileController.editProfile)
+router.get('/profile/changepassword',userAuth.isLogin,userProfileController.changePasswordLoad)
+router.post('/profile/changepassword',userAuth.isLogin,userProfileController.changePassword)
+
 
 router.get('/address',userAuth.isLogin,userAddressController.loadAddress)
 router.get('/address/addaddress',userAuth.isLogin,userAddressController.loadAddAddress)
@@ -52,5 +58,12 @@ router.get('/address/removeaddress',userAuth.isLogin,userAddressController.remov
 router.get('/checkout',userAuth.isLogin,userCheckoutController.loadCheckout)
 
 router.get('/payment',userAuth.isLogin,userPaymentController.loadPayment)
+router.post('/payment',userAuth.isLogin,userPaymentController.paymentConfirm)
+
+router.get('/ordered',userAuth.isLogin,userOrderController.loadOrdered)
+router.get('/orders',userAuth.isLogin,userOrderController.loadOrders)
+router.get('/orders/summary',userAuth.isLogin,userOrderController.loadSummary)
+router.get('/orders/cancel',userAuth.isLogin,userOrderController.cancelOrder)
+
 
 module.exports = router
