@@ -1,4 +1,5 @@
 const User = require("../models/userSchema");
+const Product = require('../models/productSchema')
 
 const jwttoken = require("../utils/jwt");
 const bcrypt = require('bcrypt')
@@ -43,7 +44,23 @@ const loadhome = async (req,res)=>{
 }
 
 
-
+const search = async (req,res)=>
+{
+    try {
+        const key = req.body.searchdata
+        const prodata = await Product.find({productname:{$regex: new RegExp(key,'i')}})
+        console.log(prodata)
+        if(prodata)
+        {
+            res.render('admin/productmanage',{products:prodata})
+        }
+        else{
+            res.render('/admin/products',{err:"No Products Found !!"})
+        }
+    } catch (error) {
+        console.log(error.message)
+    }
+}
 
 
 
@@ -52,4 +69,5 @@ module.exports = {
     loginload,
     login,
     loadhome,
+    search
 }

@@ -55,13 +55,14 @@
                             <div class="cartdetails">
                                 <h4 class="card-title  fw-normal ">Product Details</h4>
                                 <% if(locals.udata && locals.udata.cart && locals.udata.cart.length > 0) { locals.udata.cart.forEach(element => { %>
-                                <div class="card  col-lg-6 col-xl-12 my-4">
+                                <div class="card  col-lg-6 col-xl-12 my-4 checkcard">
                                     <div class="card-body checkpro">
                                         <input type="hidden" class="productsId" value="<%= element.product_id._id %>,<%= element.qty %>">
                                     <a href=""><img src="/assets/<%= element.product_id.mainimage %>" alt="" width="70px" height="70px"></a>
                                         <div class="checkprodet"><h5><%= element.product_id.productname %></h5> <p><%= element.product_id.description.split(',')[0] %></p><p><%= element.product_id.price %></p></div>
                                         <div class="checkproqty mt-2 mt-sm-0"><h6>Quantity</h6><p><%= element.qty %> Items</p></div>
                                     </div>
+                                    <div class="crosscheck" >&times;</div>
                                 </div>
                                 <%  })  %>
                                 <h4 class="card-title mt-5 mb-4 fw-normal ">Coupon</h4>

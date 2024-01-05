@@ -9,11 +9,15 @@ const roomController = require("../controllers/roomController")
 const brandController = require('../controllers/brandController')
 const productController = require('../controllers/productController')
 const usermanageController = require('../controllers/usermanageController')
+const profileController = require('../controllers/profileController')
+const orderController = require('../controllers/orderController')
 
 router.get("/",adminAuth.isLogout,adminController.loginredirect)
 router.get("/login",adminAuth.isLogout,adminController.loginload)
 router.post("/login",adminAuth.isLogout,adminController.login)
 router.get('/home',adminAuth.isLogin,adminController.loadhome)
+router.get('/logout',adminAuth.isLogin,profileController.logout)
+router.post('/',adminAuth.isLogin,adminController.search)
 
 router.get("/products",adminAuth.isLogin,productController.loadproducts)
 router.get("/products/addproduct",adminAuth.isLogin,productController.loadaddproducts)
@@ -35,9 +39,19 @@ router.get("/brands",adminAuth.isLogin,brandController.loadbrand)
 router.post("/brands",adminAuth.isLogin,upload.single('brandimage'),brandController.brandadd)
 
 router.get("/users",adminAuth.isLogin,usermanageController.loaduserview)
+router.post("/users",adminAuth.isLogin,usermanageController.userSearch)
+
 router.get("/users/deleteuser",adminAuth.isLogin,usermanageController.deleteuser)
 router.get("/users/blockuser",adminAuth.isLogin,usermanageController.blockuser)
 router.get("/users/unblockuser",adminAuth.isLogin,usermanageController.unblockuser)
+
+router.get('/profile',adminAuth.isLogin,profileController.loadProfile)
+router.post('/profile',adminAuth.isLogin,profileController.editProfile)
+
+router.get('/orders',adminAuth.isLogin,orderController.loadOrder)
+router.get('/orders/orderdetail',adminAuth.isLogin,orderController.loadOrderDetail)
+router.get('/orders/orderdetail/changestatus',adminAuth.isLogin,orderController.changeStatus)
+
 
 
 

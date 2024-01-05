@@ -1,0 +1,61 @@
+<%- include('layouts/header.ejs') %>
+<%- include('layouts/sidenav.ejs') %>
+
+          <section class="maincontent">
+            <div class="container">
+                <div class="row">
+                    <div class="usermain p-3  col-md-12">
+                    <div class="titlemain"><h2 class="fw-bold ps-4  my-3">PROFILE</h2></div>
+                    <div class="container">
+                        <div class="row">
+                        <div class="admindetails col-md-6">
+                            <form action="/admin/profile" method="post">
+                           <div class="adname my-4">
+                            <% if(locals.admindata) { %>
+                            <label for="adminname">Name</label>
+                            <h5 id="adminnamebtn"><%= locals.admindata.firstname %>&nbsp;<%= locals.admindata.lastname %></h5>
+                            <input type="text" id="adminname" name="adminname" class="form-control" value="<%= locals.admindata.firstname %> <%= locals.admindata.lastname %>" style="display: none;">
+                           </div>
+                           <div class="ademail my-4">
+                            <label for="adminemail">E-mail</label>
+                            <h5 id="adminemailbtn"><%= locals.admindata.email %></h5>
+                            <input type="text" id="adminemail" name="adminemail" class="form-control" value="<%= locals.admindata.email %>" style="display: none;">
+                           </div>
+                           <div class="admob my-4">
+                            <label for="adminmobile">Mobile</label>
+                            <h5 id="adminmobbtn"><%= locals.admindata.mobile %></h5>
+                            <input type="text" id="adminmobile" name="adminmobile" class="form-control" value="<%= locals.admindata.mobile %>" style="display: none;">
+                           </div>
+                           <div class="adsub my-4">
+                            <button type="submit" id="editbtn" class="logbtn" style="display: none;">Edit</button>
+                           </div>
+                        </form>
+                        </div>
+
+                        <div class="adminfunctions col-md-6">
+                            <div class="changepass my-4">
+                                <button type="button" id="editprobtn" class="logbtn">Edit Profile</button>
+                             </div>
+                            <div class="changepass my-4">
+                               <a href=""><button type="button" class="logbtn">Change Password</button></a>
+                            </div>
+                            <div class="changepass my-4">
+                                <button type="button" class="logbtn" id="logout">LOGOUT</button>
+                             </div>
+                        </div>
+                        <% } %>
+                        </div>
+                    </div>
+                    
+            </div>
+            </div>
+            </div>              
+      </section>
+
+
+
+
+
+      </main>
+    <script src="/public/js/adminprofile.js"></script>
+      <%- include('layouts/footer.ejs') %>

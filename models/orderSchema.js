@@ -7,19 +7,22 @@ const orderSchema = new mongoose.Schema({
     },
     user_id:{
         type:mongoose.Schema.Types.ObjectId,
+        ref:'User',
         required:true
     },
     address_id:{
         type:mongoose.Schema.Types.ObjectId,
+        ref:'address',
         required:true
     },
     status:{
         type:String,
-        default:"Pending"
+        default:"Processing"
     },
     products:[{
         product_id:{
             type:mongoose.Schema.Types.ObjectId,
+            ref:'product',
             required:true
         },
         qty:{
@@ -36,3 +39,7 @@ const orderSchema = new mongoose.Schema({
         required:true
     }
 })
+
+const Order = mongoose.model('order',orderSchema)
+
+module.exports = Order

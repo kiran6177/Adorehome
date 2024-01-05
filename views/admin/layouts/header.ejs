@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AdoreHome | ADMIN LOGIN</title>
+    <script>
+      if(window.location.replaceState)
+      {
+        window.location.replaceState(null,null,window.location.href)
+      }
+    </script>
     <link rel="icon" href="/public/images/favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="/public/css/adminstyle.css" type="text/css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -29,9 +35,9 @@
       </nav>
       <div class="searchbar" >
         <div class="searchcontent">
-        <form action="">
-        <input class="form-control me-2 searchbox pe-2" type="search" placeholder="Search for products." aria-label="Search" >
-        <button class="btn btn-outline-dark" type="button"><i class="fa-sharp fa-solid fa-magnifying-glass"></i></button>
+        <form action="/admin" method="post">
+        <input class="form-control me-2 searchbox pe-2" id="search" name="searchdata" type="search" placeholder="Search for products." aria-label="Search" >
+        <button class="btn btn-outline-dark" type="submit" id="searchbtn"><i class="fa-sharp fa-solid fa-magnifying-glass"></i></button>
         </form>
         <span class="close" ><button class="closebtn" id="closebtn">&times;</button></span>
     </div>

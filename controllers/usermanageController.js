@@ -59,9 +59,26 @@ const deleteuser = async (req, res) => {
   }
 };
 
+const userSearch = async (req,res)=>{
+  try {
+    const key = req.body.usersearch
+    const userdata = await User.find({$and:[{type:"user"},{$or:[{firstname:{$regex: new RegExp(key,'i')}},{lastname:{$regex:new RegExp(key,'i')}}]}]})
+    if(userdata.length > 0)
+    {
+      res.render('admin/userview',{udata:userdata})
+    }
+    else{
+      res.render('admin/users',{err:"No Users Found!!"})
+    }
+  } catch (error) {
+    console.log(error.message)
+  }
+}
+
 module.exports = {
   loaduserview,
   blockuser,
   unblockuser,
   deleteuser,
+  userSearch
 };
