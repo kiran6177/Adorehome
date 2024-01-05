@@ -10,15 +10,17 @@
                     <div class="card">
                         <div class="card-body addressbody ">
                             <div class="head"><h4 class="card-title  fw-bold my-4">Add Address</h4></div>
-                            <form action="/address/addaddress" method="post">
+                            <form action="/address/addaddress" id="addressform" method="post">
                                 <div class="combine my-4">
                                     <div class="addfield ">
                                     <label for="name">Name</label>
                                     <input type="text" id="name" name="name">
+                                    <p class="error1 mb-2" id="nameerror" style="display: none;"></p>
                                     </div>
                                     <div class="addfield ">
                                         <label for="mobile">Mobile</label>
                                         <input type="number" id="mobile" name="mobile">
+                                    <p class="error1 mb-2" id="mobileerror" style="display: none;"></p>
                                         </div>
                                 </div>
 
@@ -26,10 +28,14 @@
                                         <div class="addfield ">
                                         <label for="district">District</label>
                                         <input type="text" id="district" name="district">
+                                        <p class="error1 mb-2" id="districterror" style="display: none;"></p>
+
                                         </div>
                                         <div class="addfield ">
                                             <label for="pin">Pincode</label>
                                             <input type="number" id="pin" name="pincode">
+                                            <p class="error1 mb-2" id="pinerror" style="display: none;"></p>
+
                                         </div>
                                 </div>
 
@@ -38,25 +44,29 @@
                             <label for="country">Country</label>
                             <select name="country" class="form-control" id="country">                               
                                 <option value="" selected="selected">--Select Country--</option>
+                                
                             </select>
+                            <p class="error1 mb-2" id="countryerror" style="display: none;"></p>
                             </div>
                             <div class="addfield ">
                                 <label for="state">State</label>
                                 <select name="state" class="form-control" id="state">                               
                                     <option value="" selected="selected">--Select State--</option>
                                 </select>
+                                <p class="error1 mb-2" id="stateerror" style="display: none;"></p>
+
                                 </div>
                             </div>
 
                             <div class="addfield1 my-4">
                                 <label for="street">Street Address</label>
-                                <textarea name="streetAddress" id="street" cols="30" rows="5" class="form-control"></textarea>
-                                <p class="perror mb-2" id="error2" style="display: none;"></p>
+                                <textarea name="streetAddress" id="streetAddress" cols="30" rows="5" class="form-control"></textarea>
+                                <p class="perror mb-2" id="streeterror" style="display: none;"></p>
                             </div>
                             <div class="addfield1 my-4">
                                 <label for="landmark">Landmark</label>
                                 <textarea name="landmark" id="landmark" cols="30" rows="5" class="form-control"></textarea>
-                                <p class="perror mb-2" id="error2" style="display: none;"></p>
+                                <p class="perror mb-2" id="landerror" style="display: none;"></p>
                             </div>
 
                             <div class="subbtn mt-5 mb-4 text-center"><button type="submit">Add Address</button></div>
