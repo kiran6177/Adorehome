@@ -12,24 +12,24 @@ const userCheckoutController = require('../controllers/userCheckoutController')
 const userPaymentController = require('../controllers/userPaymentController')
 const userOrderController = require('../controllers/userOrderController')
 
-router.get('/',userController.loginredirect)
+router.get('/',userController.loginRedirect)
 
-router.get('/login',userAuth.isLogout,userController.loginload)
+router.get('/login',userAuth.isLogout,userController.loginLoad)
 router.post('/login',userAuth.isLogout,userController.login)
 router.get('/logout',userAuth.isLogin,userController.logout)
 
-router.get('/signup',userAuth.isLogout,userController.signupload)
+router.get('/signup',userAuth.isLogout,userController.signupLoad)
 router.post('/signup',userAuth.isLogout,userController.signup)
-router.get('/sendotp',userAuth.isLogout,userController.sendotp)
-router.get('/otpload',userAuth.isLogout,userController.otpload)
-router.post('/otpload',userAuth.isLogout,userController.verifyotp)
+router.get('/sendotp',userAuth.isLogout,userController.sendOtp)
+router.get('/otpload',userAuth.isLogout,userController.otpLoad)
+router.post('/otpload',userAuth.isLogout,userController.verifyOtp)
 
-router.get('/home',userAuth.isLogin,userController.loadhome)
-router.get('/otplogin',userAuth.isLogout,userController.otplogin)
-router.post('/otplogin',userAuth.isLogout,userController.verifyotplogin)
+router.get('/home',userAuth.isLogin,userController.loadHome)
+router.get('/otplogin',userAuth.isLogout,userController.otpLogin)
+router.post('/otplogin',userAuth.isLogout,userController.verifyOtpLogin)
 
-router.get('/products',userAuth.isLogin,userproductController.loadproducts)
-router.get('/products/viewproduct',userAuth.isLogin,userproductController.loadproductdetail)
+router.get('/products',userAuth.isLogin,userproductController.loadProducts)
+router.get('/products/viewproduct',userAuth.isLogin,userproductController.loadProductDetail)
 
 router.get('/category',userAuth.isLogin,userCategoryController.loadCategory)
 

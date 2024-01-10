@@ -1072,12 +1072,19 @@ transition: top 200ms ease-in;
     display: flex;
    
 }
+.mainsub{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
 .filters{
-    height: 100vh;
-    width: 15%;
+    height: 35%;
+    width: 100%;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.196);
     position: sticky;
-    padding: 65px 15px 0px 15px;
+    display: flex;
+    padding: 30px 0px;
+    margin-top: 30px;
 }
 .filters h5 {
     width: 250px;
@@ -1125,6 +1132,28 @@ transition: top 200ms ease-in;
     border: 1px solid #ff3f00;
     border-radius: 5px;
     background: none;
+}
+.head{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+.head .filterselect{
+    width: 20%;
+}
+.head select{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 100%;
+    padding: 8px 5px;
+}
+.head select option{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    padding: 8px 5px !important;
 }
 .products{
     width: 100%;
@@ -2113,6 +2142,7 @@ transition: top 200ms ease-in;
     padding: 10px 20px;
     border-radius: 10px;
 }
+
 .address{
     width: 50%;
 }
@@ -2326,6 +2356,14 @@ transition: top 200ms ease-in;
     background-color: white;
     color: black;
 }
+.cancelorderbtn{
+    padding: 5px 12px;
+    border: 1px solid #ff3f00;
+    border-radius: 5px;
+    background-color: white;
+    color: black;
+    font-size: 0.8rem;
+}
 .orderscard{
     display: flex;
     align-items: center;
@@ -2407,8 +2445,6 @@ transition: top 200ms ease-in;
     .orderscard{
         flex-direction: column;
     }
-}
-@media (max-width:768px) {
     .orderscard .table1{
         display: none;
     }

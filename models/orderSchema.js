@@ -15,10 +15,6 @@ const orderSchema = new mongoose.Schema({
         ref:'address',
         required:true
     },
-    status:{
-        type:String,
-        default:"Processing"
-    },
     products:[{
         product_id:{
             type:mongoose.Schema.Types.ObjectId,
@@ -28,6 +24,10 @@ const orderSchema = new mongoose.Schema({
         qty:{
             type:Number,
             required:true
+        },
+        status:{
+            type:String,
+            default:"Processing"
         }
     }],
     payment_method:{

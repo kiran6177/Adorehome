@@ -9,41 +9,50 @@ const loaduserview = async (req, res) => {
   }
 };
 
-const blockuser = async (req, res) => {
+const blockUnblockUser = async(req,res)=>{
   try {
-    const id = req.query.id;
-    const userblock = await User.findOneAndUpdate(
-      { _id: id, isActive: 1 },
-      { $set: { isActive: 0 } }
-    );
-    console.log(userblock);
-    if (userblock === null) {
-      res.json({ err: "Already Blocked !!" });
-    } else {
-      res.json({ data: "User Blocked !!" });
+    const {id} = req.query
+    const userStatus = await User.findById({_id:id})
+    if(userStatus!= null)
+    {
+      if(userStatus.isActive === 1)
+      {
+        const userblock = await User.findOneAndUpdate(
+          { _id: id},
+          { $set: { isActive: 0 }},{new:true} 
+        );
+        console.log(userblock)
+        if(userblock!==null)
+        {
+          res.json({blocked:"User Blocked"})
+        }
+        else{
+          res.json({err:"Error in Blocking"})
+        }
+      }
+      else{
+        const userunblock = await User.findOneAndUpdate(
+          { _id: id},
+          { $set: { isActive: 1 } },{new:true}
+        );
+        console.log(userunblock)
+        if(userunblock!==null)
+        {
+          res.json({unblocked:"User Unblocked"})
+        }
+        else{
+          res.json({err:"Error in Unblocking"})
+        }
+      }
     }
-  } catch (error) {
-    console.log(error.message);
-  }
-};
+    else{
 
-const unblockuser = async (req, res) => {
-  try {
-    const id = req.query.id;
-    const userunblock = await User.findOneAndUpdate(
-      { _id: id, isActive: 0 },
-      { $set: { isActive: 1 } }
-    );
-    console.log(userunblock);
-    if (userunblock === null) {
-      res.json({ err: "Already Unblocked!!" });
-    } else {
-      res.json({ data: "User unblocked !!" });
     }
   } catch (error) {
-    console.log(error.message);
+    console.log(error.message)
   }
-};
+}
+
 
 const deleteuser = async (req, res) => {
   try {
@@ -77,8 +86,7 @@ const userSearch = async (req,res)=>{
 
 module.exports = {
   loaduserview,
-  blockuser,
-  unblockuser,
   deleteuser,
-  userSearch
+  userSearch,
+  blockUnblockUser
 };

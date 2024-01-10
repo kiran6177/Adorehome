@@ -1,10 +1,21 @@
+const Category = require("../models/categorySchema");
 const Product = require("../models/productSchema");
 const User = require('../models/userSchema')
 
-const loadproducts = async (req, res) => {
+const loadProducts = async (req, res) => {
   try {
     const uid = req.userid
-    const pdata = await Product.find();
+    const existcatdata = await Category.find({status:"1"})
+    console.log(existcatdata)
+    let pdata = []
+    let products
+    for(let i = 0 ;i < existcatdata.length ; i++)
+    {
+       products = await Product.find({category_id:existcatdata[i]._id})
+      pdata.push(products)
+    }
+    console.log("products"+products)
+    console.log(pdata)
     const udata = await User.findById({_id:uid}).populate('cart.product_id')
     res.render("user/productslist", { products: pdata ,udata:udata});
   } catch (error) {
@@ -12,7 +23,7 @@ const loadproducts = async (req, res) => {
   }
 };
 
-const loadproductdetail = async (req, res) => {
+const loadProductDetail = async (req, res) => {
   try {
     const uid = req.userid
     const proid = req.query.id;
@@ -37,6 +48,6 @@ const loadproductdetail = async (req, res) => {
 };
 
 module.exports = {
-  loadproducts,
-  loadproductdetail,
+  loadProducts,
+  loadProductDetail,
 };

@@ -1,15 +1,19 @@
 const User = require('../models/userSchema')
 const bcrypt = require('bcrypt')
-
+const Order = require('../models/orderSchema')
+const mongoose = require('mongoose')
 
 const profileLoad = async (req,res)=>{
     try {
         const uid = req.userid
+        const orderDetails = await Order.aggregate([{$match:{user_id:new mongoose.Types.ObjectId(uid)}},{$count:'orderCount'}])
+        console.log(orderDetails)
+        const orderCount = orderDetails[0].orderCount
         const udata = await User.findById({_id:uid}).populate('cart.product_id')
         if(udata.length !=0)
         {
             // console.log(udata)
-        res.render('user/userprofile',{udata:udata})
+        res.render('user/userprofile',{udata:udata,orderCount:orderCount})
         }
         else{
             console.log("error in profilerender")

@@ -13,26 +13,27 @@
                                 <% locals.orderdata.products.forEach(element => { %>
                                 <div class="prodiv w-100"><img src="/assets/<%= element.product_id.mainimage %>" alt="" width="350px" height="350px">
                                 <h4><%= element.product_id.productname %></h4>
-                                <h6><%= element.product_id.description.split(',')[0] %></h6>
+                                <h6><%= element.product_id.description.split('.')[0] %></h6>
                                 <h6>Rs.<%= element.product_id.price %></h6>
                                 </div>
+                                <% if(element.status === "Delivered") { %>
+                                  <div class="delstat"><h3 class="fw-bold text-center">Delivered</h3>
+                                  <p>Your Order is Successfully Delivered.</p></div>
+                                  <% } else if(element.status === "Processing") { %>
+                                    <div class="processstat"><h3 class="fw-bold text-center">Processing</h3>
+                                    <p>Your Order is processing.</p></div>
+                                    <% } else if(element.status === "Shipped") { %>
+                                      <div class="shipstat"><h3 class="fw-bold text-center">Shipped</h3>
+                                      <p>Your Order is shipped.</p></div>
+                                      <% } else if(element.status === "Dispatched") {%>
+                                        <div class="dispstat"><h3 class="fw-bold text-center">Dispatched</h3>
+                                          <p>Your Order is dispatched.</p></div>
+                                        <% }else if(element.status === "Cancelled") {%>
+                                          <div class="cancelstat"><h3 class="fw-bold text-center">Cancelled</h3>
+                                            <p>Your Order is cancelled.</p></div>
+                                    <% } %>
                                 <%   }) %>
-                                <% if(locals.orderdata.status === "Delivered") { %>
-                                <div class="delstat"><h3 class="fw-bold text-center">Delivered</h3>
-                                <p>Your Order is Successfully Delivered.</p></div>
-                                <% } else if(locals.orderdata.status === "Processing") { %>
-                                  <div class="processstat"><h3 class="fw-bold text-center">Processing</h3>
-                                  <p>Your Order is processing.</p></div>
-                                  <% } else if(locals.orderdata.status === "Shipped") { %>
-                                    <div class="shipstat"><h3 class="fw-bold text-center">Shipped</h3>
-                                    <p>Your Order is shipped.</p></div>
-                                    <% } else if(locals.orderdata.status === "Dispatched") {%>
-                                      <div class="dispstat"><h3 class="fw-bold text-center">Dispatched</h3>
-                                        <p>Your Order is dispatched.</p></div>
-                                      <% }else if(locals.orderdata.status === "Cancelled") {%>
-                                        <div class="cancelstat"><h3 class="fw-bold text-center">Cancelled</h3>
-                                          <p>Your Order is cancelled.</p></div>
-                                  <% } %>
+                                
                                 
                             </div>
                         </div>

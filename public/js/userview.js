@@ -1,3 +1,4 @@
+
 const blockbtn = document.querySelectorAll('#blockbtn1')
 const unblockbtn = document.querySelectorAll('#unblockbtn1')
 
@@ -11,10 +12,10 @@ function block(id){
     .then( data =>{
         if(data)
         {   
-            if(data.data)
+            if(data.blocked)
             {
                 Swal.fire({
-                    title: data.data,
+                    title: data.blocked,
                     icon: "warning",
                     confirmButtonText:"OK"
                 }).then(res=>{
@@ -54,10 +55,10 @@ function unblock(id){
     .then( data =>{
         if(data)
         {   
-            if(data.data)
+            if(data.unblocked)
             {
                 Swal.fire({
-                    title: data.data,
+                    title: data.unblocked,
                     icon: "warning",
                     confirmButtonText:"OK"
                   }).then(res=>{
@@ -93,7 +94,24 @@ if(blockbtn){
     blockbtn.forEach(el =>{
         el.addEventListener('click',()=>{
             const id = el.dataset.uid
-            block(id)
+
+            Swal.fire({
+                title:"Are you Sure ??",
+                icon:"info",
+                showDenyButton:true,
+                showConfirmButton:true,
+                confirmButtonText:"Block",
+                denyButtonText:"Cancel"
+            }).then(res=>{
+                if(res.isConfirmed)
+                {
+                   block(id)
+                }
+                else if(res.isDenied)
+                {
+                    window.location.reload()
+                }
+            })
     })
     })
 }
@@ -103,7 +121,23 @@ if(unblockbtn){
         el.addEventListener('click',()=>{
             // console.log("called 0")
             const id = el.dataset.uid
-            unblock(id)
+            Swal.fire({
+                title:"Are you Sure ??",
+                icon:"info",
+                showDenyButton:true,
+                showConfirmButton:true,
+                confirmButtonText:"Unblock",
+                denyButtonText:"Cancel"
+            }).then(res=>{
+                if(res.isConfirmed)
+                {
+                   unblock(id)
+                }
+                else if(res.isDenied)
+                {
+                    window.location.reload()
+                }
+            })
     })
 
     })

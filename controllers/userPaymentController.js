@@ -19,13 +19,17 @@ const loadPayment = async (req,res)=>{
         let proext = []
         for(let i = 0;i < products.length; i++)
         {
-            let data = await Product.findById({_id:products[i].product_id})
-            proext.push({
-                product_id:data,
-                qty:products[i].qty
-            })
+            let data = await Product.findById({_id:products[i].product_id}).populate({path:'category_id',match:{status:"1"}})
+            if(data.category_id !== null)
+            {
+                proext.push({
+                    product_id:data,
+                    qty:products[i].qty
+                })
+            }
+            
         }
-        // console.log(proext)
+        //  console.log(proext)
         const udata = await User.findById({_id:uid}).populate('cart.product_id')
         
         const addData = await Address.findById({_id:addid})

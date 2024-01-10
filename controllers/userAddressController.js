@@ -11,6 +11,8 @@ const loadAddress = async (req,res)=>{
         res.render('user/manageaddress',{udata:udata,addData:addData})           
         }
         else{
+
+        res.render('user/manageaddress',{err:"No Addresses added!!"})           
             console.log("Cannot Fetch addresses");
         }
     } catch (error) {

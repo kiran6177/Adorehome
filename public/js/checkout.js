@@ -1,22 +1,27 @@
 const proceedbtn  = document.getElementById('proceedbtn')
 const crosscheck = document.querySelectorAll('.crosscheck')
+const prosum = document.getElementById('prosum')
+const ordertotal = document.getElementById('ordertotal')
 
+// console.log(prosum.innerHTML,ordertotal.innerHTML)
+const productstotal = parseInt(prosum.innerHTML.split('.')[1])
+const totalamount = parseInt(ordertotal.innerHTML.split('.')[1])
+console.log(productstotal,totalamount)
+
+let proprice = 0
+let proqty = 0
 crosscheck.forEach(el=>{
     el.addEventListener('click',()=>{
         const checkcards = el.closest('.checkcard')
+         proprice = checkcards.dataset.price
+         proqty = checkcards.dataset.qty
+        prosum.innerHTML = `Rs. ${productstotal - (proprice*proqty)}`
+        ordertotal.innerHTML = `Rs. ${totalamount - (proprice*proqty)}`
         checkcards.style.display = "none"
         
     })
 })
-// let products = []
-// id.forEach(el=>{
-//     let obj = {
-//         product_id: el.split(',')[0],
-//         qty:el.split(',')[1]
-//     }
-//     products.push(obj)
-// })
-// console.log(products)
+
 
 
 
@@ -32,13 +37,7 @@ proceedbtn.addEventListener('click',(e)=>{
         return pid
     })
 
-    // let id = []
-    // productsId.forEach(el=>{
-    //     if(el.style.display != "none" && el.value != "")
-    //     {
-    //         id.push(el.value) 
-    //     }
-    // })
+
     console.log(id)
     let addid;
 

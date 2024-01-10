@@ -29,23 +29,23 @@
                 <div class="row p-5">
                     <h6><img src="/public/images/pin.png" class="pin" alt=""> Our Products</h6>
                     <h2>Explore Our Products</h2>
-                    <% if(locals.products) { for(let i = 0;i < locals.products.length ; i++) { %>
-                    <% let desc = locals.products[i].description.split('.')[0] %>
-                    <% let pname = locals.products[i].productname.split(' ')[0] %>
+                    <% if(locals.products) { locals.products.forEach(element => { element.forEach(el => { %>
+                    <% let desc = el.description.split('.')[0] %>
+                    <% let pname = el.productname.split(' ')[0] %>
                     <div class="product col-md-3 mt-4"> 
                         <div class="card">
-                            <a href="/products/viewproduct?id=<%= locals.products[i]._id %>"><img src="/assets/<%= locals.products[i].mainimage %>" class="card-img-top" alt="..."></a>
+                            <a href="/products/viewproduct?id=<%= el._id %>"><img src="/assets/<%= el.mainimage %>" class="card-img-top" alt="..."></a>
                             <div class="card-body">
                               <h5 class="card-title cardhead"><%= pname %></h5>
                               <div class="carddesc"><p class="card-text"><%= desc %></p></div>
-                              <div class="cardprice"><p class="card-text ">Rs.<%= locals.products[i].price %></p></div>
+                              <div class="cardprice"><p class="card-text ">Rs.<%= el.price %></p></div>
                               <div class="wish wbtn"><i class="fa-regular fa-heart"></i></div>
                               <div class="wish1 wbtn"><i class="fa-solid fa-heart"></i></div>
-                            <div class="addcart"><button type="button" id="addcartbtn" data-proid="<%= locals.products[i]._id %>"><i class="fa-solid fa-cart-plus"></i></button></div>
+                            <div class="addcart"><button type="button" id="addcartbtn" data-proid="<%= el._id %>"><i class="fa-solid fa-cart-plus"></i></button></div>
                             </div>
                           </div>
                     </div>
-                    <% } } %>
+                    <% }); }); } %>
                     <button class="btn viewbtn my-4 text-center p-3"><a href="/products">View All Products</a></button>
                 </div>
             </div>

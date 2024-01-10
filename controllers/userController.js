@@ -1,28 +1,28 @@
 const User = require("../models/userSchema");
 const otpModel = require("../models/otpSchema");
 const jwttoken = require("../utils/jwt");
-const otp = require('../utils/otp')
+const Otp = require('../utils/otp')
 const mailer = require('../utils/mailer')
 const bcrypt = require('bcrypt');
 const Product = require("../models/productSchema");
 const saltRounds = 10;
+const Category = require('../models/categorySchema')
 
 
-const loginredirect = (req, res) => {
+const loginRedirect = (req, res) => {
   res.redirect("/login");
 };
 
-const loginload =async (req, res) => {
+const loginLoad =async (req, res) => {
   res.render("user/userlogin");
 };
 const login =async (req, res) => {
-    const email = req.body.email
-    const pwd = req.body.password
+    const {email,password} = req.body
     const loggeduser = await User.findOne({email:email,type:"user",isActive:1})
     
     if(loggeduser != null)
     {   
-        const passtrue = await bcrypt.compare(pwd,loggeduser.password)
+        const passtrue = await bcrypt.compare(password,loggeduser.password)
         if(passtrue)
         {
             res.redirect(`/otplogin?uid=${loggeduser._id}`)
@@ -36,14 +36,14 @@ const login =async (req, res) => {
     }
 };
 
-const signupload = (req, res) => {
+const signupLoad = (req, res) => {
   res.render("user/usersignup");
 };
 
 let calledpost
 
-const otpload = async (req,res)=>{
-    const uid = req.query.uid
+const otpLoad = async (req,res)=>{
+    const {uid} = req.query
     // console.log("otppload "+uid)
     calledpost = false
     try {
@@ -52,7 +52,7 @@ const otpload = async (req,res)=>{
         if(!calledpost)
         {   console.log("entered into called post")
             setTimeout(()=>{
-            deleteuser(uid)
+            deleteUser(uid)
         },120000)
     }
     else{
@@ -68,8 +68,8 @@ const otpload = async (req,res)=>{
 
 
 
-const otplogin = async (req,res)=>{
-    const uid = req.query.uid
+const otpLogin = async (req,res)=>{
+    const {uid} = req.query
     console.log("otppload "+uid)
     try {
     res.render("user/otplogin",{uid:uid})
@@ -80,7 +80,7 @@ const otplogin = async (req,res)=>{
 
 }
 
-async function deleteuser(uid){
+async function deleteUser(uid){
     try {
         const deleted  = await User.findOneAndDelete({_id:uid})
         if(deleted != null)
@@ -97,20 +97,16 @@ async function deleteuser(uid){
 }
 
 const signup = async (req,res) =>{
-   try{ const fname = req.body.firstname
-    const lname = req.body.lastname
-    const email = req.body.email
-    const mobile = req.body.countrycode + req.body.mobile
-    const pass1 = req.body.password
-    const pass2 = req.body.confirmpassword
-    if(pass1 === pass2)
+   try{ 
+    const {firstname,lastname,email,countrycode,mobile,password,confirmpassword} = req.body
+    if(password === confirmpassword)
     {   
-        const hashedpass =await bcrypt.hash(pass1,saltRounds)
+        const hashedpass =await bcrypt.hash(password,saltRounds)
         const user = {
-            firstname:fname,
-            lastname:lname,
-            email:email,
-            mobile:mobile,
+            firstname,
+            lastname,
+            email,
+            mobile:countrycode+mobile,
             password:hashedpass,
         }
 
@@ -145,16 +141,17 @@ const signup = async (req,res) =>{
 
 }
 
-const sendotp =  async (req,res) =>{
-try{    const uid = req.query.uid
+const sendOtp =  async (req,res) =>{
+try{    const {uid} = req.query
     console.log(uid+"from fetch")
     const udata = await User.findById({_id:uid})
     if(udata != null)
     {   
         const email = udata.email
         const userID = udata._id
-        const OTP =  otp.createOTP()
-        const hashedOTP = await otp.hashOTP(OTP)
+        const OTP =  Otp.createOTP()
+        console.log(OTP)
+        const hashedOTP = await Otp.hashOTP(OTP)
         console.log(hashedOTP)
         const otptosave = {
             user_id:userID,
@@ -171,7 +168,7 @@ try{    const uid = req.query.uid
             if(mailres)
             {
             res.json({data:"OTP send successfully!!"})
-            setTimeout(()=>{otp.removeOTP(savedOTP._id)},60000)
+            setTimeout(()=>{Otp.removeOTP(savedOTP._id)},60000)
             }
             else{
                 res.json({err:"Error in sending mail!! Try Again."})
@@ -192,15 +189,14 @@ catch(error)
 }
 }
 
-const verifyotplogin = async (req,res)=>{
+const verifyOtpLogin = async (req,res)=>{
     try {
-        const otpfrom = req.body.otp
-        const uid = req.body.uid
+        const {otp,uid} = req.body
         const hashed = await otpModel.findOne({user_id:uid})
         if(hashed != null)
         {   console.log("hashed"+hashed)
          
-            const isverified = await otp.verifyOTP(otpfrom,hashed.otp)
+            const isverified = await Otp.verifyOTP(otp,hashed.otp)
             console.log(isverified)
 
             if(isverified)
@@ -236,14 +232,14 @@ const verifyotplogin = async (req,res)=>{
 }
 
 
-const verifyotp = async (req,res)=>{
+const verifyOtp = async (req,res)=>{
     try {
-        const otpfrom = req.body.otp
-        const uid = req.body.uid
+        const {otp,uid} = req.body
+        
         const hashed = await otpModel.findOne({user_id:uid})
         if(hashed != null)
         {
-            const isverified =await otp.verifyOTP(otpfrom,hashed.otp)
+            const isverified =await Otp.verifyOTP(otp,hashed.otp)
             if(isverified)
             {
                 const userconfirm = await User.findByIdAndUpdate({_id:uid},{$set:{isActive:1}})
@@ -276,13 +272,21 @@ const verifyotp = async (req,res)=>{
     }
 }
 
-const loadhome = async(req,res)=>{
+const loadHome = async(req,res)=>{
     try {
         const uid = req.userid
         // console.log("home "+uid)
-        const data = await User.findById({_id:uid}).populate('cart.product_id')
-        // console.log(data.cart)
-        const pdata = await Product.find().limit(8)
+        const data = await User.findById({_id:uid}).populate({path:'cart.product_id'})
+        console.log(data.cart)
+        const existcatdata = await Category.find({status:"1"})
+        console.log(existcatdata)
+        let pdata = []
+        let products
+        for(let i = 0 ;i < existcatdata.length ; i++)
+        {
+           products = await Product.find({category_id:existcatdata[i]._id})
+          pdata.push(products)
+        }
         // console.log(data)
         res.render('user/home',{products:pdata,udata:data})
     } catch (error) {
@@ -300,16 +304,16 @@ const logout = async (req,res)=>{
 }
 
 module.exports = {
-  loginredirect,
-  loginload,
+  loginRedirect,
+  loginLoad,
   login,
-  signupload,
-  sendotp,
+  signupLoad,
+  sendOtp,
   signup,
-  otpload,
-  verifyotp,
-  verifyotplogin,
-  loadhome,
-  otplogin,
+  otpLoad,
+  verifyOtp,
+  verifyOtpLogin,
+  loadHome,
+  otpLogin,
   logout
 };

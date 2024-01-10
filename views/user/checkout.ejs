@@ -11,10 +11,10 @@
                         <div class="card-body checkaddbody">
                             <div class="head"><h4 class="card-title  fw-bold my-4">Select Address</h4> <a href="/address/addaddress"><button type="button">Add Address</button></a></div>
                             
-                            <% if(locals.addData && locals.addData.length > 0) { locals.addData.forEach(element => { %>
+                            <% if(locals.addData && locals.addData.length > 0) { locals.addData.forEach((element,index) => { %>
                             <div class="card my-4">
                                 <div class="card-body addresscard">
-                                    <input type="radio" class="addressradio" name="address" value="<%=element._id %>">
+                                    <input type="radio" class="addressradio" name="address" value="<%=element._id %>" <% if(index === 0){ %> checked <% } %>>
                                     <div class="address">
                                         <h6>Name : <%= element.name %></h6>
                                         <p>Mobile : <%= element.mobile %></p>
@@ -55,9 +55,9 @@
                             <div class="cartdetails">
                                 <h4 class="card-title  fw-normal ">Product Details</h4>
                                 <% if(locals.udata && locals.udata.cart && locals.udata.cart.length > 0) { locals.udata.cart.forEach(element => { %>
-                                <div class="card  col-lg-6 col-xl-12 my-4 checkcard">
+                                <div class="card  col-lg-6 col-xl-12 my-4 checkcard" data-price="<%= element.product_id.price %>" data-qty="<%= element.qty %>">
                                     <div class="card-body checkpro">
-                                        <input type="hidden" class="productsId" value="<%= element.product_id._id %>,<%= element.qty %>">
+                                    <input type="hidden" class="productsId" value="<%= element.product_id._id %>,<%= element.qty %>">
                                     <a href=""><img src="/assets/<%= element.product_id.mainimage %>" alt="" width="70px" height="70px"></a>
                                         <div class="checkprodet"><h5><%= element.product_id.productname %></h5> <p><%= element.product_id.description.split(',')[0] %></p><p><%= element.product_id.price %></p></div>
                                         <div class="checkproqty mt-2 mt-sm-0"><h6>Quantity</h6><p><%= element.qty %> Items</p></div>
@@ -76,7 +76,7 @@
                             <h6>Products</h6>
                             <% let tot = locals.udata.cart.map(el=>{ return el.product_id.price * el.qty }) %>
                             <% let prosum = tot.reduce((acc,curr) => { return acc + curr}) %>
-                                <p>Rs.<%= prosum %></p>
+                                <p id="prosum">Rs.<%= prosum %></p>
                             </div>
                             <div class="checkdisc">
                                 <h6>Discount</h6>
@@ -87,7 +87,7 @@
                                 <p>Rs. 0</p>
                             </div>
                                   <hr>
-                                  <div class="checktotal"><h6>Total Amount</h6><p>Rs.<%= prosum %></p></div>
+                                  <div class="checktotal"><h6>Total Amount</h6><p id="ordertotal">Rs.<%= prosum %></p></div>
                                   <% } %>
                           <div class="proceedbtn my-5 text-center " id="proceedbtn"><a href="/payment"><button>Proceed To Payment</button></a></div>
                                   

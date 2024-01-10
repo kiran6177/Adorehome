@@ -17,9 +17,9 @@ const loadproducts = async (req,res)=>{
 }
 const loadaddproducts = async (req,res)=>{
     try{
-    const bdata = await Brand.find()
-    const cdata = await Category.find()
-    const rdata = await Room.find()
+    const bdata = await Brand.find({status:"1"})
+    const cdata = await Category.find({status:"1"})
+    const rdata = await Room.find({status:"1"})
     res.render("admin/addproduct",{brand:bdata,category:cdata,room:rdata})
 }catch(error)
 {
@@ -31,12 +31,12 @@ const addproducts = async (req,res)=>{
     const {productname,description,color,brandname,procategory,roomcategory,price,stock,offer} = req.body
 
     const main = req.files['mainimage'][0].filename
-    const img1 = req.files['img1'][0].filename
-    const img2 = req.files['img2'][0].filename
-    const img3 = req.files['img3'][0].filename
-    const img4 = req.files['img4'][0].filename
-
-    const img = [img1,img2,img3,img4]
+    let img = []
+    req.files['imgs'].forEach(element => {
+        img.push(element.filename)
+    })
+    console.log(main)
+    console.log(img)
 
     const prodata = {
         productname,
@@ -72,11 +72,14 @@ catch(error)
 const loadeditproducts = async (req,res)=>{
     try {
         const pid = req.query.id
+        const bdata = await Brand.find({status:"1"})
+        const cdata = await Category.find({status:"1"})
+        const rdata = await Room.find({status:"1"})
         const pdata = await Product.findById({_id:pid}).populate('brand_id category_id room_id')
          console.log(pdata)
         if(pdata)
         {
-        res.render('admin/editproduct',{prodata:pdata})
+        res.render('admin/editproduct',{prodata:pdata,bdata:bdata,cdata:cdata,rdata:rdata})
         }
         else{
             console.log("No Product data")
@@ -88,26 +91,34 @@ const loadeditproducts = async (req,res)=>{
 
 const editproducts = async (req,res)=>{
     try {
-        const {proid,productname,description,color,brandname,procategory,roomcategory,price,stock,offer,oldmain,oldimg1,oldimg2,oldimg3,oldimg4} = req.body
+    const {proid,productname,description,color,brandname,procategory,roomcategory,price,stock,offer,oldmain,oldimg1,oldimg2,oldimg3,oldimg4} = req.body
+        console.log("old"+oldimg1)
+        console.log("old"+oldimg2)
 
-    // console.log("hi"+oldimg2)
     let main
     let img1
     let img2
     let img3
     let img4
     const file = req.files
+    // console.log(req.files)
     if(req.files.mainimage)
     {   if(oldmain!== "")
     {
         await fs.unlink(path.join(__dirname,'../assets',oldmain))
     }
-         main = req.files.mainimage[0].filename
+    console.log("entrerd")     
+    main = req.files.mainimage[0].filename
+    console.log("entrerd1")     
+
     }
     else{
         main = null
     }
-    if(req.files.img1)
+    if(req.files)
+    {
+        console.log(req.files)
+        if(req.files.img1)
     {   if(oldimg1!== ''){
         await fs.unlink(path.join(__dirname,'../assets',oldimg1))
         }
@@ -134,7 +145,8 @@ const editproducts = async (req,res)=>{
         }
         img4 = req.files.img4[0].filename
     }
-
+    }
+    console.log("hdhhd")
     const prodata = {
         productname,
         description,
@@ -201,11 +213,60 @@ const deleteproduct = async (req,res)=>{
     }
 }
 
+const removeImage = async (req,res)=>{
+    try {
+        const {id,img,mainimg,pos} = req.query
+        console.log(id,img,mainimg)
+        if(mainimg === undefined)
+        {   
+            let remData
+            console.log(pos)
+            if(pos == 0)
+            {
+                 remData = await Product.findOneAndUpdate({_id:id},{$set:{'image.0':""}})
+            }
+            else if(pos==1)
+            {
+                 remData = await Product.findOneAndUpdate({_id:id},{$set:{'image.1':""}})
+            }
+            else if(pos==2)
+            {
+                 remData = await Product.findOneAndUpdate({_id:id},{$set:{'image.2':""}})
+            }
+            else{
+                 remData = await Product.findOneAndUpdate({_id:id},{$set:{'image.3':""}})
+            }
+        if(remData!= null)
+        {
+            res.json({data:"Image removed Succesfully!!"})
+        }
+        else{
+            res.json({err:"Error in Removing!!"})
+        }
+        }
+        else{
+            console.log("mainimage")
+        const remData = await Product.findOneAndUpdate({_id:id},{$set:{'mainimage':""}})
+        if(remData!= null)
+        {
+            res.json({data:"Image removed Succesfully!!"})
+        }
+        else{
+            res.json({err:"Error in Removing!!"})
+        }
+        }
+        
+    } catch (error) {
+        console.log(error.message)
+    }
+}
+
 module.exports = {
     loadproducts,
     loadaddproducts,
     addproducts,
     loadeditproducts,
     editproducts,
-    deleteproduct
+    deleteproduct,
+    removeImage
 }

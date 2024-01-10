@@ -815,10 +815,50 @@ transition: top 200ms ease-in;
 .proform input , .proform textarea , .proform select{
     margin: 0px 0px 20px 0px;
 }
+.inplab
+{
+    width: 50%;
+}
 .imgdiv{
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+.imgtxt{
+    position: relative;
+}
+.remclose{
+    position: absolute;
+    top: 0;
+    right: 0.5rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+.remclose1{
+    position: absolute;
+    top: 0;
+    right: 0.5rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+.imgtxt1{
+    position: relative;
+}
+.imgtxt1 img{
+    aspect-ratio: 1/1;
+}
+.imgpre{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    place-items: center;
+    width: 50%;
+}
+.preview1{
+    width: 50%;
+}
+.preview2
+{
+    width: 100%;
 }
 .probtn{
     display: flex;
@@ -901,6 +941,18 @@ transition: top 200ms ease-in;
     background: none;
     color: black;
 }
+@media (max-width:1092px) {
+    .imgdiv{
+        flex-direction: column;
+        
+    }
+    .imgpre {
+        width: 100% !important;
+    }
+    .inplab{
+        width: 100%;
+    }
+}
 @media (max-width:768px){
     .catform{
         flex-direction: column;
@@ -911,6 +963,10 @@ transition: top 200ms ease-in;
     }
     .catbtn button{
         width: 50%;
+    }
+    .imgpre{
+    grid-template-columns: repeat(1,1fr);
+
     }
 }
 
@@ -1130,4 +1186,35 @@ transition: top 200ms ease-in;
     .prodiv span{
         width: 100px;
     }
+}
+
+
+.pagemain{
+    width: 100%;
+}
+.pageblock
+{
+    display: flex;
+    max-width: 250px;
+    align-items: center;
+    justify-content: space-around;
+    height: 2.5em;
+}
+.pagenums{
+    height: 100%;
+    display: flex;
+    width: 70%;
+    justify-content: space-evenly;
+}
+.pageblock button {
+    height: 100%;
+    width: 2.7em;
+    color: black;
+    background-color: #ffccbc;
+    border-radius: 50%;
+    border: 1px solid #ffccbc;
+}
+ .selectedbtn{
+    background-color: #ff3f00 !important;
+    color: white !important;
 }

@@ -11,7 +11,7 @@ const loadCart = async (req,res)=>{
 const addToCart = async (req,res)=>{
     try{const uid = req.userid
     const {proid,qty} = req.query
-    const isExist = await User.find({'cart.product_id':proid})
+    const isExist = await User.find({_id:uid,'cart.product_id':proid})
     // console.log(isExist)
     if(isExist.length === 0)
     {   const pdata = await Product.findById({_id:proid})

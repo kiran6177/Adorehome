@@ -1,9 +1,9 @@
 const cancelorderbtn = document.querySelectorAll('.cancelorderbtn')
 
 
-async function cancelOrder(oid)
+async function cancelOrder(oid,pid)
 {
-    const res = await fetch(`/orders/cancel?id=${oid}`)
+    const res = await fetch(`/orders/cancel?oid=${oid}&pid=${pid}`)
     const data = await res.json()
     if(data.data)
     {
@@ -28,7 +28,8 @@ async function cancelOrder(oid)
 cancelorderbtn.forEach(el=>{
     el.addEventListener('click',()=>{
         let orderId = el.dataset.orderid
-        console.log(orderId)
-        cancelOrder(orderId)
+        let proid = el.dataset.proid
+        console.log(orderId,proid)
+        cancelOrder(orderId,proid)
     })
 })

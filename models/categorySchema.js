@@ -12,6 +12,11 @@ const categorySchema = new mongoose.Schema({
     image:{
         type:String,
         required:true
+    },
+    isListed:{
+        type:Number,
+        required:true,
+        default:0
     }
 })
 

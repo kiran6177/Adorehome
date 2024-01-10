@@ -4,10 +4,8 @@ const color = document.getElementById('color')
 const price = document.getElementById('price')
 const stock = document.getElementById('stock')
 const main = document.getElementById('mainimage')
-const img1 = document.getElementById('img1')
-const img2 = document.getElementById('img2')
-const img3 = document.getElementById('img3')
-const img4 = document.getElementById('img4')
+const imgs = document.getElementById('imgs')
+
 
 const error1 = document.getElementById('error1')
 const error2 = document.getElementById('error2')
@@ -20,6 +18,9 @@ const error8 = document.getElementById('error8')
 const error9 = document.getElementById('error9')
 const error10 = document.getElementById('error10')
 const proform = document.getElementById('proform')
+
+const preview1 = document.getElementById('preview1')
+const preview2 = document.getElementById('preview2')
 
 function pnameval(data)
 {
@@ -100,11 +101,16 @@ function stockval(data)
     }
 }
 
-function mainval(data)
+function mainval(data,mmtype)
 {
     if(data === 0)
     {
         error6.innerHTML = "Please select an Image."
+        error6.style.display = "block"
+    }
+    else if(!mmtype.startsWith('image/'))
+    {
+        error6.innerHTML = "Please select Image Files Only."
         error6.style.display = "block"
     }
     else{
@@ -113,11 +119,24 @@ function mainval(data)
     }
 }
 
-function img1val(data)
-{
-    if(data === 0)
+function imgsval(data,files)
+{   
+    let imgdat = []
+    for(let element of files){
+        if(!element.type.startsWith('image/'))
+        {
+            imgdat.push(element) 
+        }
+    }
+    console.log(imgdat)
+    if(data !== 4)
     {
-        error7.innerHTML = "Please select an Image."
+        error7.innerHTML = "Please select 4 Images."
+        error7.style.display = "block"
+    }
+    else if(imgdat.length > 0)
+    {   
+        error7.innerHTML = "Please select  Images Only."
         error7.style.display = "block"
     }
     else{
@@ -126,44 +145,7 @@ function img1val(data)
     }
 }
 
-function img2val(data)
-{
-    if(data === 0)
-    {
-        error8.innerHTML = "Please select an Image."
-        error8.style.display = "block"
-    }
-    else{
-        error8.innerHTML = ""
-        error8.style.display = "none"
-    }
-}
 
-function img3val(data)
-{
-    if(data === 0)
-    {
-        error9.innerHTML = "Please select an Image."
-        error9.style.display = "block"
-    }
-    else{
-        error9.innerHTML = ""
-        error9.style.display = "none"
-    }
-}
-
-function img4val(data)
-{
-    if(data === 0)
-    {
-        error10.innerHTML = "Please select an Image."
-        error10.style.display = "block"
-    }
-    else{
-        error10.innerHTML = ""
-        error10.style.display = "none"
-    }
-}
 
 
 pname.addEventListener('keyup',()=>{
@@ -211,26 +193,19 @@ stock.addEventListener('blur',()=>{
     stockval(sdata)
 })
 
-main.addEventListener('blur',()=>{
+main.addEventListener('change',()=>{
     const mdata = main.files.length
-    mainval(mdata)
+    const mmtype = main.files[0].type
+    console.log(mmtype)
+    mainval(mdata,mmtype)
 })
-img1.addEventListener('blur',()=>{
-    const i1data = img1.files.length
-    img1val(i1data)
+imgs.addEventListener('change',()=>{
+    const i1data = imgs.files.length
+    const fileval = imgs.files
+    console.log(fileval)
+    imgsval(i1data,fileval)
 })
-img2.addEventListener('blur',()=>{
-    const i2data = img2.files.length
-    img2val(i2data)
-})
-img3.addEventListener('blur',()=>{
-    const i3data = img3.files.length
-    img3val(i3data)
-})
-img4.addEventListener('blur',()=>{
-    const i4data = img4.files.length
-    img4val(i4data)
-})
+
 
 proform.addEventListener('submit',(e)=>{
     const pdata = pname.value
@@ -239,24 +214,97 @@ proform.addEventListener('submit',(e)=>{
     const prdata = price.value
     const sdata = stock.value
     const mdata = main.files.length
-    const i1data = img1.files.length
-    const i3data = img3.files.length
-    const i2data = img2.files.length
-    const i4data = img4.files.length
+    const i1data = imgs.files.length
+    const mtype = main.files[0].type
 
-    img4val(i4data)
-    img2val(i2data)
-    img3val(i3data)
-    img1val(i1data)
-    mainval(mdata)
+
+    imgsval(i1data)
+    mainval(mdata,mtype)
     stockval(sdata)
     priceval(prdata)
     colorval(cdata)
     descval(ddata)
     pnameval(pdata)
 
-    if(error1.innerHTML !=="" || error2.innerHTML !=="" || error3.innerHTML !=="" || error4.innerHTML !=="" || error5.innerHTML !=="" || error6.innerHTML !=="" || error7.innerHTML !=="" || error8.innerHTML !==""|| error9.innerHTML !=="" || error10.innerHTML !=="")
+    if(error1.innerHTML !=="" || error2.innerHTML !=="" || error3.innerHTML !=="" || error4.innerHTML !=="" || error5.innerHTML !=="" || error6.innerHTML !=="" || error7.innerHTML !=="" )
     {
         e.preventDefault()
     }
+})
+
+
+function loadMain(event,preview1)
+{   
+    if(preview1.hasChildNodes())
+    {
+        while(preview1.firstChild)
+        {
+            preview1.removeChild(preview1.firstChild)
+        }
+    }
+    const files = event.target.files
+    console.log(files)
+    
+    if(files && files[0])
+    {
+        const reader = new FileReader()
+
+        reader.onload = function (e)
+        {
+  
+            const mainpre = document.createElement('img')
+            mainpre.style.aspectRatio = '1/1'
+            mainpre.style.width = "200px"
+            mainpre.style.height = "200px"
+            
+            mainpre.src = e.target.result
+
+            preview1.appendChild(mainpre)
+        }
+
+        reader.readAsDataURL(files[0])
+    }
+}
+
+main.addEventListener('change',(e)=>{
+    loadMain(e,preview1)
+})
+
+
+function loadMain1(event,preview2)
+{   
+    if(preview2.hasChildNodes())
+    {
+        while(preview2.firstChild)
+        {
+        preview2.removeChild(preview2.firstChild)
+        }
+    }
+    const files = event.target.files
+    console.log(files.length)
+    if(files && files.length === 4)
+    {
+        for(let element of files) {
+            
+           
+        const reader = new FileReader()
+
+        reader.onload = function (e)
+        {   
+            
+            const imgpre = document.createElement('img')
+            imgpre.src = ""
+            imgpre.src = e.target.result
+            imgpre.style.width = "200px"
+            imgpre.style.height = "200px"
+            preview2.appendChild(imgpre)
+        }
+
+        reader.readAsDataURL(element)
+    };
+    }
+}
+
+imgs.addEventListener('change',(e)=>{
+    loadMain1(e,preview2)
 })

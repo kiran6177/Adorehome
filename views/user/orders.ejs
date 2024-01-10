@@ -10,11 +10,7 @@
                 <% if(locals.orderdata && locals.orderdata.length > 0) { locals.orderdata.forEach(element => { %>
                 <div class="card ordersmain p-0 my-4">
                     <div class="ordertitle"><h4>Order ID : #<%= element._id %></h4><div class="ordertitle2"><a href="/orders/summary?id=<%= element._id %>"><button type="button">View Order Summary</button></a>
-                      <% if(element.status === "Delivered") { %>
-                        <a href="/orders/return?id=<%= element._id %>"><button type="button">Return</button></a>
-                        <% } else { %>
-                          <button type="button" class="cancelorderbtn" data-orderid="<%= element._id %>">Cancel Order</button>
-                          <% } %>
+                     
                       </div></div>
                     <% if(element.products && element.products.length > 0) { element.products.forEach(el => { %>
                     <div class="card-body orderscard ">
@@ -27,6 +23,7 @@
                                 <th>Unit Price</th>
                                 <th>Total Price</th>
                                 <th>Status</th>
+                                <th>Action</th>
                             </tr>
                             <tr>
                                 <td class="td1"><%= element.date.toString().split(' ')[2] %>&nbsp;<%= element.date.toString().split(' ')[1] %>&nbsp;<%= element.date.toString().split(' ')[3] %>&nbsp;</td>
@@ -34,18 +31,25 @@
                                 <td class="td3"><%= el.qty %></td>
                                 <td class="td4">Rs.<%= el.product_id.price %></td>
                                 <td class="td5">Rs.<%= el.qty * el.product_id.price %></td>
-                                <td class="td6"> <% if(element.status === "Processing") { %>
+                                <td class="td6"> <% if(el.status === "Processing") { %>
                                   <span class="stat1">Processing</span>
-                                  <% } else if(element.status === "Delivered") { %>
+                                  <% } else if(el.status === "Delivered") { %>
                                   <span class="stat">Delivered</span>
-                                  <% } else if(element.status === "Dispatched") { %> 
+                                  <% } else if(el.status === "Dispatched") { %> 
                                   <span class="stat2">Dispatched</span>
-                                  <% } else if(element.status === "Shipped") { %>
+                                  <% } else if(el.status === "Shipped") { %>
                                     <span class="stat3">Shipped</span>
-                                  <% } else if(element.status === "Cancelled") { %>
+                                  <% } else if(el.status === "Cancelled") { %>
                                     <span class="stat4">Cancelled</span>
                                   <% } %>
                                     
+                                </td>
+                                <td class="td6"> 
+                                  <% if(el.status === "Delivered") { %>
+                                    <a href="/orders/return?id=<%= el.product_id._id %>"><button type="button">Return</button></a>
+                                    <% } else { %>
+                                      <button type="button" class="cancelorderbtn" data-orderid="<%= element._id %>" data-proid="<%= el.product_id._id %>">Cancel Order</button>
+                                      <% } %>
                                 </td>
                             </tr>
                         </table>
@@ -56,18 +60,25 @@
                             <tr><th>Unit Price</th><td class="td4">Rs.<%= el.product_id.price %></td></tr>
                             <tr><th>Total Price</th><td class="td5">Rs.<%= el.qty * el.product_id.price %></td></tr>
                             <tr><th>Status</th><td class="td6">
-                              <% if(element.status === "Processing") { %>
+                              <% if(el.status === "Processing") { %>
                                 <span class="stat1">Processing</span>
-                                <% } else if(element.status === "Delivered") { %>
+                                <% } else if(el.status === "Delivered") { %>
                                 <span class="stat">Delivered</span>
-                                <% } else if(element.status === "Dispatched") { %> 
+                                <% } else if(el.status === "Dispatched") { %> 
                                 <span class="stat2">Dispatched</span>
-                                <% } else if(element.status === "Shipped") { %>
+                                <% } else if(el.status === "Shipped") { %>
                                   <span class="stat3">Shipped</span>
-                                <% } else if(element.status === "Cancelled") { %>
+                                <% } else if(el.status === "Cancelled") { %>
                                   <span class="stat4">Cancelled</span>
                                 <% } %>
                               
+                            </td></tr>
+                            <tr><th>Action</th><td>
+                              <% if(el.status === "Delivered") { %>
+                                <a href="/orders/return?id=<%= el.product_id._id %>"><button type="button">Return</button></a>
+                                <% } else { %>
+                                  <button type="button" class="cancelorderbtn" data-proid="<%= el.product_id._id %>">Cancel Order</button>
+                                  <% } %>
                             </td></tr>
                         </table>
                     </div>
@@ -77,11 +88,12 @@
                 </div>
 
                 <%  }); } else { %>
-                      <div class="card ordersmain p-0">
-                          <div class="card-body orderscard">
-                            <div class="card-title">No Orders Placed.</div>
-                          </div>
-                      </div>
+                  <div class="card-body h-100 d-flex justify-content-center align-items-center ordersmain">
+                  <div class="card-title d-flex flex-column justify-content-center align-items-center ">
+                    <img src="/public/images/oops.png" alt="" width="300rem" height="300rem">
+                    <h2>No Orders Placed!!</h2>
+                  </div>
+                </div>
                   <% } %>
               </div>
           </div>

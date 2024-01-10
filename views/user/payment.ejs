@@ -93,7 +93,7 @@
                             </div>
                             <div class="checkpricepro">
                             <h6>Products</h6>
-                            <% let tot = locals.udata.cart.map(el=>{ return el.product_id.price * el.qty }) %>
+                            <% let tot = locals.proext.map(el=>{ return el.product_id.price * el.qty }) %>
                             <% let prosum = tot.reduce((acc,curr) => { return acc + curr}) %>
                             <p>Rs.<%= prosum %></p>
                             </div>
@@ -108,7 +108,49 @@
                                   <hr>
                                   <div class="checktotal"><h6>Total Amount</h6><p>Rs.<%= prosum %></p></div>
                           <!-- <div class="proceedbtn my-5 text-center "><a href="">Proceed To Payment</a></div> -->
-                                  <% } %>
+                                  <% }else { %>
+                                    <div class="card border-0 col-lg-6 col-xl-12 my-4">
+                                        <div class="card-body checkpro">
+                                            <h3 class="text-danger">Products Unavailable!!</h3>
+                                        </div>
+                                    </div>
+
+                                    <hr class="my-4">
+                                    <h4 class="card-title  fw-normal ">Delivery Details</h4>
+                                    <div class="addp">
+                                    <% if(locals.addData) { %>
+                                    <p><%= locals.addData.name %> </p>
+                                    <p><%= locals.addData.mobile %></p>
+                                    <p><%= locals.addData.landmark %>,<%= locals.addData.streetAddress %></p>
+                                    <p><%= locals.addData.district %>,<%= locals.addData.state %>,<%= locals.addData.country %></p>
+                                    <p><%= locals.addData.pincode %></p>
+                                    <% } %>
+                                    </div>
+                                    <hr>
+                                    <h4 class="card-title mt-4 mb-4 fw-normal ">Coupon</h4>
+                                    <form action="" class="couponform">
+                                    <input type="text" id="coupon" name="coupon" >
+                                    <button type="button"  >Apply Coupon</button>
+                                    </form>
+                                    <hr class="my-4">
+                                    <h4 class="card-title mt-5 mb-4 fw-normal ">Order Summary</h4>
+                                </div>
+                                <div class="checkpricepro">
+                                <h6>Products</h6>
+                                
+                                <p>Rs.0</p>
+                                </div>
+                                <div class="checkdisc">
+                                    <h6>Discount</h6>
+                                    <p>Rs.0</p>
+                                </div>
+                                <div class="checkdel">
+                                    <h6>Delivery Charges</h6>
+                                    <p>Rs.0</p>
+                                </div>
+                                      <hr>
+                                      <div class="checktotal"><h6>Total Amount</h6><p>Rs.0</p></div>
+                                    <% } %>
                                 </div>
                             </div>
 
