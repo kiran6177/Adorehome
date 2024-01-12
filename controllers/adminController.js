@@ -1,5 +1,8 @@
 const User = require("../models/userSchema");
 const Product = require('../models/productSchema')
+const Order = require('../models/orderSchema')
+
+const filter = require('../utils/cronFilter')
 
 const jwttoken = require("../utils/jwt");
 const bcrypt = require('bcrypt')
@@ -39,8 +42,22 @@ const login = async (req,res)=>{
 }
 
 const loadhome = async (req,res)=>{
+    try{
+    const monthLimit = filter.currentMonth()
 
-    res.render("admin/dashboard")
+    const userCount = await User.aggregate([{$match:{date:{$gte:monthLimit.start,$lt:monthLimit.end},type:{$ne:"admin"}}},{$count:'users'}])
+    const ucount = userCount[0].users.toString()
+    const orderCount = await Order.aggregate([{$match:{date:{$gte:monthLimit.start,$lt:monthLimit.end},payment_status:"Paid"}},{$count:'orders'}])
+    const ocount = orderCount[0].orders.toString()
+    const productCount = await Order.aggregate([{$match:{date:{$gte:monthLimit.start,$lt:monthLimit.end}}},{$unwind:'$products'},{$group:{_id:null,qty:{$sum:'$products.qty'}}},{$project:{_id:0,qty:1}}])
+     const pcount = productCount[0].qty.toString() 
+    console.log(pcount)
+    res.render("admin/dashboard",{userCount:ucount,orderCount:ocount,productCount:pcount})
+    }
+    catch(err)
+    {
+        console.log(err.message)
+    }
 }
 
 

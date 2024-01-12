@@ -1,6 +1,10 @@
 const mongoose = require('mongoose')
 
 const productSchema = new mongoose.Schema({
+    date:{
+        type:Date,
+        default:Date.now()
+    },
     productname:{
         type:String,
         required:true
