@@ -11,13 +11,20 @@ const productController = require('../controllers/productController')
 const usermanageController = require('../controllers/usermanageController')
 const profileController = require('../controllers/profileController')
 const orderController = require('../controllers/orderController')
+const reportController = require('../controllers/reportController')
+const dashboardController = require('../controllers/dashboardController')
 
 router.get("/",adminAuth.isLogout,adminController.loginredirect)
 router.get("/login",adminAuth.isLogout,adminController.loginload)
 router.post("/login",adminAuth.isLogout,adminController.login)
-router.get('/home',adminAuth.isLogin,adminController.loadhome)
 router.get('/logout',adminAuth.isLogin,profileController.logout)
 router.post('/',adminAuth.isLogin,adminController.search)
+
+router.get('/home',adminAuth.isLogin,adminController.loadhome)
+router.get('/home/weekreport',adminAuth.isLogin,dashboardController.weekReport)
+router.get('/home/monthreport',adminAuth.isLogin,dashboardController.monthReport)
+router.get('/home/yearreport',adminAuth.isLogin,dashboardController.yearReport)
+
 
 router.get("/products",adminAuth.isLogin,productController.loadproducts)
 router.get("/products/addproduct",adminAuth.isLogin,productController.loadaddproducts)
@@ -52,6 +59,8 @@ router.post('/profile',adminAuth.isLogin,profileController.editProfile)
 router.get('/orders',adminAuth.isLogin,orderController.loadOrder)
 router.get('/orders/orderdetail',adminAuth.isLogin,orderController.loadOrderDetail)
 router.get('/orders/orderdetail/changestatus',adminAuth.isLogin,orderController.changeStatus)
+
+router.get('/salesreport',adminAuth.isLogin,reportController.loadReport)
 
 
 
