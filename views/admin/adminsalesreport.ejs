@@ -1,0 +1,248 @@
+<%- include('layouts/header.ejs') %>
+<%- include('layouts/sidenav.ejs') %>
+
+
+          <section class="dashboard">
+            <div class="dashboardmain">
+             
+              <div class="container px-5">
+                <div class="row report  my-5">
+                  <div class="card col-md-12">
+                    <div class="card-body">
+                      <div class="reportsales"><h3>Product Sales Report</h3><div class="rightoptions"><div class="downoptions"><button type="button" id="prodownpdf">Download PDF</button><button type="button" id="prodownexcel">Download Excel</button></div><div class="optionbuttons"><button type="button" id="dailybtn">Daily</button><button type="button" id="weekbtn">Weekly</button><button type="button" id="monthbtn"> Monthly</button><button type="button" id="yearbtn"> Yearly</button></div></div></div>
+                      <div class="weekbuttons" id="weekbuttons" style="display: none;">
+                        <h6>Select Week</h6>
+                        <div class="weekselect"><select name="Wweek" id="Wweek">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                        <select name="Wmonth" id="Wmonth">
+                        <option value="January">January</option>
+                        <option value="February">February</option>
+                        <option value="March">March</option>
+                        <option value="April">April</option>
+                        <option value="May">May</option>
+                        <option value="June">June</option>
+                        <option value="July">July</option>
+                        <option value="August">August</option>
+                        <option value="September">September</option>
+                        <option value="October">October</option>
+                        <option value="November">November</option>
+                        <option value="December">December</option>
+                      </select>
+                    <select name="Wyear" id="Wyear">
+                        <option value="2024">2024</option>
+                        <option value="2023">2023</option>
+
+                    </select>
+                    </div></div>
+                    <div class="monthbuttons" id="monthbuttons" style="display: none;">
+                        <h6>Select Month</h6>
+                        <div class="monthselect">
+                        <select name="Mmonth" id="Mmonth">
+                        <option value="January">January</option>
+                        <option value="February">February</option>
+                        <option value="March">March</option>
+                        <option value="April">April</option>
+                        <option value="May">May</option>
+                        <option value="June">June</option>
+                        <option value="July">July</option>
+                        <option value="August">August</option>
+                        <option value="September">September</option>
+                        <option value="October">October</option>
+                        <option value="November">November</option>
+                        <option value="December">December</option>
+                        </select>
+                        <select name="Myear" id="Myear">
+                        <option value="2024">2024</option>
+                        <option value="2023">2023</option>
+                        </select>
+                    </div>
+                    </div>
+                    <div class="yearbuttons" id="yearbuttons" style="display: none;">
+                        <h6>Select Year</h6>
+                        <div class="yearselect">
+                        <select name="Yyear" id="Yyear">
+                            <option value="2024">2024</option>
+                            <option value="2023">2023</option>
+                            </select>
+                        </div>
+                    </div>
+                      <table class="table table1" >
+                        <tr><th>Serial No.</th>
+                            <th>Date Purchased</th>
+                            <th>Customer Name</th>
+                            <th>Product Name </th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Order Amount</th>
+                            <th>Payment Method</th>
+                        </tr>
+                        <tr>
+                        <td>1</td>
+                        <td>10 - JAN - 2024</td>
+                        <td>C P Razal Nazim</td>
+                        <td>Strandmon - Wing Chair</td>
+                        <td>2 Pcs</td>
+                        <td>Rs.12000</td>
+                        <td>Rs.24000</td>
+                        <td>Razorpay</td>
+                    </tr>
+                      </table>
+
+                      <table class="table table2" style="display: none;">
+                        <tr><th>Serial No.</th><td>1</td> </tr>
+                        <tr><th>Date Purchased</th>
+                        <td>10 - JAN - 2024</td>
+
+                        </tr>
+                        <tr>
+                            <th>Customer Name</th>
+                            <td>C P Razal Nazim</td>
+
+                        </tr>
+                        <tr>
+                            <th>Product Name </th>
+                            <td>Strandmon - Wing Chair</td>
+
+                        </tr>
+                        <tr>
+                            <th>Quantity</th>
+                            <td>2 Pcs</td>
+
+                        </tr>
+                        <tr>
+                            <th>Price</th>
+                            <td>Rs.12000</td>
+
+                        </tr>
+                        <tr>
+                            <th>Order Amount</th>
+                            <td>Rs.24000</td>
+
+                        </tr>
+                        <tr>
+                            <th>Payment Method</th>
+                            <td>Razorpay</td>
+
+                        </tr>
+                      </table>
+                      <div class="pagemain mt-4"><div class="pageblock"><button class="pagbtns" id="leftbtn"><i class="fa-solid fa-chevron-left"></i></button><span class="pagenums"><button class="pagbtns">1</button><button class="pagbtns">2</button><button class="pagbtns">3</button></span><button id="rightbtn" class="pagbtns"><i class="fa-solid fa-angle-right"></i></button></div></div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+
+              <div class="container px-5">
+                <div class="row report  my-5">
+                  <div class="card col-md-12">
+                    <div class="card-body">
+                      <div class="reportsales"><h3>Turnover Report</h3><div class="rightoptions"><div class="downoptions"><button type="button" id="maindownpdf">Download PDF</button><button type="button" id="maindownexcel">Download Excel</button></div><div class="optionbuttons"><button type="button" id="dailybtn1">Daily</button><button type="button" id="weekbtn1">Weekly</button><button type="button" id="monthbtn1"> Monthly</button><button type="button" id="yearbtn1"> Yearly</button></div></div></div>
+                      <div class="weekbuttons" id="weekbuttons1" style="display: none;">
+                        <h6>Select Week</h6>
+                        <div class="weekselect"><select name="Wweek" id="Wweek">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                        <select name="Wmonth" id="Wmonth">
+                        <option value="January">January</option>
+                        <option value="February">February</option>
+                        <option value="March">March</option>
+                        <option value="April">April</option>
+                        <option value="May">May</option>
+                        <option value="June">June</option>
+                        <option value="July">July</option>
+                        <option value="August">August</option>
+                        <option value="September">September</option>
+                        <option value="October">October</option>
+                        <option value="November">November</option>
+                        <option value="December">December</option>
+                      </select>
+                    <select name="Wyear" id="Wyear">
+                        <option value="2024">2024</option>
+                        <option value="2023">2023</option>
+
+                    </select>
+                    </div></div>
+                    <div class="monthbuttons" id="monthbuttons1" style="display: none;">
+                        <h6>Select Month</h6>
+                        <div class="monthselect">
+                        <select name="Mmonth" id="Mmonth">
+                        <option value="January">January</option>
+                        <option value="February">February</option>
+                        <option value="March">March</option>
+                        <option value="April">April</option>
+                        <option value="May">May</option>
+                        <option value="June">June</option>
+                        <option value="July">July</option>
+                        <option value="August">August</option>
+                        <option value="September">September</option>
+                        <option value="October">October</option>
+                        <option value="November">November</option>
+                        <option value="December">December</option>
+                        </select>
+                        <select name="Myear" id="Myear">
+                        <option value="2024">2024</option>
+                        <option value="2023">2023</option>
+                        </select>
+                    </div>
+                    </div>
+                    <div class="yearbuttons" id="yearbuttons1" style="display: none;">
+                        <h6>Select Year</h6>
+                        <div class="yearselect">
+                        <select name="Yyear" id="Yyear">
+                            <option value="2024">2024</option>
+                            <option value="2023">2023</option>
+                            </select>
+                        </div>
+                    </div>
+                      
+
+                      <table class="table table2" >
+                        <tr><th>Products Sold</th>
+                        <td>15</td>
+
+                        </tr>
+                        <tr>
+                            <th>Customer Entries</th>
+                            <td>40</td>
+
+                        </tr>
+                        <tr>
+                            <th>Orders Placed</th>
+                            <td>20</td>
+
+                        </tr>
+                        <tr>
+                            <th>Revenue </th>
+                            <td>Rs.1,20000</td>
+
+                        </tr>
+                        <tr>
+                            <th>Expenses</th>
+                            <td>Rs.5000</td>
+
+                        </tr>
+                       
+                      </table>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            </section>
+
+
+
+      </main>
+      <script src="/public/js/salesreport.js"></script>
+

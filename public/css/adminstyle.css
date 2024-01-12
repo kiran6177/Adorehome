@@ -1218,3 +1218,167 @@ transition: top 200ms ease-in;
     background-color: #ff3f00 !important;
     color: white !important;
 }
+
+
+
+
+.dashboard
+{   
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    height: calc(100% - 80px);
+}
+.dashboardmain{
+    width: 85%;
+    margin-top: 80px;
+}
+
+.firstportion, .secondportion{
+   
+    justify-content: space-between;
+}
+.secondportion h3{
+    color: #ff3f00;
+}
+.firstportion .card ,.secondportion .card, .thirdportion .card{
+    box-shadow: 0px 0px 15px rgba(99, 98, 98, 0.249);
+}
+.saleschart{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.orderimg{
+    float: right;
+}
+.optionbuttons
+{
+    display: flex;
+    gap: 10px;
+}
+.stockstat2{
+    background-color: #81fd81;
+    border-radius: 15px;
+    padding: 5px 14px;
+    font-size: 0.9rem;
+}
+.stockstat1{
+    background-color: #ff6a6a;
+    border-radius: 15px;
+    padding: 5px 14px;
+    font-size: 0.9rem;
+}
+.rightoptions{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.downoptions{
+    display: flex;
+    justify-content: space-between;
+}
+.downoptions button{
+    background-color: #ff3f00;
+    border: 1px solid #ff3f00;
+    color: white;
+    padding: 5px 12px;
+    font-size: 0.8rem;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+
+}
+.optionbuttons button{
+    background-color: white;
+    border: 1px solid #ff3f00;
+    padding: 4px 8px;
+    font-size: 0.8rem;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+.optionbuttons button:hover{
+    transform: scale(1.1);
+}
+
+@media (max-width:1090px) {
+    .dashboardmain{
+        margin-top: 180px;
+        width: 100%;
+    }
+    .orderimg img{
+        width: 50px;
+        height: 50px;
+    }
+}
+@media (max-width:992px) {
+    .thirdportion .table1 ,.report .table1
+    {
+        display: none;
+    }
+    .thirdportion .table2 , .report .table2{
+        display: table !important;
+    }
+    
+}
+@media (max-width:768px) {
+    .orderimg img{
+        width: 100px;
+        height: 100px;
+    }
+}
+@media (max-width:600px) {
+    .optionbuttons button{
+        font-size: 0.6rem;
+    }
+    .saleschart{
+        flex-direction: column;
+    }
+}
+@media (max-width:576px) {
+    .dashboardmain{
+        margin: 200px 40px 0px 40px !important;
+    }
+}
+@media (max-width:440px) {
+    .dashboardmain{
+        margin: 200px 0px 0px 0px !important;
+    }
+}
+
+.reportsales{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.weekbuttons select, .monthbuttons select, .yearbuttons select{
+    padding: 5px 15px;
+    border: 1px solid black;
+    border-radius: 4px;
+}
+
+.weekbuttons select:hover , .monthbuttons select:hover, .yearbuttons select:hover{
+    border-color: #ff3f00;
+}
+.weekselect , .monthselect , .yearselect{
+    display: flex;
+    gap: 10px;
+}
+.weekbuttons h6 , .monthbuttons h6 , .yearbuttons h6{
+    color: #fb8e6d;
+}
+@media (max-width:768px) {
+    .reportsales{
+        flex-direction: column;
+    }
+    .weekbuttons select, .monthbuttons select, .yearbuttons select{
+        padding: 2px 5px;
+       font-size: 0.9rem;
+    }
+    .downoptions button{
+
+        padding: 2px 9px;
+        font-size: 0.7rem;
+
+    
+    }
+}

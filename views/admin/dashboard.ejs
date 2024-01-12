@@ -2,7 +2,181 @@
 <%- include('layouts/sidenav.ejs') %>
 
         
-      </main>
+<section class="dashboard">
+      <div class="dashboardmain">
+        <div class="container px-lg-5">
+          <div class="row firstportion my-5 ">
+            <div class="card mt-4 col-md-7">
+              <div class="card-body">
+              <div class="card-title saleschart"><h3>Sales Report</h3> <div class="optionbuttons"><button type="button" id="weekbtn">This Week</button><button type="button" id="monthbtn">This Month</button><button type="button" id="yearbtn">This Year</button></div></div>
+                <div class="chart" id="weekchart" >
+                    <canvas id="linechart"></canvas>
+                </div>
+                <div class="chart" id="monthchart" style="display: none;">
+                  <canvas id="linechart1"></canvas>
+              </div><div class="chart" id="yearchart" style="display: none;">
+                <canvas id="linechart2"></canvas>
+            </div>
+              </div>
+            </div>
+
+            <div class="card mt-4 col-md-4">
+              <div class="card-body">
+              <div class="card-title"><h3>Total Earnings</h3></div>
+              <div class="chart2" >
+                <canvas id="doughnutchart"></canvas>
+              </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container px-lg-5">
+          <div class="row secondportion mb-5">
+            <div class="card col-md-3 my-4 my-md-0">
+              <div class="card-body">
+                <div class="orderimg"><img src="/public/images/order-filled-line-icon-linear-style-sign-for-mobile-concept-and-web-design-outline-icon-symbol-logo-illustration-graphic-free-vector.jpg" alt="" width="80px" height="80px"></div>
+                <h3>1633</h3>
+                <h4>Orders</h4>
+                <h6>Orders placed this Month.</h6>
+              </div>
+            </div>
+            <div class="card col-md-3 my-4 my-md-0">
+              <div class="card-body">
+                <div class="orderimg"><img src="/public/images/user.png" alt="" width="80px" height="80px"></div>
+                <h3>1633</h3>
+                <h4>Customers</h4>
+                <h6>Customers joined this Month.</h6>
+              </div>
+            </div>
+
+            <div class="card col-md-3 my-4 my-md-0">
+              <div class="card-body">
+                <div class="orderimg"><img src="/public/images/sold-out-symbol-logo-design-template-vector-39269999 (1).jpg" alt="" width="80px" height="80px"></div>
+                <h3>1633</h3>
+                <h4>Products </h4>
+                <h6>Products sold this Month.</h6>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="container px-lg-5">
+          <div class="row thirdportion mb-5">
+            <div class="card col-md-12">
+              <div class="card-body">
+                <h3>Stock Report </h3>
+                <table class="table table1" >
+                  <tr><th>Product Name </th>
+                      <th>Date Added</th>
+                      <th>Price</th>
+                      <th>Status</th>
+                      <th>Stock</th>
+                  </tr>
+                  <tr><td>Strandmon - Wing Chair</td>
+                    <td>03-Jan-2023</td>
+                    <td>Rs.12000</td>
+                  <td>
+                    <span class="stockstat1">Out of Stock</span>
+                      <!-- <span class="stockstat2">In Stock</span> -->
+                    </td>
+                    <td>12</td></tr>
+                </table>
+
+                <table class="table table2" style="display: none;">
+                  <tr><th>Product Name</th><td>Strandmon - Wing Chair</td></tr>
+                  <tr><th>Date Added</th><td>03-Jan-2023</td></tr>
+                  <tr><th>Price</th><td>Rs.12000</td></tr>
+                  <tr><th>Status</th><td><span class="stockstat1">Out of Stock</span>
+                    <!-- <span class="stockstat2">In Stock</span> --></td></tr>
+                  <tr><th>Stock</th><td>20</td></tr>
+
+                </table>
+                <div class="pagemain mt-4"><div class="pageblock"><button class="pagbtns" id="leftbtn"><i class="fa-solid fa-chevron-left"></i></button><span class="pagenums"><button class="pagbtns">1</button><button class="pagbtns">2</button><button class="pagbtns">3</button></span><button id="rightbtn" class="pagbtns"><i class="fa-solid fa-angle-right"></i></button></div></div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container px-lg-5">
+          <div class="row report  my-5">
+            <div class="card col-md-12">
+              <div class="card-body">
+                <h3>Product Sales </h3>
+                <table class="table table1" >
+                  <tr><th>Serial No.</th>
+                      <th>Date Purchased</th>
+                      <th>Customer Name</th>
+                      <th>Product Name </th>
+                      <th>Quantity</th>
+                      <th>Price</th>
+                      <th>Order Amount</th>
+                      <th>Payment Method</th>
+                  </tr>
+                  <tr>
+                  <td>1</td>
+                  <td>10 - JAN - 2024</td>
+                  <td>C P Razal Nazim</td>
+                  <td>Strandmon - Wing Chair</td>
+                  <td>2 Pcs</td>
+                  <td>Rs.12000</td>
+                  <td>Rs.24000</td>
+                  <td>Razorpay</td>
+              </tr>
+                </table>
+
+                <table class="table table2" style="display: none;">
+                  <tr><th>Serial No.</th><td>1</td> </tr>
+                  <tr><th>Date Purchased</th>
+                  <td>10 - JAN - 2024</td>
+
+                  </tr>
+                  <tr>
+                      <th>Customer Name</th>
+                      <td>C P Razal Nazim</td>
+
+                  </tr>
+                  <tr>
+                      <th>Product Name </th>
+                      <td>Strandmon - Wing Chair</td>
+
+                  </tr>
+                  <tr>
+                      <th>Quantity</th>
+                      <td>2 Pcs</td>
+
+                  </tr>
+                  <tr>
+                      <th>Price</th>
+                      <td>Rs.12000</td>
+
+                  </tr>
+                  <tr>
+                      <th>Order Amount</th>
+                      <td>Rs.24000</td>
+
+                  </tr>
+                  <tr>
+                      <th>Payment Method</th>
+                      <td>Razorpay</td>
+
+                  </tr>
+                </table>
+                <div class="pagemain mt-4"><div class="pageblock"><button class="pagbtns" id="leftbtn"><i class="fa-solid fa-chevron-left"></i></button><span class="pagenums"><button class="pagbtns">1</button><button class="pagbtns">2</button><button class="pagbtns">3</button></span><button id="rightbtn" class="pagbtns"><i class="fa-solid fa-angle-right"></i></button></div></div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </section>
+
+
+
+</main>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="/public/js/admindashboard.js"></script>
 
 
       

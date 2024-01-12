@@ -1,3 +1,4 @@
+const { promiseImpl } = require('ejs')
 const Order = require('../models/orderSchema')
 
 const loadOrder = async (req,res)=>{
@@ -25,8 +26,10 @@ const loadOrderDetail = async (req,res)=>{
 const changeStatus = async (req,res)=>{
     try {
 
-        const {id,val} = req.query
-        const orderdata = await Order.findByIdAndUpdate({_id:id},{$set:{status:val}},{new:true})
+        const {id,val,proid} = req.query
+        console.log(req.query.proid)
+        const orderdata = await Order.findOneAndUpdate({_id:id,'products.product_id':proid},{$set:{'products.$.status':val}},{new:true})
+        console.log(orderdata)
         if(orderdata!=null)
         {
         res.json({data:"Order status changed."})
@@ -40,4 +43,5 @@ module.exports = {
     loadOrder,
     loadOrderDetail,
     changeStatus
+
 }

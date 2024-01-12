@@ -30,6 +30,20 @@ cancelorderbtn.forEach(el=>{
         let orderId = el.dataset.orderid
         let proid = el.dataset.proid
         console.log(orderId,proid)
-        cancelOrder(orderId,proid)
+        Swal.fire({
+            title:"Are you Sure??",
+            icon:"info",
+            showDenyButton:true,
+            confirmButtonText:"OK",
+            denyButtonText:"Cancel"
+        }).then(res=>{
+            if(res.isConfirmed)
+            {
+                cancelOrder(orderId,proid)
+            }
+            else if(res.isDenied){
+                window.location.reload()
+            }
+        })
     })
 })

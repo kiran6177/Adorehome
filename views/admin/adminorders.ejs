@@ -53,17 +53,17 @@
                             <tr><th>Customer Name</th><td><%= element.user_id.firstname %>&nbsp;<%= element.user_id.lastname %></td></tr>
                             <tr><th>Total Price</th><td>Rs.<%= element.total_amount %></td></tr>
                             <tr><th>Status</th><td>
-                                <% if(element.status === "Processing") { %>
+                                <% if(element.products[0].status === "Processing") { %>
                                     <span class="stat1">Processing</span>
-                                    <% } else if(element.status === "Delivered") { %>
+                                    <% } else if(element.products[0].status === "Delivered") { %>
                                  <span class="stat">Delivered</span>
-                                    <% } else if(element.status === "Dispatched"){ %>
+                                    <% } else if(element.products[0].status === "Dispatched"){ %>
                                         <span class="stat2">Dispatched</span>
-                                    <% } else if(element.status === "Shipped"){ %>
+                                    <% } else if(element.products[0].status === "Shipped"){ %>
                                         <span class="stat3">Shipped</span>
-                                    <% } else if(element.status === "Cancelled") {%>
+                                    <% } else if(element.products[0].status === "Cancelled") {%>
                                         <span class="stat4">Cancelled</span>
-                                    <% } else if(element.status === "Returned"){ %>
+                                    <% } else if(element.products[0].status === "Returned"){ %>
                                         <span class="stat5">Returned</span>
 
                                     <% } %>

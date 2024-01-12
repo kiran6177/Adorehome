@@ -21,7 +21,7 @@ const loadOrders = async (req,res)=>{
     try {
         const uid = req.userid
         const udata = await User.findById({_id:uid}).populate('cart.product_id')
-        const orderdata = await Order.find({user_id:uid}).populate('products.product_id')
+        const orderdata = await Order.find({user_id:uid,payment_status:"Paid"}).populate('products.product_id')
         // console.log(orderdata)
         if(orderdata.length > 0)
         {
@@ -105,9 +105,50 @@ const cancelOrder = async (req,res)=>{
     }
 }
 
+const cancelOrderPayment = async (req,res)=>{
+    try {
+        const {oid} = req.query
+        console.log(oid)
+        const cancelData = await Order.findOneAndDelete({_id:oid})
+        console.log(cancelData)
+        if(cancelData!=null)
+        {   console.log(cancelData)
+            let prodettoupdate = []
+            cancelData.products.forEach(el=>{
+                   let qtytoupdate = {
+                        product_id:el.product_id,
+                        qty:el.qty
+                    }
+                    prodettoupdate.push(qtytoupdate)
+            })
+            console.log(prodettoupdate)
+            let stockUpdate = []
+            prodettoupdate.forEach(async (element)=>{
+                 updateData = await Product.findByIdAndUpdate({_id:element.product_id},{$inc:{stock:element.qty}})
+                stockUpdate.push(updateData)
+            })
+            
+                if(stockUpdate!=null)
+                {
+                res.json({data:"Order Cancelled due to Payment Failure!!"})
+                }
+                else{
+                res.json({err:"Cannot Cancel Order!!"})
+                }                 
+            
+        }
+        else{
+            res.json({err:"Cannot Cancel Order!!"})
+        }
+    } catch (error) {
+        console.log(error.message)
+    }
+}
+
 module.exports = {
     loadOrdered,
     loadOrders,
     loadSummary,
-    cancelOrder
+    cancelOrder,
+    cancelOrderPayment
 }

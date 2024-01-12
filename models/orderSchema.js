@@ -34,6 +34,18 @@ const orderSchema = new mongoose.Schema({
         type:String,
         required:true
     },
+    payment_status:{
+        type:String,
+        required:true
+    },
+    order_id:{
+        type:String,
+        default:"NIL"
+    },
+    payment_id:{
+        type:String,
+        default:"NIL"
+    },
     total_amount:{
         type:Number,
         required:true

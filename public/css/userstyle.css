@@ -2364,6 +2364,12 @@ transition: top 200ms ease-in;
     color: black;
     font-size: 0.8rem;
 }
+.paydet{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 15px;
+}
 .orderscard{
     display: flex;
     align-items: center;
@@ -2457,6 +2463,9 @@ transition: top 200ms ease-in;
     }
     .ordertitle h4{
     font-size: 1rem;
+    }
+    .paydet{
+        justify-content: center;
     }
 }
 @media (max-width:500px) {

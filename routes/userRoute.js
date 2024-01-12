@@ -58,12 +58,15 @@ router.get('/address/removeaddress',userAuth.isLogin,userAddressController.remov
 router.get('/checkout',userAuth.isLogin,userCheckoutController.loadCheckout)
 
 router.get('/payment',userAuth.isLogin,userPaymentController.loadPayment)
-router.post('/payment',userAuth.isLogin,userPaymentController.paymentConfirm)
+router.get('/placeorder',userAuth.isLogin,userPaymentController.paymentConfirm)
+router.post('/verifyPayment',userAuth.isLogin,userPaymentController.verifyPayment)
 
 router.get('/ordered',userAuth.isLogin,userOrderController.loadOrdered)
 router.get('/orders',userAuth.isLogin,userOrderController.loadOrders)
 router.get('/orders/summary',userAuth.isLogin,userOrderController.loadSummary)
 router.get('/orders/cancel',userAuth.isLogin,userOrderController.cancelOrder)
+router.get('/orders/cancelorder',userAuth.isLogin,userOrderController.cancelOrderPayment)
+
 
 
 module.exports = router

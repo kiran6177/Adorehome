@@ -1,13 +1,12 @@
 
-const statuschanger = document.getElementById('deliverystatus')
+const statuschanger = document.querySelectorAll('.deliverystatus')
 const order = document.getElementById('orderid')
 
-
-async function changeStatus(val,id)
+async function changeStatus(val,id,proid)
 {
     try {
         
-        const res = await fetch(`/admin/orders/orderdetail/changestatus?id=${id}&val=${val}`)
+        const res = await fetch(`/admin/orders/orderdetail/changestatus?id=${id}&val=${val}&proid=${proid}`)
         const data = await res.json()
 
         if(data.data)
@@ -43,9 +42,16 @@ async function changeStatus(val,id)
     }
 }
 
-statuschanger.addEventListener('change',()=>{
-    const status = statuschanger.value
-    const orderid = order.value
-    console.log(status,orderid)
-    changeStatus(status,orderid)
+
+statuschanger.forEach(element=>{
+    element.addEventListener('change',()=>{
+        const status = element.value
+        const orderid = order.value
+        const proid = element.dataset.proid
+        
+
+        console.log(status,orderid,proid)
+         changeStatus(status,orderid,proid)
+        
+    })
 })
