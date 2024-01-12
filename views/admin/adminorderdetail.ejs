@@ -24,31 +24,34 @@
                                                 </div>
                                                 </div>
                                                 <% prototal.push(element.product_id.price * element.qty)  %>
-                                                <% }) } %>
+                                                
                                                 <div class="statuschanger mt-3">
                                                     <h3 class="fw-normal ">Change Delivery Status</h3>
-                                                    <div class="statdiv"><select name="deliverystatus" id="deliverystatus" <% if(locals.orderdetail.status === "Cancelled"){ %> disabled <% } %>>
+                                                    <div class="statdiv"><select name="deliverystatus" class="deliverystatus" <% if(element.status === "Cancelled"){ %> disabled <% } %> data-proid="<%= element.product_id._id %>">
                                                         <option class="stat" value="Processing">Processing</option>
                                                         <option class="stat1" value="Dispatched">Dispatched</option>
                                                         <option class="stat2" value="Shipped">Shipped</option>
                                                         <option class="stat3" value="Delivered">Delivered</option>
                                                         <option class="stat4" value="Cancelled">Cancelled</option>
                                                     </select>
-                                                    <% if(locals.orderdetail.status === "Processing") { %>
+                                                    <% if(element.status === "Processing") { %>
                                                      <div class="processstat w-50"><h3 class="fw-bold text-center">Processing</h3></div>
-                                                     <% }else if(locals.orderdetail.status === "Delivered") { %>
+                                                     <% }else if(element.status === "Delivered") { %>
                                                 <div class="delstat w-50"><h3 class="fw-bold text-center">Delivered</h3></div>
-                                                     <% }else if(locals.orderdetail.status === "Shipped") { %>
+                                                     <% }else if(element.status === "Shipped") { %>
                                                 <div class="shipstat w-50"><h3 class="fw-bold text-center">Shipped</h3></div>
-                                                     <% }else if(locals.orderdetail.status === "Dispatched") { %>
+                                                     <% }else if(element.status === "Dispatched") { %>
                                                 <div class="dispstat w-50"><h3 class="fw-bold text-center">Dispatched</h3></div>
-                                                     <% }else if(locals.orderdetail.status === "Cancelled") { %>
+                                                     <% }else if(element.status === "Cancelled") { %>
                                                 <div class="cancelstat w-50"><h3 class="fw-bold text-center">Cancelled</h3></div>
-                                                <% }else if(locals.orderdetail.status === "Return") { %>
+                                                <% }else if(element.status === "Return") { %>
                                                 <div class="returnstat w-50"><h3 class="fw-bold text-center">Return Requested</h3></div>
                                                     <% } %>
                                                 </div>
                                                 </div>
+
+                                                <% }) } %>
+                                                
                                                 
                                                 <% } %>
                                             </div>
@@ -61,7 +64,7 @@
                                     
                                       <div class="card " >
                                           <div class="card-body checkout">
-                                            <h4 class="card-title  fw-bold ">Order Description</h4>
+                                            <h3 class="card-title  fw-bold ">Order Description</h3>
                                             <% if(locals.orderdetail) { %>
                                             <div class="cartdetails">
                                                 <h4 class="card-title  fw-normal ">Order ID</h4>
@@ -88,7 +91,8 @@
                                                 <hr class="my-4">
                                                 <h4 class="card-title  fw-normal ">Payment Details</h4>
                                                 <div class="addp">
-                                                <p class="paydiv"><%= locals.orderdetail.payment_method %> <img src="/public/images/2053412.png" alt="" width="70px" height="70px"></p>
+                                                <p class="paydiv my-auto">Method : <%= locals.orderdetail.payment_method %> <img src="/public/images/2053412.png" alt="" width="30px" height="30px"></p>
+                                                <p>Status : <%= locals.orderdetail.payment_status %></p>
                                                 </div>
                                                 <hr class="my-4">
                                                 <h4 class="card-title mt-5 mb-4 fw-normal ">Order Summary</h4>
@@ -108,7 +112,7 @@
                                                 <p>50000</p>
                                             </div>
                                                   <hr>
-                                                  <div class="checktotal"><h6>Total Amount</h6><p>Rs.<%= locals.orderdetail.total_amount %></p></div>
+                                                  <div class="checktotal"><h6 class="fw-bold">Total Amount</h6><p>Rs.<%= locals.orderdetail.total_amount %></p></div>
                                                   <% } %>   
                                                 </div>
                                             </div>

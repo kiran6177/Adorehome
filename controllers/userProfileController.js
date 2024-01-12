@@ -6,8 +6,8 @@ const mongoose = require('mongoose')
 const profileLoad = async (req,res)=>{
     try {
         const uid = req.userid
-        const orderDetails = await Order.aggregate([{$match:{user_id:new mongoose.Types.ObjectId(uid)}},{$count:'orderCount'}])
-        console.log(orderDetails)
+        const orderDetails = await Order.aggregate([{$match:{user_id:new mongoose.Types.ObjectId(uid),payment_status:"Paid"}},{$count:'orderCount'}])
+        // console.log(orderDetails)
         const orderCount = orderDetails[0].orderCount
         const udata = await User.findById({_id:uid}).populate('cart.product_id')
         if(udata.length !=0)

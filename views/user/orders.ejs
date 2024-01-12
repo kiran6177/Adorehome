@@ -46,7 +46,7 @@
                                 </td>
                                 <td class="td6"> 
                                   <% if(el.status === "Delivered") { %>
-                                    <a href="/orders/return?id=<%= el.product_id._id %>"><button type="button">Return</button></a>
+                                    <a href="/orders/return?id=<%= el.product_id._id %>"><button type="button" class="cancelorderbtn">Return</button></a>
                                     <% } else { %>
                                       <button type="button" class="cancelorderbtn" data-orderid="<%= element._id %>" data-proid="<%= el.product_id._id %>">Cancel Order</button>
                                       <% } %>
@@ -73,9 +73,9 @@
                                 <% } %>
                               
                             </td></tr>
-                            <tr><th>Action</th><td>
+                            <tr><th>Action</th><td class="td6">
                               <% if(el.status === "Delivered") { %>
-                                <a href="/orders/return?id=<%= el.product_id._id %>"><button type="button">Return</button></a>
+                                <a href="/orders/return?id=<%= el.product_id._id %>"><button type="button" class="cancelorderbtn">Return</button></a>
                                 <% } else { %>
                                   <button type="button" class="cancelorderbtn" data-proid="<%= el.product_id._id %>">Cancel Order</button>
                                   <% } %>
@@ -83,7 +83,7 @@
                         </table>
                     </div>
                     <%   }); } %>
-                    <div class="ordertitle text-end justify-content-end pe-5"><h6 >Total Amount : Rs.<%= element.total_amount %></h6></div>
+                    <div class="ordertitle text-center justify-content-between pe-5 align-items-center"><div class="paydet "><h6 class="text-start">Payment Method : <%= element.payment_method %> <br> Payment Status : <%= element.payment_status %> </h6><% if(element.payment_status === "Pending") { %> <button type="button" class="cancelorderbtn" class="paynow" data-orderid="<%= element._id %>">Pay Now</button> <% } %></div><h6 >Total Amount : Rs.<%= element.total_amount %></h6></div>
 
                 </div>
 
