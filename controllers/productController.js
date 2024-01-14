@@ -8,7 +8,7 @@ const path = require('path')
 
 const loadproducts = async (req,res)=>{
    try{
-    const prodata = await Product.find()
+    const prodata = await Product.find({isBlocked:0})
     res.render("admin/productmanage",{products:prodata})
 }catch(error)
 {
@@ -179,28 +179,28 @@ const editproducts = async (req,res)=>{
 const deleteproduct = async (req,res)=>{
     try {
         const id = req.query.id
-        const findpro = await Product.findById({_id:id})
-        if(findpro!= "")
-        {
-            let main = findpro.mainimage
-            if(main!=="")
-            {
-                await fs.unlink(path.join(__dirname,'../assets',main))
-            }
-            let img = findpro.image
-            if(img.length > 0 )
-            {   let one = img[0]
-                let two = img[1]
-                let three = img[2]
-                let four = img[3]
-                await fs.unlink(path.join(__dirname,'../assets',one))
-                await fs.unlink(path.join(__dirname,'../assets',two))
-                await fs.unlink(path.join(__dirname,'../assets',three))
-                await fs.unlink(path.join(__dirname,'../assets',four))
+        // const findpro = await Product.findById({_id:id})
+        // if(findpro!= "")
+        // {
+        //     let main = findpro.mainimage
+        //     if(main!=="")
+        //     {
+        //         await fs.unlink(path.join(__dirname,'../assets',main))
+        //     }
+        //     let img = findpro.image
+        //     if(img.length > 0 )
+        //     {   let one = img[0]
+        //         let two = img[1]
+        //         let three = img[2]
+        //         let four = img[3]
+        //         await fs.unlink(path.join(__dirname,'../assets',one))
+        //         await fs.unlink(path.join(__dirname,'../assets',two))
+        //         await fs.unlink(path.join(__dirname,'../assets',three))
+        //         await fs.unlink(path.join(__dirname,'../assets',four))
 
-            }
-        }
-        const del = await Product.findByIdAndDelete({_id:id})
+        //     }
+        // }
+        const del = await Product.findByIdAndUpdate({_id:id},{$set:{isBlocked:1}})
         if(del!=="")
         {
             res.redirect("/admin/products")

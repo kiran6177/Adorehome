@@ -1350,27 +1350,27 @@ transition: top 200ms ease-in;
     align-items: center;
     justify-content: space-between;
 }
-.weekbuttons select, .monthbuttons select, .yearbuttons select{
+.weekbuttons select, .monthbuttons select, .yearbuttons select , .dailybuttons select{
     padding: 5px 15px;
     border: 1px solid black;
     border-radius: 4px;
 }
 
-.weekbuttons select:hover , .monthbuttons select:hover, .yearbuttons select:hover{
+.weekbuttons select:hover , .monthbuttons select:hover, .yearbuttons select:hover , .dailybuttons select:hover{
     border-color: #ff3f00;
 }
-.weekselect , .monthselect , .yearselect{
+.weekselect , .monthselect , .yearselect , .dailyselect{
     display: flex;
     gap: 10px;
 }
-.weekbuttons h6 , .monthbuttons h6 , .yearbuttons h6{
+.weekbuttons h6 , .monthbuttons h6 , .yearbuttons h6 , .dailybuttons h6{
     color: #fb8e6d;
 }
 @media (max-width:768px) {
     .reportsales{
         flex-direction: column;
     }
-    .weekbuttons select, .monthbuttons select, .yearbuttons select{
+    .weekbuttons select, .monthbuttons select, .yearbuttons select , .dailybuttons select{
         padding: 2px 5px;
        font-size: 0.9rem;
     }
