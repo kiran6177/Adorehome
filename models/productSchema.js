@@ -48,6 +48,10 @@ const productSchema = new mongoose.Schema({
     offer_id:{
         type:String,
         default:"NA"
+    },
+    isBlocked:{
+        type:Number,
+        default:0
     }
 })
 

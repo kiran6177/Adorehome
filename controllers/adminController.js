@@ -49,10 +49,12 @@ const loadhome = async (req,res)=>{
     const ucount = userCount[0].users.toString()
     const orderCount = await Order.aggregate([{$match:{date:{$gte:monthLimit.start,$lt:monthLimit.end},payment_status:"Paid"}},{$count:'orders'}])
     const ocount = orderCount[0].orders.toString()
-    const productCount = await Order.aggregate([{$match:{date:{$gte:monthLimit.start,$lt:monthLimit.end}}},{$unwind:'$products'},{$group:{_id:null,qty:{$sum:'$products.qty'}}},{$project:{_id:0,qty:1}}])
-     const pcount = productCount[0].qty.toString() 
-    console.log(pcount)
-    res.render("admin/dashboard",{userCount:ucount,orderCount:ocount,productCount:pcount})
+    const productCount = await Order.aggregate([{$match:{date:{$gte:monthLimit.start,$lt:monthLimit.end},payment_status:"Paid"}},{$unwind:'$products'},{$group:{_id:null,qty:{$sum:'$products.qty'}}},{$project:{_id:0,qty:1}}])
+    const pcount = productCount[0].qty.toString() 
+    const prodet = await Product.aggregate([{$match:{isBlocked:0}}])
+    const proSold = await Order.aggregate([{$match:{payment_status:"Paid"}},{$unwind:'$products'},{$lookup:{from:'users',localField:'user_id',foreignField:'_id',as:'userdetails'}},{$lookup:{from:'products',localField:'products.product_id',foreignField:'_id',as:'prodetails'}}])
+    // console.log(proSold[0].prodetails)
+    res.render("admin/dashboard",{userCount:ucount,orderCount:ocount,productCount:pcount,products:prodet,prosold:proSold})
     }
     catch(err)
     {

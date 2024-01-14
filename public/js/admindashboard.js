@@ -5,15 +5,24 @@ const weekchart = document.getElementById('weekchart')
 const monthchart = document.getElementById('monthchart')
 const yearchart = document.getElementById('yearchart')
 
+let weekValues = []
+let monthNames = []
+let monthValues = []
+let yearHeads = []
+let yearValues = []
+let catHead = []
+let catValues = []
+
 async function weekReport()
 {
     try {
         console.log("weekreport")
         const res = await fetch('/admin/home/weekreport')
         const data = await res.json()
-        if(data.success)
+        if(data.weekData)
         {
-
+          weekValues =  data.weekData
+          chart1()
         }
         else{
             Swal.fire({
@@ -35,9 +44,15 @@ async function monthReport()
         console.log("monthreport")
         const res = await fetch('/admin/home/monthreport')
         const data = await res.json()
-        if(data.success)
+        if(data.monthdata)
         {
-
+          console.log(data.monthdata)
+          for(let i = 0;i< data.monthdata.length;i++)
+          {
+            monthNames.push(data.monthdata[i].month)
+            monthValues.push(data.monthdata[i].amount)
+          }
+          chart2()
         }
         else{
             Swal.fire({
@@ -59,9 +74,14 @@ async function yearReport()
         console.log("yearreport")
         const res = await fetch('/admin/home/yearreport')
         const data = await res.json()
-        if(data.success)
+        if(data.yeardata)
         {
-
+          for(let i = 0;i < data.yeardata.length ; i++)
+          {
+            yearHeads.push(data.yeardata[i].year)
+            yearValues.push(data.yeardata[i].amount)
+          }
+          chart3()
         }
         else{
             Swal.fire({
@@ -76,13 +96,41 @@ async function yearReport()
     }
 }
 
-window.onload = function()
+async function categoryReport()
 {
-    weekReport()
+  try {
+    const res = await fetch('/admin/home/categoryreport')
+    const data = await res.json()
+    if(data.catData)
+    {
+      for(let i = 0;i < data.catData.length ; i++)
+      {
+        catHead.push(data.catData[i]._id)
+        catValues.push(data.catData[i].amount)
+      }
+      doughnut()
+    }
+    else{
+      Swal.fire({
+        title:"Category Data not available",
+        imageUrl: "/public/images/paymentfailed.png",
+        imageWidth: 200,
+        imageHeight: 200,
+    })
+    }
+  } catch (error) {
+    console.log(error.message)
+  }
+}
+
+window.onload = async function()
+{
+  weekReport()
+  categoryReport()
 }
 
 weekbtn.addEventListener('click',()=>{
-  
+  weekReport()
   if(monthchart)
   {
       monthchart.style.display = "none"
@@ -95,6 +143,7 @@ weekbtn.addEventListener('click',()=>{
 })
 
 monthbtn.addEventListener('click',()=>{
+  
   monthReport()
   if(weekchart)
   {
@@ -120,15 +169,17 @@ yearbtn.addEventListener('click',()=>{
   yearchart.style.display = "block"
 })
 
-const ctx = document.getElementById('linechart');
+function chart1()
+{
+  const ctx = document.getElementById('linechart');
 
-new Chart(ctx, {
+let Chart1 = new Chart(ctx, {
   type: 'line',
   data: {
     labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
     datasets: [{
       label: 'Earnings in Week',
-      data: [120000, 190000, 30000, 500000],
+      data: weekValues,
       borderWidth: 1,
       backgroundColor:'#ff3f00',
       borderColor:'#ff3f00',
@@ -139,17 +190,18 @@ new Chart(ctx, {
     responsive:true
   }
 });
+}
 
+function chart2(){
+  const ctx1 = document.getElementById('linechart1');
 
-const ctx1 = document.getElementById('linechart1');
-
-new Chart(ctx1, {
+let Chart2 = new Chart(ctx1, {
   type: 'line',
   data: {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June' , 'July' , 'August' , 'September' , 'October' , 'November' , 'December'],
+    labels: monthNames.reverse(),
     datasets: [{
       label: 'Earnings in Month',
-      data: [120000, 190000, 30000, 500000, 20000, 30000,120000, 190000, 30000, 500000, 20000, 30000,],
+      data: monthValues.reverse(),
       borderWidth: 1,
       backgroundColor:'#ff3f00',
       borderColor:'#ff3f00',
@@ -159,17 +211,18 @@ new Chart(ctx1, {
   options: {
     responsive:true
   }
-});
+});}
 
-const ctx2 = document.getElementById('linechart2');
+function chart3(){
+  const ctx2 = document.getElementById('linechart2');
 
-new Chart(ctx2, {
+let Chart3 = new Chart(ctx2, {
   type: 'line',
   data: {
-    labels: ['2023','2024'],
+    labels: yearHeads,
     datasets: [{
       label: 'Earnings in Year',
-      data: [120000, 190000],
+      data: yearValues,
       borderWidth: 1,
       backgroundColor:'#ff3f00',
       borderColor:'#ff3f00',
@@ -179,20 +232,21 @@ new Chart(ctx2, {
   options: {
     responsive:true
   }
-});
+});}
 
 
 
 
-const ctx4 = document.getElementById('doughnutchart');
+function doughnut(){
+  const ctx4 = document.getElementById('doughnutchart');
 
-new Chart(ctx4, {
+const Chart4 = new Chart(ctx4, {
   type: 'doughnut',
   data: {
-    labels: ['category1', 'Category2','Others'],
+    labels: catHead,
     datasets: [{
       label: 'Earnings',
-      data: [120000, 30000,190000],
+      data: catValues,
       borderWidth: 1,
       backgroundColor:['#ff3f00',
       '#1e96fc',
@@ -204,7 +258,7 @@ new Chart(ctx4, {
   options: {
     responsive:true
   }
-});
+});}
 
 
 

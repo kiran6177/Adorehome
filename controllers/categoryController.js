@@ -106,15 +106,9 @@ const editcategory = async (req,res)=>{
 const deletecategory = async (req,res)=>{
     try {
         const id = req.query.id
-        const cat = await Category.findById({_id:id})
-        // if(cat!= "")
-        // {
-        //     img = cat.image
-        //     await fs.unlink(path.join(__dirname,'../assets',img))
-
-        // }
 
         const unList = await Category.findByIdAndUpdate({_id:id},{$set:{isListed:1,status:"0"}})
+        const prounlist = await Product.findAndUpdate({category_id:id},{$set:{isBlocked:1}})
         if(unList!= "")
         {
             res.redirect("/admin/category")

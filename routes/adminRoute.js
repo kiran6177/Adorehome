@@ -24,6 +24,7 @@ router.get('/home',adminAuth.isLogin,adminController.loadhome)
 router.get('/home/weekreport',adminAuth.isLogin,dashboardController.weekReport)
 router.get('/home/monthreport',adminAuth.isLogin,dashboardController.monthReport)
 router.get('/home/yearreport',adminAuth.isLogin,dashboardController.yearReport)
+router.get('/home/categoryreport',adminAuth.isLogin,dashboardController.categorySales)
 
 
 router.get("/products",adminAuth.isLogin,productController.loadproducts)
@@ -61,7 +62,7 @@ router.get('/orders/orderdetail',adminAuth.isLogin,orderController.loadOrderDeta
 router.get('/orders/orderdetail/changestatus',adminAuth.isLogin,orderController.changeStatus)
 
 router.get('/salesreport',adminAuth.isLogin,reportController.loadReport)
-
+router.get('/salesreport/dailypro',adminAuth.isLogin,reportController.dailyProducts)
 
 
 
