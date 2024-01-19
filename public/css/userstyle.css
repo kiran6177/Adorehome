@@ -2446,7 +2446,14 @@ transition: top 200ms ease-in;
     border-radius: 20px;
     color: white;
 }
-
+.headorder button{
+    height:2.5rem;
+    padding: 0px 1rem;
+    font-size: 0.9rem;
+    background-color: white;
+    border: 1px solid #ff3f00;
+    border-radius: 5px;
+}
 @media (max-width:992px) {
     .orderscard{
         flex-direction: column;
@@ -2466,6 +2473,14 @@ transition: top 200ms ease-in;
     }
     .paydet{
         justify-content: center;
+    }
+}
+@media (max-width:576px) {
+    .headorder{
+        flex-direction: column;
+    }
+    .headorder  button{
+        width: 12rem;
     }
 }
 @media (max-width:500px) {
@@ -2583,4 +2598,34 @@ transition: top 200ms ease-in;
         width: 275px;
         height: 275px;
     }
+}
+
+.pagemain{
+    width: 100%;
+}
+.pageblock
+{
+    display: flex;
+    max-width: 250px;
+    align-items: center;
+    justify-content: space-evenly;
+    height: 2.5em;
+}
+.pagenums{
+    height: 100%;
+    display: flex;
+    width: 70%;
+    justify-content: space-evenly;
+}
+.pageblock button {
+    height: 100%;
+    width: 2.7em;
+    color: black;
+    background-color: #ffccbc;
+    border-radius: 50%;
+    border: 1px solid #ffccbc;
+}
+ .selectedbtn{
+    background-color: #ff3f00 !important;
+    color: white !important;
 }

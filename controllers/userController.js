@@ -9,9 +9,19 @@ const saltRounds = 10;
 const Category = require('../models/categorySchema')
 
 
-const loginRedirect = (req, res) => {
-  res.redirect("/login");
-};
+// const loginRedirect =async (req, res) => {
+//     const existcatdata = await Category.find({status:"1"})
+//     console.log(existcatdata)
+//     let pdata = []
+//     let products
+//     for(let i = 0 ;i < existcatdata.length ; i++)
+//     {
+//        products = await Product.find({category_id:existcatdata[i]._id})
+//       pdata.push(products)
+//     }
+//     // console.log(data)
+//     res.render('user/home',{products:pdata})
+// };
 
 const loginLoad =async (req, res) => {
   res.render("user/userlogin");
@@ -211,7 +221,7 @@ const verifyOtpLogin = async (req,res)=>{
                     }
                 const token = jwttoken.createtoken(payload)
                     res.cookie("token",token,{ secure:true , httpOnly:true })
-                    res.redirect("/home")
+                    res.redirect("/")
                 }
             else{
                     console.log("user is not confirmed")
@@ -252,7 +262,7 @@ const verifyOtp = async (req,res)=>{
                     }
                 const token = jwttoken.createtoken(payload)
                     res.cookie("token",token,{ secure:true , httpOnly:true })
-                    res.redirect("/home")
+                    res.redirect("/")
                 }
                 else{
                     console.log("user is not confirmed")
@@ -274,21 +284,32 @@ const verifyOtp = async (req,res)=>{
 
 const loadHome = async(req,res)=>{
     try {
+        let data
+        if(req.userid)
+        {
         const uid = req.userid
-        // console.log("home "+uid)
-        const data = await User.findById({_id:uid}).populate({path:'cart.product_id'})
+         console.log("home "+uid)
+         data = await User.findById({_id:uid}).populate({path:'cart.product_id'})
         console.log(data.cart)
+        }
+        
         const existcatdata = await Category.find({status:"1"})
-        console.log(existcatdata)
+        // console.log(existcatdata)
         let pdata = []
         let products
-        for(let i = 0 ;i < existcatdata.length ; i++)
+        for(let i = 0 ;i < 4 ; i++)
         {
            products = await Product.find({category_id:existcatdata[i]._id})
           pdata.push(products)
         }
-        // console.log(data)
+        console.log(pdata.length)
+        if(req.userid)
+        {
         res.render('user/home',{products:pdata,udata:data})
+        }
+        else{
+            res.render('user/home',{products:pdata})
+        }
     } catch (error) {
         console.log(error.message)
     }
@@ -304,7 +325,7 @@ const logout = async (req,res)=>{
 }
 
 module.exports = {
-  loginRedirect,
+
   loginLoad,
   login,
   signupLoad,

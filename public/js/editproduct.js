@@ -233,6 +233,7 @@ async function remPreImage(img,id,pos)
             })
         }
     } catch (error) {
+        window.location.href = '/login'
          console.log(error.message)
     }
 }
@@ -256,6 +257,7 @@ async function remPreImage1(img,id)
             })
         }
     } catch (error) {
+        window.location.href = '/login'
          console.log(error.message)
     }
 }

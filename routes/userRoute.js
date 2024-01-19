@@ -12,7 +12,7 @@ const userCheckoutController = require('../controllers/userCheckoutController')
 const userPaymentController = require('../controllers/userPaymentController')
 const userOrderController = require('../controllers/userOrderController')
 
-router.get('/',userController.loginRedirect)
+// router.get('/',userController.loginRedirect)
 
 router.get('/login',userAuth.isLogout,userController.loginLoad)
 router.post('/login',userAuth.isLogout,userController.login)
@@ -24,7 +24,7 @@ router.get('/sendotp',userAuth.isLogout,userController.sendOtp)
 router.get('/otpload',userAuth.isLogout,userController.otpLoad)
 router.post('/otpload',userAuth.isLogout,userController.verifyOtp)
 
-router.get('/home',userAuth.isLogin,userController.loadHome)
+router.get('/',userAuth.isHome,userController.loadHome)
 router.get('/otplogin',userAuth.isLogout,userController.otpLogin)
 router.post('/otplogin',userAuth.isLogout,userController.verifyOtpLogin)
 
@@ -67,6 +67,6 @@ router.get('/orders/summary',userAuth.isLogin,userOrderController.loadSummary)
 router.get('/orders/cancel',userAuth.isLogin,userOrderController.cancelOrder)
 router.get('/orders/cancelorder',userAuth.isLogin,userOrderController.cancelOrderPayment)
 
-
+router.get('/generateInvoice',userAuth.isLogin,userOrderController.generateInvoice)
 
 module.exports = router

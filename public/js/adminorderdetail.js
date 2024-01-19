@@ -38,6 +38,7 @@ async function changeStatus(val,id,proid)
             })
         }
     } catch (error) {
+        window.location.href = '/admin/login'
         console.log(error.message)
     }
 }

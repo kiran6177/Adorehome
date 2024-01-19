@@ -1,6 +1,10 @@
 const User = require('../models/userSchema')
 const Order = require('../models/orderSchema')
 const Product = require('../models/productSchema')
+const { ObjectId } = require('mongodb')
+const easyinvoice = require('easyinvoice');
+const fs = require('fs')
+const path = require('path')
 
 const loadOrdered = async (req,res)=>{
     try {
@@ -21,8 +25,8 @@ const loadOrders = async (req,res)=>{
     try {
         const uid = req.userid
         const udata = await User.findById({_id:uid}).populate('cart.product_id')
-        const orderdata = await Order.find({user_id:uid,payment_status:"Paid"}).populate('products.product_id')
-        // console.log(orderdata)
+        const orderdata = await Order.find({user_id:uid,payment_status:"Paid"}).populate('products.product_id').sort({date:'desc'})
+        console.log(orderdata[0].date)
         if(orderdata.length > 0)
         {
         res.render('user/orders',{udata:udata,orderdata:orderdata})
@@ -145,10 +149,72 @@ const cancelOrderPayment = async (req,res)=>{
     }
 }
 
+const generateInvoice = async (req,res)=>{
+    try {
+        const {id} = req.query
+        const orderdata = await Order.aggregate([{$match:{_id:new ObjectId(id)}},{$unwind:'$products'},{$project:{_id:0,products:1,date:1}},{$lookup:{from:'products',localField:'products.product_id',foreignField:'_id',as:'productdetails'}},{$unwind:'$productdetails'}])
+        const currentdate = orderdata[0].date.toUTCString().split(' ').slice(1,4).join(' ')
+        console.log(currentdate)
+        let products = []
+        orderdata.forEach(el=>{
+
+            products.push({
+                "quantity":el.products.qty,
+                "description":el.productdetails.productname,
+                "tax-rate":0,
+                "price":el.productdetails.price
+            })
+        })
+        console.log(products)
+        const data = {
+            "images": {
+              "logo": fs.readFileSync(path.join(__dirname,'../public/images/LOGO Black.png'), 'base64')
+            },
+            "sender": {
+              "company": "Sample Corp",
+              "address": "Sample Street 123",
+              "zip": "1234 AB",
+              "city": "Sampletown",
+              "country": "Samplecountry"
+            },
+            "client": {
+              "company": "Client Corp",
+              "address": "Clientstreet 456",
+              "zip": "4567 CD",
+              "city": "Clientcity",
+              "country": "Clientcountry"
+            },
+            "information": {
+              "number": "2022.0001",
+              "date": currentdate,
+              
+            },
+            "products": products,
+            "bottom-notice": "Thank You for your purchase.",
+            "settings": {
+              "currency": "INR",
+              "tax-notation": "vat",
+              "margin-top": 50,
+              "margin-right": 50,
+              "margin-left": 50,
+              "margin-bottom": 25
+            }
+          }
+          const result = await easyinvoice.createInvoice(data)
+        //   console.log(result.pdf)
+        //   await fs.writeFileSync(path.join(__dirname,'../assets/pdf',"invoice.pdf"),result.pdf,'base64')
+        
+          res.json({pdfData:result.pdf})
+    } catch (error) {
+        console.log(error.message)
+    }
+}
+
 module.exports = {
     loadOrdered,
     loadOrders,
     loadSummary,
     cancelOrder,
-    cancelOrderPayment
+    cancelOrderPayment,
+    generateInvoice
 }

@@ -50,6 +50,11 @@ function addCart(proid,qty)
                     }
                 }) 
         }
+
+    })
+    .catch(err=>{
+        window.location.href = '/login'
+
     })
 }
 

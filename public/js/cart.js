@@ -3,6 +3,7 @@ const rightbtn = document.querySelectorAll('.rightbtn')
 const rembtn = document.querySelectorAll('.itemrem')
 
 async function incQty(qty,proid){
+    try{
     const res = await fetch(`/cart/qtyadd?qty=${qty}&proid=${proid}`)
     const data = await res.json()
         if(data.data)
@@ -19,6 +20,11 @@ async function incQty(qty,proid){
         else{
             return false
         }
+    }
+    catch(err)
+    {
+        window.location.href = '/login'
+    }
 }
 
 async function decQty(qty,proid){
@@ -44,11 +50,13 @@ async function decQty(qty,proid){
     catch(err)
     {
         console.log(err.message)
+        window.location.href = '/login'
     }
 }
 
 async function delCart(proid)
 {
+    try{
     const res = await fetch(`/cart/delcart?proid=${proid}`)
     const data = await res.json()
     if(data.data)
@@ -67,6 +75,11 @@ async function delCart(proid)
     }
     else{
         return false
+    }
+    }
+    catch(err)
+    {
+        window.location.href = '/login'
     }
 }
 

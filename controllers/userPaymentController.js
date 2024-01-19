@@ -94,11 +94,12 @@ const paymentConfirm = async (req,res)=>{
         {
             try {
                 const orderIsPaid = await Order.findById({_id:orderid})
-                console.log("Deleting Order")
-                console.log(orderIsPaid)
+                
                 if(orderIsPaid && orderIsPaid.payment_status === "Pending")
-                {
+                {   
                     const orderDelete = await Order.findByIdAndDelete({_id:orderid})
+                    console.log("Deleting Order")
+                    console.log(orderDelete)
                 }
             } catch (error) {
                 console.log(error.message)

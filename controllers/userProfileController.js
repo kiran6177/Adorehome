@@ -7,13 +7,13 @@ const profileLoad = async (req,res)=>{
     try {
         const uid = req.userid
         const orderDetails = await Order.aggregate([{$match:{user_id:new mongoose.Types.ObjectId(uid),payment_status:"Paid"}},{$count:'orderCount'}])
-        // console.log(orderDetails)
-        const orderCount = orderDetails[0].orderCount
+        //  console.log(orderDetails)
+        const orderCount = orderDetails.length > 0 ? orderDetails[0].orderCount : 0
         const udata = await User.findById({_id:uid}).populate('cart.product_id')
         if(udata.length !=0)
         {
             // console.log(udata)
-        res.render('user/userprofile',{udata:udata,orderCount:orderCount})
+        res.render('user/userprofile',{udata:udata,orderCount:orderCount })
         }
         else{
             console.log("error in profilerender")

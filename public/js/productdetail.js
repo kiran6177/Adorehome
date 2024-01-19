@@ -93,6 +93,9 @@ function addBuyCart(proid,qty)
                 })
         }
     })
+    .catch(err=>{
+        window.location.href = '/login'
+    })
 }
 
 addtocart.forEach(el =>{

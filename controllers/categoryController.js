@@ -1,6 +1,7 @@
 const path = require('path')
 const fs = require('fs').promises
 const Category = require("../models/categorySchema")
+const Product = require('../models/productSchema')
 
 const loadcategory = async (req,res)=>{
 try{    
@@ -108,7 +109,7 @@ const deletecategory = async (req,res)=>{
         const id = req.query.id
 
         const unList = await Category.findByIdAndUpdate({_id:id},{$set:{isListed:1,status:"0"}})
-        const prounlist = await Product.findAndUpdate({category_id:id},{$set:{isBlocked:1}})
+        const prounlist = await Product.findOneAndUpdate({category_id:id},{$set:{isBlocked:1}})
         if(unList!= "")
         {
             res.redirect("/admin/category")

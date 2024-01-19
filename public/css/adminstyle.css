@@ -353,30 +353,20 @@ transition: top 200ms ease-in;
     font-size: 0.8rem;
     border-radius: 5px
 }
-.usertable{
-    border: 1px solid #666666;
-    border-radius: 10px;
-}
+
 @media (max-width:1450px){
     .mainframe .maincontent{
         padding-top: 12%;
     }
 }
 @media (max-width:1120px){
-  .usertable{
-    font-size: 0.9rem;
-  }
+
   .usertable button{
     font-size: 0.9rem;
 }
 }
 @media (max-width:1090px){
-    .usertable{
-      font-size: 0.8rem;
-    }
-    .usertable button{
-        font-size: 0.8rem;
-    }
+
     .mainframe .sidenav{
         flex-direction: row;
         margin-top: 60px;
@@ -396,6 +386,12 @@ transition: top 200ms ease-in;
     }
     .usersearch input{
         width: 50%;
+    }
+    .usertable .table1{
+        display: none;
+    }
+    .usertable .table2{
+        display: table !important;
     }
   }
   @media (max-width:925px){
@@ -425,13 +421,8 @@ transition: top 200ms ease-in;
     }
   }
   @media (max-width:769px){
-    .usertable {
-        overflow: auto;
-      }
-      .usertable button{
-          font-size: 0.6rem;
-          padding: 2px 2px;
-      }
+
+
       .mainframe .sidenav{
         margin-top: 101px;
       }
@@ -1197,7 +1188,7 @@ transition: top 200ms ease-in;
     display: flex;
     max-width: 250px;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-evenly;
     height: 2.5em;
 }
 .pagenums{

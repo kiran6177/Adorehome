@@ -3,6 +3,7 @@ const logoubtn = document.getElementById('logoutbtn')
 
 async function logOut()
 {
+    try{
     const res = await fetch('/logout')
     const data = await res.json()
     if(data.data)
@@ -21,6 +22,10 @@ async function logOut()
                     
             })  
         
+    }}
+    catch(err)
+    {
+        window.location.href = '/login'
     }
 }
 
