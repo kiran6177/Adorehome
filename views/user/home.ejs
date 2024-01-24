@@ -29,23 +29,30 @@
                 <div class="row p-5">
                     <h6><img src="/public/images/pin.png" class="pin" alt=""> Our Products</h6>
                     <h2>Explore Our Products</h2>
-                    <% if(locals.products) { locals.products.forEach(element => { element.forEach(el => { %>
-                    <% let desc = el.description.split('.')[0] %>
-                    <% let pname = el.productname.split(' ')[0] %>
+                    <% if(locals.products) { locals.products.forEach(element => {   %>
+                    <% let desc = element.description.split('.')[0] %>
+                    <% let pname = element.productname.split(' ')[0] %>
                     <div class="product col-md-3 mt-4"> 
                         <div class="card">
-                            <a href="/products/viewproduct?id=<%= el._id %>"><img src="/assets/<%= el.mainimage %>" class="card-img-top" alt="..."></a>
+                            <a href="/products/viewproduct?id=<%= element._id %>"><img src="/assets/<%= element.mainimage %>" class="card-img-top" alt="..."></a>
                             <div class="card-body">
                               <h5 class="card-title cardhead"><%= pname %></h5>
                               <div class="carddesc"><p class="card-text"><%= desc %></p></div>
-                              <div class="cardprice"><p class="card-text ">Rs.<%= el.price %></p></div>
-                              <div class="wish wbtn"><i class="fa-regular fa-heart"></i></div>
-                              <div class="wish1 wbtn"><i class="fa-solid fa-heart"></i></div>
-                            <div class="addcart"><button type="button" id="addcartbtn" data-proid="<%= el._id %>"><i class="fa-solid fa-cart-plus"></i></button></div>
+                              <div class="cardprice"><p class="card-text ">Rs.<%= element.price %></p></div>
+                              <% let isListed = 0 %>
+                              <% if(locals.udata && locals.udata.wishlist && locals.udata.wishlist.length > 0) { locals.udata.wishlist.forEach(el => { %>
+                                <% if(el.product_id.equals(element._id)) { isListed = 1 }%>
+                             <% });} %>
+                             <% if(isListed == 1){%>
+                              <div class="wishiconsolid3 " data-proid="<%= element._id %>"><i class="fa-solid fa-heart"></i></div>
+                             <% }else{ %>   
+                              <div class="wishicon3 " data-proid="<%= element._id %>"><i class="fa-regular fa-heart"></i></div>
+                            <% } %>
+                            <div class="addcart"><button type="button" id="addcartbtn" data-proid="<%= element._id %>"><i class="fa-solid fa-cart-plus"></i></button></div>
                             </div>
                           </div>
                     </div>
-                    <% }); }); } %>
+                    <%  }); } %>
                     <button class="btn viewbtn my-4 text-center p-3"><a href="/products">View All Products</a></button>
                 </div>
             </div>

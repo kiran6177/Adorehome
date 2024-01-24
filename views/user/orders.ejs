@@ -47,9 +47,11 @@
                                 <td class="td6"> 
                                   <% if(el.status === "Delivered") { %>
                                     <a href="/orders/return?id=<%= el.product_id._id %>"><button type="button" class="cancelorderbtn">Return</button></a>
-                                    <% } else { %>
+                                    <% } else if(el.status == "Cancelled") { %>
+                                      No Action
+                                      <% }else{ %>
                                       <button type="button" class="cancelorderbtn" data-orderid="<%= element._id %>" data-proid="<%= el.product_id._id %>">Cancel Order</button>
-                                      <% } %>
+                                      <% } %>  
                                 </td>
                             </tr>
                         </table>
@@ -76,9 +78,11 @@
                             <tr><th>Action</th><td class="td6">
                               <% if(el.status === "Delivered") { %>
                                 <a href="/orders/return?id=<%= el.product_id._id %>"><button type="button" class="cancelorderbtn">Return</button></a>
-                                <% } else { %>
-                                  <button type="button" class="cancelorderbtn" data-proid="<%= el.product_id._id %>">Cancel Order</button>
-                                  <% } %>
+                                <% } else if(el.status == "Cancelled") { %>
+                                  No Action
+                                  <% }else{ %>
+                                  <button type="button" class="cancelorderbtn" data-orderid="<%= element._id %>" data-proid="<%= el.product_id._id %>">Cancel Order</button>
+                                  <% } %>  
                             </td></tr>
                         </table>
                     </div>
@@ -90,7 +94,7 @@
                 <%  }); } else { %>
                   <div class="card-body h-100 d-flex justify-content-center align-items-center ordersmain">
                   <div class="card-title d-flex flex-column justify-content-center align-items-center ">
-                    <img src="/public/images/oops.png" alt="" width="300rem" height="300rem">
+                    <img src="/public/images/favicon.png" alt="" width="300rem" height="300rem">
                     <h2>No Orders Placed!!</h2>
                   </div>
                 </div>

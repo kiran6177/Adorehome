@@ -9,6 +9,8 @@ const loadPayment = async (req,res)=>{
     try {
         const uid = req.userid
         const addid = req.cookies.addressid
+        const totalamount = req.cookies.totalamount
+        const couponid = req.cookies.couponid ? req.cookies.couponid : null
         const prodet = req.cookies.prodet ? JSON.parse(req.cookies.prodet) : []
         let products = []
         prodet.forEach(el=>{
@@ -38,7 +40,7 @@ const loadPayment = async (req,res)=>{
         // console.log(addData)
         if(addData!= null)
         {
-        res.render('user/payment',{udata:udata,addData:addData,proext:proext})
+        res.render('user/payment',{udata:udata,addData:addData,proext:proext ,totalamount})
         }
     } catch (error) {
         console.log(error.message)
@@ -51,6 +53,8 @@ const paymentConfirm = async (req,res)=>{
         const uid = req.userid
         const {paymethod} = req.query
         const addid = req.cookies.addressid
+        const totalamount = req.cookies.totalamount
+        const couponid = req.cookies.couponid ? req.cookies.couponid : null
         const prodet = req.cookies.prodet ? JSON.parse(req.cookies.prodet) : []
         let products = []
         prodet.forEach(el=>{
@@ -67,7 +71,8 @@ const paymentConfirm = async (req,res)=>{
             let pertot = data.price * products[i].qty
             totarray.push(pertot)
         }
-        const total = totarray.reduce((acc,curr)=>acc+curr)
+        // totarray.reduce((acc,curr)=>acc+curr)
+        const total = totalamount
 
         let paystatus
 
@@ -84,6 +89,7 @@ const paymentConfirm = async (req,res)=>{
             user_id:uid,
             address_id:addid,
             products:products,
+            coupon_id:couponid != null ? (couponid != "null" ? couponid : "Nil"):"Nil",
             payment_method:paymethod,
             payment_status:paystatus,
             total_amount:total
@@ -105,7 +111,12 @@ const paymentConfirm = async (req,res)=>{
                 console.log(error.message)
             }
         }
-
+        if(couponid != null && couponid != "null"){
+            const addcoupontoUser = await User.findByIdAndUpdate({_id:uid},{$push:{coupon_id:couponid}})
+            if(addcoupontoUser){
+            console.log("added coupon to User")
+            }
+        }
         setTimeout(()=>deleteOrder(orderSaved._id),300000)
         console.log(orderSaved)
         if(orderSaved!= null)

@@ -290,19 +290,13 @@ const loadHome = async(req,res)=>{
         const uid = req.userid
          console.log("home "+uid)
          data = await User.findById({_id:uid}).populate({path:'cart.product_id'})
-        console.log(data.cart)
+        console.log()
+        console.log("wishlist")
         }
-        
-        const existcatdata = await Category.find({status:"1"})
-        // console.log(existcatdata)
-        let pdata = []
-        let products
-        for(let i = 0 ;i < 4 ; i++)
-        {
-           products = await Product.find({category_id:existcatdata[i]._id})
-          pdata.push(products)
-        }
-        console.log(pdata.length)
+
+        let pdata  = await Product.find({isBlocked:0}).limit(8)
+
+        // console.log(pdata)
         if(req.userid)
         {
         res.render('user/home',{products:pdata,udata:data})

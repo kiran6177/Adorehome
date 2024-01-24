@@ -1,6 +1,7 @@
 const User = require('../models/userSchema')
 const Order = require('../models/orderSchema')
 const Product = require('../models/productSchema')
+const Coupon = require('../models/couponSchema')
 const { ObjectId } = require('mongodb')
 const easyinvoice = require('easyinvoice');
 const fs = require('fs')
@@ -60,38 +61,36 @@ const cancelOrder = async (req,res)=>{
     try {
         const {oid,pid} = req.query
         console.log(oid,pid)
-        const cancelData = await Order.findOneAndUpdate({_id:oid},{$pull:{products:{product_id:pid}}})
+        const cancelData = await Order.findOneAndUpdate({_id:oid,'products.product_id':pid},{$set:{'products.$.status':"Cancelled"}},{new:true})
         console.log(cancelData)
         if(cancelData!=null)
-        {   console.log(cancelData)
-            let qtytoupdate = 0
-            cancelData.products.forEach(el=>{
-                if(el.product_id == pid)
-                {   console.log(el.qty)
-                    qtytoupdate = el.qty
+        {  
+                let qtytoupdate = 0
+                cancelData.products.forEach(el=>{
+                    if(el.product_id == pid && el.status == "Cancelled"){
+                        qtytoupdate = el.qty
+                    }
+                })
+                let tot = 0
+                let productdet = await Product.findById({_id:pid})
+                if(productdet){
+                    tot = productdet.price
                 }
-            })
-            console.log(qtytoupdate)
-            if(cancelData.products.length <= 1)
-            {
-                const orderDelete = await Order.findByIdAndDelete({_id:oid})
-            }
-            else{
-                const amountUpdate = await Order.findById({_id:oid}).populate('products.product_id')
-                console.log(amountUpdate)
-                let totalarray = []
-                for(let i = 0;i < amountUpdate.products.length ; i++)
-                {
-                    const totvalue = amountUpdate.products[i].product_id.price * amountUpdate.products[i].qty
-                    totalarray.push(totvalue)
-                }
-            
-                const totamount = totalarray.reduce((acc,curr)=>acc+curr)
+                let totamount = cancelData.total_amount - (tot * qtytoupdate)
                 console.log(totamount)
-                const UpdateTotal = await Order.findByIdAndUpdate({_id:oid},{$set:{total_amount:totamount}})
-            }
+                if(cancelData.coupon_id != "Nil"){
+                    const coupondet = await Coupon.aggregate([{$match:{_id:new ObjectId(cancelData.coupon_id)}}])
+                    if(coupondet.length > 0){
+                        if(coupondet[0].couponlimit > totamount){
+                            totamount = totamount + coupondet[0].reductionrate
+                        }
+                    }
+                }
+                console.log(totamount)
+              const UpdateTotal = await Order.findByIdAndUpdate({_id:oid},{$set:{total_amount:totamount}})
+            
 
-            const stockUpdate = await Product.findByIdAndUpdate({_id:pid},{$inc:{stock:qtytoupdate}})
+             const stockUpdate = await Product.findByIdAndUpdate({_id:pid},{$inc:{stock:qtytoupdate}})
                 if(stockUpdate!=null)
                 {
                 res.json({data:"Order Cancelled!!"})
@@ -103,7 +102,7 @@ const cancelOrder = async (req,res)=>{
         }
         else{
             res.json({err:"Cannot Cancel Order!!"})
-        }
+         }
     } catch (error) {
         console.log(error.message)
     }

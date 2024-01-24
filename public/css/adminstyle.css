@@ -331,7 +331,12 @@ transition: top 200ms ease-in;
         border-radius: 10px;
         height: auto;
 }
-
+.table2 td{
+    max-width: 200px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
 .sidenav a{
     text-decoration: none;
     color: #666666;
@@ -1371,5 +1376,31 @@ transition: top 200ms ease-in;
         font-size: 0.7rem;
 
     
+    }
+}
+.coupfield{
+    width: 45%;
+}
+.coupfield1{
+    width: 30%;
+}
+.coupontext{
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    margin: auto;
+}
+.couponform{
+    display: flex;
+    width: 90%;
+    justify-content: space-between;
+    margin: auto;
+}
+@media (max-width:768px) {
+    .couponform{
+        flex-direction: column;
+    }
+    .coupfield,.coupfield1{
+        width: 100%;
     }
 }

@@ -9,12 +9,19 @@
                   <% if(locals.udata && locals.udata.cart && locals.udata.cart.length > 0) { %>
                 <div class="cart col-md-6 col-lg-12 mt-4">
                     <%  locals.udata.cart.forEach(element => {   %>
+                      <% let isListed = 0 %>
+                      <% if(locals.udata.wishlist && locals.udata.wishlist.length > 0) { locals.udata.wishlist.forEach(el => {%>
+                          <% if(el.product_id.equals(element.product_id._id)){isListed = 1 } %>
+                      <% }); }%>
                       <div class="card cartcard my-4" >
                           <div class="card-body cartbody">
                             <a href="/products/viewproduct?id=<%= element.product_id._id %>&qty=<%= element.qty %>"><img src="/assets/<%= element.product_id.mainimage %>" alt="" width="200px" height="200px"></a>
                             <div class="cartdetails">
                                 <h4 class="card-title prohead fw-bold "><%= element.product_id.productname %></h4>
                                 <p><%= element.product_id.description.split('.')[0] %></p>
+                                <% if(isListed == 0) {%>
+                                <button class="wishaddbtn" type="button" data-proid="<%= element.product_id._id %>"> Add to Wishlist  &nbsp;<i class="fa-solid fa-heart"> </i></button>
+                                <% } %>
                             </div>
                             <div class="cartprice">
                             <h6>Unit Price</h6>
@@ -39,6 +46,9 @@
                                 <% if(element.product_id.stock === 0 ) { %>
                                   <div class="out1">Out of Stock</div>
                                     <% } %>
+                                    <% if(isListed == 1) {%>
+                                    <div class="wishiconsolid1" data-proid="<%= element.product_id._id %>"><button type="button" ><i class="fa-solid fa-heart"></i></button> </div>
+                                    <% } %>
                             </div>
                             
                             <% }) %>
@@ -51,7 +61,7 @@
                 <div class="card m-auto border-0 h-100 ">
                   <div class="card-body h-100 d-flex justify-content-center align-items-center">
                     <div class="card-title d-flex flex-column justify-content-center align-items-center ">
-                      <img src="/public/images/oops.png" alt="" width="300rem" height="300rem">
+                      <img src="/public/images/favicon.png" alt="" width="300rem" height="300rem">
                       <h2>Cart is Empty!!</h2>
                     </div>
                   </div>

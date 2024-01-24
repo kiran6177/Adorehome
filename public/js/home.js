@@ -66,3 +66,60 @@ addtocart.forEach(el =>{
         addCart(proid,qty)
     })
 })
+
+const wishiconsolid3 = document.querySelectorAll('.wishiconsolid3')
+const wishicon3 = document.querySelectorAll('.wishicon3')
+
+async function addWishlist(proid){
+    try {
+      const res = await fetch(`/wishlist/add?productid=${proid}`)
+      const data = await res.json()
+      if(data.success){
+        return true
+      }
+      else{
+        return false
+      }
+    } catch (error) {
+      window.location.href = '/login'
+      console.log(error.message)
+    }
+  }
+  async function removeWishlist(proid){
+    try {
+      const res = await fetch(`/wishlist/rem?productid=${proid}`)
+      const data = await res.json()
+      if(data.success){
+        return true
+      }
+      else{
+        return false
+      }
+    } catch (error) {
+      window.location.href = '/login'
+      console.log(error.message)
+    }
+  }
+
+
+wishiconsolid3.forEach(el=>{
+    el.addEventListener('click',()=>{
+        const proid = el.dataset.proid
+        console.log(proid)
+       const removed =  removeWishlist(proid)
+       if(removed){
+        window.location.reload()
+       }
+    })
+})
+
+wishicon3.forEach(el=>{
+    el.addEventListener('click',()=>{
+        const proid = el.dataset.proid
+        console.log(proid)
+        const added = addWishlist(proid)
+        if(added){
+            window.location.reload()
+        }
+    })
+})

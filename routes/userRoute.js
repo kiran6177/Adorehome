@@ -11,6 +11,9 @@ const userAddressController = require('../controllers/userAddressController')
 const userCheckoutController = require('../controllers/userCheckoutController')
 const userPaymentController = require('../controllers/userPaymentController')
 const userOrderController = require('../controllers/userOrderController')
+const userWishlistController = require('../controllers/userWishlistController')
+const userBrandController = require('../controllers/userBrandController')
+const userCouponController = require('../controllers/userCouponController')
 
 // router.get('/',userController.loginRedirect)
 
@@ -30,10 +33,16 @@ router.post('/otplogin',userAuth.isLogout,userController.verifyOtpLogin)
 
 router.get('/products',userAuth.isLogin,userproductController.loadProducts)
 router.get('/products/viewproduct',userAuth.isLogin,userproductController.loadProductDetail)
+router.get('/products/searchpro',userAuth.isLogin,userproductController.proSearch)
+router.get('/products/filterpro',userAuth.isLogin,userproductController.proFilter)
+router.get('/products/searchfilterpage',userAuth.isLogin,userproductController.productListFetch)
+
 
 router.get('/category',userAuth.isLogin,userCategoryController.loadCategory)
 
 router.get('/room',userAuth.isLogin,userRoomController.loadRoom)
+
+router.get('/brand',userAuth.isLogin,userBrandController.loadBrands)
 
 router.get('/cart',userAuth.isLogin,userCartController.loadCart)
 router.get('/cart/addcart',userAuth.isLogin,userCartController.addToCart)
@@ -65,7 +74,14 @@ router.get('/ordered',userAuth.isLogin,userOrderController.loadOrdered)
 router.get('/orders',userAuth.isLogin,userOrderController.loadOrders)
 router.get('/orders/summary',userAuth.isLogin,userOrderController.loadSummary)
 router.get('/orders/cancel',userAuth.isLogin,userOrderController.cancelOrder)
-router.get('/orders/cancelorder',userAuth.isLogin,userOrderController.cancelOrderPayment)
+// router.get('/orders/cancelorder',userAuth.isLogin,userOrderController.cancelOrderPayment)
+
+router.get('/wishlist',userAuth.isLogin,userWishlistController.loadWishlist)
+router.get('/wishlist/add',userAuth.isLogin,userWishlistController.addToWishlist)
+router.get('/wishlist/rem',userAuth.isLogin,userWishlistController.removeFromWishlist)
+
+router.get('/coupon',userAuth.isLogin,userCouponController.loadCoupon)
+router.get('/coupon/apply',userAuth.isLogin,userCouponController.applyCoupon)
 
 router.get('/generateInvoice',userAuth.isLogin,userOrderController.generateInvoice)
 

@@ -13,6 +13,7 @@ const profileController = require("../controllers/profileController");
 const orderController = require("../controllers/orderController");
 const reportController = require("../controllers/reportController");
 const dashboardController = require("../controllers/dashboardController");
+const couponController = require('../controllers/couponController')
 
 router.get("/", adminAuth.isLogout, adminController.loginredirect);
 router.get("/login", adminAuth.isLogout, adminController.loginload);
@@ -215,5 +216,12 @@ router.get(
   adminAuth.isLogin,
   reportController.yearlyTurnover
 );
+
+router.get("/coupon",adminAuth.isLogin,couponController.loadCoupon)
+router.post("/coupon",adminAuth.isLogin,couponController.addCoupon)
+router.get("/coupon/edit",adminAuth.isLogin,couponController.loadEditCoupon)
+router.post("/coupon/edit",adminAuth.isLogin,couponController.editCoupon)
+
+
 
 module.exports = router;
