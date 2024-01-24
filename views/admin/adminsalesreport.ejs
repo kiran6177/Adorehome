@@ -153,7 +153,7 @@
                       <% } %>
                       </table>
 
-                      <table class="table table2" style="display: none;">
+                      <table class="table table2" id="promaintable1" style="display: none;">
                         <% if(locals.prosold && locals.prosold.length > 0) { locals.prosold.forEach((element,i) => { %>
                           <tr><th>Serial No.</th><td><%= i + 1 %></td> </tr>
                           <tr><th>Date Purchased</th>
@@ -191,11 +191,19 @@
                               <td><%= element.payment_method %></td>
         
                           </tr>
+                         <tr><td></td><td></td></tr>
+                         
+
                           <%  }) } else { %>
                             <tr><td>No Products Sold</td></tr>
                           <% } %>
                       </table>
-                      <div class="pagemain mt-4"><div class="pageblock"><button class="pagbtns" id="leftbtn"><i class="fa-solid fa-chevron-left"></i></button><span class="pagenums"><button class="pagbtns">1</button><button class="pagbtns">2</button><button class="pagbtns">3</button></span><button id="rightbtn" class="pagbtns"><i class="fa-solid fa-angle-right"></i></button></div></div>
+                      <input type="hidden" id="procount" name="procount" <% if(locals.totPro) {%> value="<%= locals.totPro %>" <% } %>>
+                      <div id="page" class="pagemain mt-4" ><div class="pageblock" id="pgmain"></div></div>
+                      <div id="dpage" class="pagemain mt-4" style="display: none;"><div class="pageblock" id="dpgmain"></div></div>
+                      <div id="wpage" class="pagemain mt-4" style="display: none;"><div class="pageblock" id="wpgmain"></div></div>
+                      <div id="mpage" class="pagemain mt-4" style="display: none;"><div class="pageblock" id="mpgmain"></div></div>
+                      <div id="ypage" class="pagemain mt-4" style="display: none;"><div class="pageblock" id="ypgmain"></div></div>
 
                     </div>
                   </div>
@@ -211,7 +219,7 @@
                       <div class="reportsales"><h3>Turnover Report</h3><div class="rightoptions"><div class="downoptions"><button type="button" id="maindownpdf">Download PDF</button><button type="button" id="maindownexcel">Download Excel</button></div><div class="optionbuttons"><button type="button" id="dailybtn1">Daily</button><button type="button" id="weekbtn1">Weekly</button><button type="button" id="monthbtn1"> Monthly</button><button type="button" id="yearbtn1"> Yearly</button></div></div></div>
                       <div class="dailybuttons" id="dailybuttons1" >
                         <h6>Select Date</h6>
-                        <div class="dailyselect"><select name="Dday" id="Dday">
+                        <div class="dailyselect"><select name="Dday1" id="Dday1">
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -245,7 +253,7 @@
                             <option value="31">31</option>
 
                         </select>
-                        <select name="Dmonth" id="Dmonth">
+                        <select name="Dmonth1" id="Dmonth1">
                         <option value="1">January</option>
                         <option value="2">February</option>
                         <option value="3">March</option>
@@ -259,7 +267,7 @@
                         <option value="11">November</option>
                         <option value="12">December</option>
                       </select>
-                    <select name="Dyear" id="Dyear">
+                    <select name="Dyear1" id="Dyear1">
                         <option value="2024">2024</option>
                         <option value="2023">2023</option>
 
@@ -267,13 +275,13 @@
                     </div></div>
                       <div class="weekbuttons" id="weekbuttons1" style="display: none;">
                         <h6>Select Week</h6>
-                        <div class="weekselect"><select name="Wweek" id="Wweek">
+                        <div class="weekselect"><select name="Wweek1" id="Wweek1">
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
                             <option value="4">4</option>
                         </select>
-                        <select name="Wmonth" id="Wmonth">
+                        <select name="Wmonth1" id="Wmonth1">
                         <option value="1">January</option>
                         <option value="2">February</option>
                         <option value="3">March</option>
@@ -287,7 +295,7 @@
                         <option value="11">November</option>
                         <option value="12">December</option>
                       </select>
-                    <select name="Wyear" id="Wyear">
+                    <select name="Wyear1" id="Wyear1">
                         <option value="2024">2024</option>
                         <option value="2023">2023</option>
 
@@ -296,7 +304,7 @@
                     <div class="monthbuttons" id="monthbuttons1" style="display: none;">
                         <h6>Select Month</h6>
                         <div class="monthselect">
-                        <select name="Mmonth" id="Mmonth">
+                        <select name="Mmonth1" id="Mmonth1">
                         <option value="1">January</option>
                         <option value="2">February</option>
                         <option value="3">March</option>
@@ -310,7 +318,7 @@
                         <option value="11">November</option>
                         <option value="12">December</option>
                         </select>
-                        <select name="Myear" id="Myear">
+                        <select name="Myear1" id="Myear1">
                         <option value="2024">2024</option>
                         <option value="2023">2023</option>
                         </select>
@@ -319,7 +327,7 @@
                     <div class="yearbuttons" id="yearbuttons1" style="display: none;">
                         <h6>Select Year</h6>
                         <div class="yearselect">
-                        <select name="Yyear" id="Yyear">
+                        <select name="Yyear1" id="Yyear1">
                             <option value="2024">2024</option>
                             <option value="2023">2023</option>
                             </select>
@@ -327,7 +335,7 @@
                     </div>
                       
 
-                      <table class="table table2" >
+                      <table class="table table2" id="turnovertable">
                         <tr><th>Products Sold</th>
                         <td>
                           <% if(locals.totalProducts){ %><%= locals.totalProducts %><% } else {%> 0 <% } %>

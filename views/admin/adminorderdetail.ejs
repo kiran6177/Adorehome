@@ -105,11 +105,11 @@
                                             </div>
                                             <div class="checkdisc">
                                                 <h6>Discount</h6>
-                                                <p>500</p>
+                                                <p>Rs.<% if(locals.discount){ %><%= locals.discount %><% }else{ %>0<% } %></p>
                                             </div>
                                             <div class="checkdel">
                                                 <h6>Delivery Charges</h6>
-                                                <p>50000</p>
+                                                <p>Rs.0</p>
                                             </div>
                                                   <hr>
                                                   <div class="checktotal"><h6 class="fw-bold">Total Amount</h6><p>Rs.<%= locals.orderdetail.total_amount %></p></div>

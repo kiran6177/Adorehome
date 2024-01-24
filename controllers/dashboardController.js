@@ -117,9 +117,53 @@ const categorySales = async (req,res)=>{
         console.log(error.message)
     }
 }
+
+const propage = async (req,res)=>{
+    try {
+        let propage = 0
+        const propagesize = 8
+        if(req.query.page)
+        {
+            propage = req.query.page
+        }
+        else{
+            propage = 1
+        }
+
+    const proSold = await Order.aggregate([{$match:{payment_status:"Paid"}},{$unwind:'$products'},{$lookup:{from:'users',localField:'user_id',foreignField:'_id',as:'userdetails'}},{$lookup:{from:'products',localField:'products.product_id',foreignField:'_id',as:'prodetails'}},{$sort:{date:-1}},{$skip:(propage -1)*propagesize},{$limit:propagesize}])
+    if(proSold.length > 0)
+    {
+        res.json({proSold:proSold})
+    }
+    else{
+        res.json({proerr:"NO PROducts"})
+    }
+        
+    } catch (error) {
+        console.log(error.message)
+    }
+}
+
+const stockPage = async (req,res)=>{
+    try {
+        const {page} = req.query
+    const prodet = await Product.aggregate([{$match:{isBlocked:0}},{$sort:{date:-1}},{$skip:(page - 1)*8},{$limit:8}])
+        if(prodet.length > 0)
+        {
+            res.json({products:prodet})
+        }
+        else{
+            res.json({stocknot:"NO STOCK"})
+        }
+    } catch (error) {
+        console.log(error.message)
+    }
+}
 module.exports = {
     weekReport,
     monthReport,
     yearReport,
-    categorySales
+    categorySales,
+    propage,
+    stockPage
 }

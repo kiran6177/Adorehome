@@ -144,6 +144,7 @@ async function orderPlace(paymethod) {
 
     }
   } catch (error) {
+    window.location.href = '/login'
      console.log("Hello"+error);
   }
 }

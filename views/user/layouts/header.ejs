@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AdoreHome | LOGIN</title>
+    <script src="https://cdn.jsdelivr.net/npm/easyinvoice/dist/easyinvoice.min.js"></script>
     <link rel="icon" href="/public/images/favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="/public/css/userstyle.css" type="text/css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,7 +18,7 @@
     <nav class="nav">
         <div class="container-fluid fullnav">
             <div class="navleft">
-                <a class="" href="/home">
+                <a class="" href="/">
                     <img src="/public/images/LOGO Black.png" alt="" width="170" height="50">
                   </a>
     
@@ -28,9 +29,9 @@
                     <li class="dropdown item">
                         <span><h5 class="fw-normal">All</h5></span>
                         <div class="dropdown-content">
-                          <a href="#">Coupons</a>
+                          <a href="/coupon">Coupons</a>
                           <a href="/orders">Orders</a>
-                          <a href="#">Brands</a>
+                          <a href="/brand">Brands</a>
                           <a href="/cart">Cart</a>
                         </div>
                     <hr class="hr-nav1">
@@ -60,7 +61,11 @@
                         <a class="" href="/profile"><i class="fa-regular fa-user"></i></a>
                       </li>
                     <li class="wishlist">
-                      <a class="position-relative"  href="#" ><i class="fa-regular fa-heart"></i><span class="position-absolute top-0 start-100 translate-middle badge  ">0</span></a>
+                      <a class="position-relative"  href="/wishlist" ><i class="fa-regular fa-heart"></i><span class="position-absolute top-0 start-100 translate-middle badge  ">
+                        <% if(locals.udata && locals.udata.wishlist && locals.udata.wishlist.length > 0){ %>
+                            <%= locals.udata.wishlist.length %>
+                            <% }else { %> 0 <% } %>
+                    </span></a>
                     </li>
                     <li class="">
                      <div class="carticon position-relative"><button  id="cartbtn" type="button"><i class="fa-solid fa-cart-shopping"></i></button><span class="position-absolute top-0 start-100 translate-middle badge  ">
@@ -83,8 +88,8 @@
       <div class="searchbar" >
         <div class="searchcontent">
         <form action="">
-        <input class="form-control me-2 searchbox pe-2" type="search" placeholder="Search for products." aria-label="Search" >
-        <button class="btn btn-outline-dark" type="button"><i class="fa-sharp fa-solid fa-magnifying-glass"></i></button>
+        <input class="form-control me-2 searchbox pe-2" type="search" id="usearch" placeholder="Search for products." aria-label="Search" >
+        <button class="btn btn-outline-dark" type="button" id="usearchbtn"><i class="fa-sharp fa-solid fa-magnifying-glass"></i></button>
         </form>
         <span class="close" ><button class="closebtn" id="closebtn">&times;</button></span>
     </div>
@@ -104,7 +109,15 @@
                             <% if(locals.udata && locals.udata.cart.length > 0) { locals.udata.cart.forEach(element => { %>
                             <div class="card my-3">
                             <div class="card-body cartslideitem">
-                            
+                                <% let showsolid = 0 %>
+                                <% if(locals.udata.wishlist && locals.udata.wishlist.length > 0){ for(let i = 0 ; i < locals.udata.wishlist.length ; i++){%>
+                                        <% if(locals.udata.wishlist[i].product_id.equals(element.product_id._id)){ showsolid = 1 } %>
+                                <% } }%>    
+                                <% if(showsolid == 1) {%>
+                                <div class="wishiconsolid"  data-proid="<%= element.product_id._id %>"><i class="fa-solid fa-heart"></i></div>
+                                    <% }else{ %>
+                                <div class="wishicon" data-proid="<%= element.product_id._id %>"><i class="fa-regular fa-heart"></i></div>
+                                    <% } %>
                                 <a href="/products/viewproduct?id=<%= element.product_id._id %>&qty=<%= element.qty %>"><img src="/assets/<%= element.product_id.mainimage %>" alt="" width="80px" height="80px"></a>
                                 <div class="cartproname"><h6 class="card-title fw-bold my-0"><%= element.product_id.productname %></h6><p class="my-0"><%= element.product_id.description.split('.')[0] %></p></div>
                                 <div class="qtybtn"><button type="button" class="minusbtn" data-prominid="<%= element.product_id._id %>"><i class="fa-solid fa-minus"></i></button><span ><p id="qtychange_<%= element.product_id._id %>"><%= element.qty %></p></span><button type="button" class="plusbtn" data-promaxid="<%= element.product_id._id %>"><i class="fa-solid fa-plus"></i></button></div>

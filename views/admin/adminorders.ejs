@@ -14,32 +14,15 @@
                                 <th>Date</th>
                                 <th>Customer Name</th>
                                 <th>Total Price</th>
-                                <th>Status</th>
                                 <th>Action</th>
                             </tr>
                             <% if(locals.orderdata && locals.orderdata.length > 0) { locals.orderdata.forEach(element => { %>
                             <tr>
                                 <td>#<%= element._id %></td>
-                                <td><%= element.date.toString().split(' ')[2] %>&nbsp;<%= element.date.toString().split(' ')[1] %>&nbsp;<%= element.date.toString().split(' ')[3] %>&nbsp;</td>
+                                <td><%=  element.date.toISOString().split('T')[0].split('-')[2] %>&nbsp;<%= element.date.toString().split(' ')[1] %>&nbsp;<%= element.date.toString().split(' ')[3] %>&nbsp;</td>
                                 <td><%= element.user_id.firstname %>&nbsp;<%= element.user_id.lastname %></td>
 
                                 <td>Rs.<%= element.total_amount %></td>
-                                <td>
-                                <% if(element.status === "Processing") { %>
-                                    <span class="stat1">Processing</span>
-                                    <% } else if(element.status === "Delivered") { %>
-                                 <span class="stat">Delivered</span>
-                                    <% } else if(element.status === "Dispatched"){ %>
-                                        <span class="stat2">Dispatched</span>
-                                    <% } else if(element.status === "Shipped"){ %>
-                                        <span class="stat3">Shipped</span>
-                                    <% } else if(element.status === "Cancelled") {%>
-                                        <span class="stat4">Cancelled</span>
-                                    <% } else if(element.status === "Returned") {%>
-                                        <span class="stat5">Returned</span>
-
-                                    <% } %>
-                                </td>
                                 <td class="actionbtns"><a href="/admin/orders/orderdetail?id=<%= element._id %>"><button type="button">Details</button></a></td>
                             </tr>
                             <% }) } else { %>
@@ -49,25 +32,9 @@
                             <% if(locals.orderdata && locals.orderdata.length > 0) { locals.orderdata.forEach(element => {  %>
                         <table class="table  table2 my-4" style="display: none;">
                             <tr><th>Order ID</th><td>#<%= element._id %></td></tr>
-                            <tr><th>Date</th><td><%= element.date.toString().split(' ')[2] %>&nbsp;<%= element.date.toString().split(' ')[1] %>&nbsp;<%= element.date.toString().split(' ')[3] %>&nbsp;</td></tr>
+                            <tr><th>Date</th><td><%=  element.date.toISOString().split('T')[0].split('-')[2] %>&nbsp;<%= element.date.toString().split(' ')[1] %>&nbsp;<%= element.date.toString().split(' ')[3] %>&nbsp;</td></tr>
                             <tr><th>Customer Name</th><td><%= element.user_id.firstname %>&nbsp;<%= element.user_id.lastname %></td></tr>
                             <tr><th>Total Price</th><td>Rs.<%= element.total_amount %></td></tr>
-                            <tr><th>Status</th><td>
-                                <% if(element.products[0].status === "Processing") { %>
-                                    <span class="stat1">Processing</span>
-                                    <% } else if(element.products[0].status === "Delivered") { %>
-                                 <span class="stat">Delivered</span>
-                                    <% } else if(element.products[0].status === "Dispatched"){ %>
-                                        <span class="stat2">Dispatched</span>
-                                    <% } else if(element.products[0].status === "Shipped"){ %>
-                                        <span class="stat3">Shipped</span>
-                                    <% } else if(element.products[0].status === "Cancelled") {%>
-                                        <span class="stat4">Cancelled</span>
-                                    <% } else if(element.products[0].status === "Returned"){ %>
-                                        <span class="stat5">Returned</span>
-
-                                    <% } %>
-                            </td></tr>
                             <tr><th>Action</th><td class="actionbtns"><a href="/admin/orders/orderdetail?id=<%= element._id %>"><button type="button">Detail</button></a></td></tr>
                             </table>
                             <% })  } else { %>

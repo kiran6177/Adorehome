@@ -3,7 +3,8 @@ const cancelorderbtn = document.querySelectorAll('.cancelorderbtn')
 
 async function cancelOrder(oid,pid)
 {
-    const res = await fetch(`/orders/cancel?oid=${oid}&pid=${pid}`)
+    try
+    {const res = await fetch(`/orders/cancel?oid=${oid}&pid=${pid}`)
     const data = await res.json()
     if(data.data)
     {
@@ -22,6 +23,10 @@ async function cancelOrder(oid,pid)
     else if(data.err)
     {
 
+    }}
+    catch(err)
+    {
+        window.location.href = '/login'
     }
 }
 

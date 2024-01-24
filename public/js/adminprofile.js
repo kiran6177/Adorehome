@@ -23,6 +23,7 @@ editbtn.addEventListener('click',()=>{
 
 async function logout()
 {
+    try{
     const res = await fetch('/admin/logout')
 
     const data = await res.json()
@@ -40,6 +41,10 @@ async function logout()
                 window.location.href = "/admin/login"
             }
         })
+    }}
+    catch(err)
+    {
+        window.location.href = '/admin/login'
     }
 }
 

@@ -1,7 +1,6 @@
 const express = require("express")
 const nocache = require('nocache')
 const path = require('path')
-const bcrypt = require('bcrypt')
 const cookieParser = require("cookie-parser")
 
 
@@ -25,8 +24,8 @@ app.use('/assets',express.static(path.join(__dirname,'/assets')))
 
 app.use(nocache())
 
-app.use("/",userRoute)
 app.use("/admin",adminRoute)
+app.use("/",userRoute)
 
 
 app.listen(PORT,()=>{

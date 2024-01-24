@@ -655,6 +655,11 @@ background-color: rgb(236, 236, 236);
 .perror{
     color: rgb(221, 40, 58);
 }
+.couponerror{
+    color: rgb(221, 40, 58);
+    padding-left:5px ;
+    font-size: 0.9rem;
+}
 .error{
     font-size: 0.9rem;
     position: absolute;
@@ -1214,11 +1219,11 @@ transition: top 200ms ease-in;
     border-top-right-radius: 15px;
     border-bottom-right-radius: 15px;
 }
-.product .wbtn{
+.product .wishicon3 , .product .wishiconsolid3{
     position: absolute;
     top: 20px;
     right: 20px;
-    opacity: 0;
+    opacity: 1;
     transition: all 300ms ease;
 }
 .product:hover  .card-body .carddesc  {
@@ -1265,7 +1270,7 @@ transition: top 200ms ease-in;
 }
 .wish1{
     color: rgb(240, 74, 74);
-    /* display: none; */
+
 }
 .products .viewbtn{
     background-color: #ff3f00;
@@ -1372,7 +1377,7 @@ transition: top 200ms ease-in;
         font-size: 0.5rem;
         padding: 2px 6px;
     }
-    .product .wbtn{
+    .product .wishicon3 , .product .wishiconsolid3{
         top: 10px;
         right: 10px;
     }
@@ -1402,7 +1407,7 @@ transition: top 200ms ease-in;
         font-size: 1rem;
         padding: 8px 30px;
     }
-    .product .wbtn{
+    .product .wishicon3 , .product .wishiconsolid3{
         top: 30px;
         right: 30px;
     }
@@ -1514,7 +1519,7 @@ transition: top 200ms ease-in;
         font-size: 0.9rem;
         padding: 3px 30px;
     }
-    .product .wbtn{
+    .product .wishicon3 , .product .wishiconsolid3{
         top: 15px;
         right: 15px;
     }
@@ -1538,7 +1543,7 @@ transition: top 200ms ease-in;
         font-size: 0.8rem;
         padding: 3px 30px;
     }
-    .product .wbtn{
+    .product .wishicon3 , .product .wishiconsolid3{
         top: 15px;
         right: 15px;
     }
@@ -1562,7 +1567,7 @@ transition: top 200ms ease-in;
         font-size: 0.8rem;
         padding: 3px 30px;
     }
-    .product .wbtn{
+    .product .wishicon3 , .product .wishiconsolid3{
         top: 15px;
         right: 15px;
     }
@@ -1967,6 +1972,7 @@ transition: top 200ms ease-in;
     position: absolute;
     top: 10px;
     right: 20px;
+    gap: 5px;
 }
 .cross button{
     background: none;
@@ -2076,11 +2082,11 @@ transition: top 200ms ease-in;
     display: flex;
     justify-content: space-between;
 }
-.couponform{
+.couponmain{
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
 }
-.couponform button{
+.couponbutton{
     width: 33%;
     border: 1px solid #313131;
     border-radius: 7px;
@@ -2089,7 +2095,7 @@ transition: top 200ms ease-in;
     font-size: 0.9rem;
     padding: 5px 10px;
 }
-.couponform input{
+.couponinput{
     width: 65%;
     padding: 5px 0px;
     border: 1px solid #7d7c7c;
@@ -2172,10 +2178,21 @@ transition: top 200ms ease-in;
         margin-top: 15px;
     }
 }
-@media (max-width:992px) {
-    .couponform button{
-        font-size: 0.7rem;
+@media (max-width:1047px) {
+    .couponmain{
+        flex-direction: column;
+        align-items: center;
     }
+    .couponinput{
+        width: 90%;
+    }
+    .couponbutton{
+        margin-top: 1rem;
+        width: 90%;
+    }
+}
+@media (max-width:992px) {
+
     .proceedbtn button{
         padding: 10px 20px;
     }
@@ -2446,7 +2463,14 @@ transition: top 200ms ease-in;
     border-radius: 20px;
     color: white;
 }
-
+.headorder button{
+    height:2.5rem;
+    padding: 0px 1rem;
+    font-size: 0.9rem;
+    background-color: white;
+    border: 1px solid #ff3f00;
+    border-radius: 5px;
+}
 @media (max-width:992px) {
     .orderscard{
         flex-direction: column;
@@ -2466,6 +2490,14 @@ transition: top 200ms ease-in;
     }
     .paydet{
         justify-content: center;
+    }
+}
+@media (max-width:576px) {
+    .headorder{
+        flex-direction: column;
+    }
+    .headorder  button{
+        width: 12rem;
     }
 }
 @media (max-width:500px) {
@@ -2582,5 +2614,130 @@ transition: top 200ms ease-in;
     .prodiv img{
         width: 275px;
         height: 275px;
+    }
+}
+
+.pagemain{
+    width: 100%;
+}
+.pageblock
+{
+    display: flex;
+    max-width: 250px;
+    align-items: center;
+    justify-content: space-evenly;
+    height: 2.5em;
+}
+.pagenums{
+    height: 100%;
+    display: flex;
+    width: 70%;
+    justify-content: space-evenly;
+}
+.pageblock button {
+    height: 100%;
+    width: 2.7em;
+    color: black;
+    background-color: #ffccbc;
+    border-radius: 50%;
+    border: 1px solid #ffccbc;
+}
+ .selectedbtn{
+    background-color: #ff3f00 !important;
+    color: white !important;
+}
+.wishicon3 i:hover{
+    color: red;
+}
+.wishiconsolid3 i{
+    color: red;
+}
+
+
+.wishicon i:hover{
+    color: red;
+}
+.wishiconsolid i{
+    color: red;
+}
+.wishiconsolid1{
+    font-size: 1.5rem;
+    position: absolute;
+    top: 15px;
+    left: 15px;
+}
+.wishiconsolid1 button{
+    border: none;
+    background: none;
+}
+.wishiconsolid1 i{
+    color: red;
+}
+.wishaddbtn{
+    padding: 4px 10px;
+    font-size: 0.8rem;
+    border: 1px solid rgb(254, 81, 81);
+    border-radius: 5px;
+    background-color: rgb(254, 81, 81);
+    color: white;
+}
+
+.addtocartbtn button{
+    background: none;
+    color: black;
+
+    border: 1px solid #ff3f00;
+    border-radius: 5px;
+    padding: 8px 30px;
+}
+.addtocartbtn button:hover{
+    background-color: #ff3f00;
+    color: white;
+}
+.removebtn i{
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+}
+.removebtn i:hover{
+    transform: scale(1.1);
+}
+.coupondetails{
+    height: 7rem;
+    width: 16rem;
+
+}
+.coupondiv{
+    display: flex;
+    justify-content: space-between;
+
+}
+.coupondiv p{
+    text-align: center;
+    border: 1px solid grey ;
+    width: 180px;
+    padding: 5px 15px;
+    letter-spacing: 2px;
+}
+
+.copyclip button{
+    padding: 7px 15px;
+    border: 1px solid #ff3f00;
+    background: none;
+    border-radius: 5px;
+    font-size: 0.9rem;
+}
+@media (max-width:1400px) {
+    .coupondiv{
+        flex-direction: column;
+    }
+}
+@media (max-width:768px) {
+    .coupondiv{
+        flex-direction: row;
+    }
+}
+@media (max-width:500px) {
+    .coupondiv{
+        flex-direction: column;
     }
 }

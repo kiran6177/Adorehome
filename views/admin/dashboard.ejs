@@ -78,7 +78,7 @@
             <div class="card col-md-12">
               <div class="card-body">
                 <h3>Stock Report </h3>
-                <table class="table table1" >
+                <table class="table table1" id="stocktable1">
                   <tr><th>Product Name </th>
                       <th>Date Added</th>
                       <th>Price</th>
@@ -86,7 +86,7 @@
                       <th>Stock</th>
                   </tr>
                   <% if(locals.products && locals.products.length > 0) { locals.products.forEach(element => { %>
-                  <tr><td><%= element.productname %></td>
+                  <tr class="stocksub1"><td><%= element.productname %></td>
                     <td><%= element.date.toString().split(' ')[2] %>&nbsp;<%= element.date.toString().split(' ')[1] %>&nbsp;<%= element.date.toString().split(' ')[3] %>&nbsp;</td>
                     <td>Rs.<%= element.price %></td>
                   <td>
@@ -103,7 +103,7 @@
                   </tr>
                 </table>
 
-                <table class="table table2" style="display: none;">
+                <table class="table table2" id="stocktable2" style="display: none;">
                   <% if(locals.products && locals.products.length > 0) { locals.products.forEach(element => { %>
                   <tr><th>Product Name</th><td><%= element.productname %></td></tr>
                   <tr><th>Date Added</th><td><%= element.date.toString().split(' ')[2] %>&nbsp;<%= element.date.toString().split(' ')[1] %>&nbsp;<%= element.date.toString().split(' ')[3] %>&nbsp;</td></tr>
@@ -116,11 +116,14 @@
                       <% } %>
                   </td></tr>
                   <tr><th>Stock</th><td><%= element.stock %></td></tr>
+                  <tr><td></td><td></td></tr>
+
                   <% }) } else { %>
                     <tr><td>No Stock</td></tr>
                     <% } %>
                 </table>
-                <div class="pagemain mt-4"><div class="pageblock"><button class="pagbtns" id="leftbtn"><i class="fa-solid fa-chevron-left"></i></button><span class="pagenums"><button class="pagbtns">1</button><button class="pagbtns">2</button><button class="pagbtns">3</button></span><button id="rightbtn" class="pagbtns"><i class="fa-solid fa-angle-right"></i></button></div></div>
+                <% if(locals.totalStock) {%> <input type="hidden" id="totalStock" value="<%= locals.totalStock %>"> <% } %>
+                <div class="pagemain mt-4"><div class="pageblock" id="pgstock"></div></div>
 
               </div>
             </div>
@@ -132,7 +135,7 @@
             <div class="card col-md-12">
               <div class="card-body">
                 <h3>Product Sales </h3>
-                <table class="table table1" >
+                <table class="table table1" id="prosaletable1" >
                   <tr><th>Serial No.</th>
                       <th>Date Purchased</th>
                       <th>Customer Name</th>
@@ -143,7 +146,7 @@
                       <th>Payment Method</th>
                   </tr>
                   <% if(locals.prosold && locals.prosold.length > 0) { locals.prosold.forEach((element,i) => { %>
-                  <tr>
+                  <tr class="prosalesub1">
                   <td><%= i + 1 %></td>
                   <td><%= element.date.toString().split(' ')[2] %>&nbsp;<%= element.date.toString().split(' ')[1] %>&nbsp;<%= element.date.toString().split(' ')[3] %>&nbsp;</td>
                   <td><%= element.userdetails[0].firstname %>&nbsp;<%= element.userdetails[0].lastname %></td>
@@ -159,7 +162,7 @@
               <% } %>
                 </table>
 
-                <table class="table table2" style="display: none;">
+                <table class="table table2" id="prosaletable2" style="display: none;">
                   <% if(locals.prosold && locals.prosold.length > 0) { locals.prosold.forEach((element,i) => { %>
                   <tr><th>Serial No.</th><td><%= i + 1 %></td> </tr>
                   <tr><th>Date Purchased</th>
@@ -197,11 +200,15 @@
                       <td><%= element.payment_method %></td>
 
                   </tr>
+                  <tr><td></td><td></td></tr>
                   <%  }) } else { %>
                     <tr><td>No Products Sold</td></tr>
                   <% } %>
                 </table>
-                <div class="pagemain mt-4"><div class="pageblock"><button class="pagbtns" id="leftbtn"><i class="fa-solid fa-chevron-left"></i></button><span class="pagenums"><button class="pagbtns">1</button><button class="pagbtns">2</button><button class="pagbtns">3</button></span><button id="rightbtn" class="pagbtns"><i class="fa-solid fa-angle-right"></i></button></div></div>
+                <% if(locals.totalProducts) {%> <input type="hidden" id="totalProductsCount" value="<%= locals.totalProducts %>"> <% } %>
+                <% if(locals.currentPage) {%> <input type="hidden" id="currentPage" value="<%= locals.currentPage %>"> <% } %>
+
+                <div class="pagemain mt-4"><div class="pageblock" id="pgmain"></div></div>
 
               </div>
             </div>

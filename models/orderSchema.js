@@ -30,6 +30,11 @@ const orderSchema = new mongoose.Schema({
             default:"Processing"
         }
     }],
+    coupon_id:{
+        type:String,
+        ref:'coupon',
+        default:"Nil"
+    },
     payment_method:{
         type:String,
         required:true

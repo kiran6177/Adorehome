@@ -72,6 +72,7 @@ function send(uiddata){
           error1.innerHTML = data.err
       }
 }).catch(err =>{
+    window.location.href = '/login'
     console.log(err.message)
 })
 }

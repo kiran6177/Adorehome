@@ -1,0 +1,88 @@
+<%- include('layouts/header.ejs') %>
+<script>
+    if(window.history.replaceState)
+    {
+      window.history.replaceState(null,null,window.location.href)
+    }
+  </script>
+<%- include('layouts/sidenav.ejs') %>
+
+<section class="maincontent">
+    <div class="container">
+        <div class="row">
+            <div class="usermain p-3  col-md-12">
+            <div class="titlemain"><h2 class="fw-bold ps-4  my-3">COUPONS</h2>
+                <!-- <a class="pe-4  my-3" href=""><button type="submit">Add New Product</button></a> -->
+            </div>
+            <div class="container">
+                <form action="/admin/coupon" method="post" id="catform" >
+                <div class="row">
+                    <div class="prolabel col-md-12">
+                        <% if(locals.message){ %>
+                            <div class="error1 alert alert-danger w-75"><%= locals.message %></div>
+                            <% } %>
+                        <h4 class="fw-bold">Add Coupon</h4>
+                        <hr class="my-4">
+                        <div class="couponform">
+                            
+                            <div class="coupfield "><label for="couponname">Coupon Name</label>
+                            <input type="text" id="couponname" name="couponname" class="form-control">
+                            <p class="perror mb-2" id="error1" style="display: none;"></p>
+                        </div>
+                            <div class="coupfield"><label for="status">Status</label>
+                                    <select name="status" class="form-control" id="status" >
+                                        <option value="1">Active</option>
+                                        <option value="0">Inactive</option>
+                                    </select>
+                                </div>
+                                   
+                        </div>
+                        <div class="catform my-4">
+
+                        <div class="coupontext"><label for="coupondescription">Coupon Description</label>
+                            <textarea name="description" id="coupondescription" cols="50" rows="5"></textarea>
+                            <p class="perror mb-2" id="error2" style="display: none;"></p>
+                        </div>
+
+                        </div>
+                        <div class="couponform">
+                            
+                            <div class="coupfield1 "><label for="couponcode">Coupon Code</label>
+                            <input type="text" id="couponcode" name="couponcode" class="form-control">
+                            <p class="perror mb-2" id="error1" style="display: none;"></p>
+                        </div>
+                            <div class="coupfield1"><label for="limit">Coupon Limit</label>
+                                <input type="number" id="limit" name="limit" class="form-control">
+                                <p class="perror mb-2" id="error1" style="display: none;"></p>
+                                </div>
+                            <div class="coupfield1"><label for="reduction">Reduction Rate</label>
+                              <input type="number" id="reduction" name="reduction" class="form-control">
+                                <p class="perror mb-2" id="error1" style="display: none;"></p>
+                            </div>    
+                        </div>
+                        <div class="catbtn mt-5 mb-2"><button type="submit" class="btn" id="addcouponbtn">Add Coupon</button></div>
+            </form>
+                    </div>
+                    <hr class="my-5 ">
+                    <div class="row mb-5">
+                        <div class="catlist col-md-12 my-4">
+                            <h4 class="fw-bold">Coupon Details</h4>
+                            <hr class="my-4">
+                            <% if(locals.coupondata && locals.coupondata.length > 0) { locals.coupondata.forEach(element => { %>
+                            <div class="catitem"><h6 class="my-auto fw-normal" title="<%= element.couponname %>" id=""><%= element.couponname %></h6><a href="/admin/coupon/edit?id=<%= element._id %>"><button type="button" >Edit</button></a><a href="/admin/coupon/delete?id=<%= element._id %>"><button type="button" >Delete</button></a></div>
+                            <hr class="my-3">
+                                <% });} %>
+                        </div>
+
+                    </div>
+                </div>
+                
+            </div>
+            
+    </div>
+    </div>
+    </div>              
+</section>
+</main>
+
+<%- include('layouts/footer.ejs') %>

@@ -1,0 +1,44 @@
+<%- include('layouts/header.ejs') , {udata:locals.udata} %>
+
+<main class="promain pb-5">
+    <section class="products pt-5 pt-sm-5">
+      <div class="container">
+          <div class="row p-3">
+              <h2 class=" mt-4 mb-3">COUPONS</h2>
+              
+              <% if(locals.coupondata && locals.coupondata.length > 0){ locals.coupondata.forEach(element => { %>
+            <div class="cart col-md-6 col-lg-4 mt-4">
+                
+                  <div class="card couponcard" >
+                      <div class="card-body couponbody">
+                        
+                        <div class="coupondetails">
+                            <h4 class="card-title couponhead fw-bold "><%= element.couponname %></h4>
+                            <p><%= element.description %></p>
+                        </div>
+                        <div class="coupondet">
+                        <h6>Coupon code</h6>
+                         <div class="coupondiv"><p class="couponcode"><%= element.couponcode %></p><div class="copyclip"><button type="button" class="clipbtn">Copy to Clipboard</button></div> </div>
+                        </div>
+                         
+
+                            </div>
+                        </div>
+
+            </div>
+            <% });} %>
+
+
+                      
+
+                    </div>
+              </div>
+              
+              
+
+          </div>
+      </div>
+  </section>
+  </main>
+<script src="/public/js/coupons.js"></script>
+<%- include('layouts/footer.ejs') %>

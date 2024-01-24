@@ -26,7 +26,7 @@
                                 <th>Action</th>
                             </tr>
                             <tr>
-                                <td class="td1"><%= element.date.toString().split(' ')[2] %>&nbsp;<%= element.date.toString().split(' ')[1] %>&nbsp;<%= element.date.toString().split(' ')[3] %>&nbsp;</td>
+                                <td class="td1"><%= element.date.toISOString().split('T')[0].split('-')[2] %>&nbsp;<%= element.date.toString().split(' ')[1] %>&nbsp;<%= element.date.toString().split(' ')[3] %>&nbsp;</td>
                                 <td class="td2"><%= el.product_id.productname %></td>
                                 <td class="td3"><%= el.qty %></td>
                                 <td class="td4">Rs.<%= el.product_id.price %></td>
@@ -47,14 +47,16 @@
                                 <td class="td6"> 
                                   <% if(el.status === "Delivered") { %>
                                     <a href="/orders/return?id=<%= el.product_id._id %>"><button type="button" class="cancelorderbtn">Return</button></a>
-                                    <% } else { %>
+                                    <% } else if(el.status == "Cancelled") { %>
+                                      No Action
+                                      <% }else{ %>
                                       <button type="button" class="cancelorderbtn" data-orderid="<%= element._id %>" data-proid="<%= el.product_id._id %>">Cancel Order</button>
-                                      <% } %>
+                                      <% } %>  
                                 </td>
                             </tr>
                         </table>
                         <table class="table  table2" style="display: none;">
-                            <tr><th>Date</th><td class="td1"><%= element.date.toString().split(' ')[2] %>&nbsp;<%= element.date.toString().split(' ')[1] %>&nbsp;<%= element.date.toString().split(' ')[3] %>&nbsp;</td></tr>
+                            <tr><th>Date</th><td class="td1"><%= element.date.toISOString().split('T')[0].split('-')[2] %>&nbsp;<%= element.date.toString().split(' ')[1] %>&nbsp;<%= element.date.toString().split(' ')[3] %>&nbsp;</td></tr>
                             <tr><th>Product Name</th><td class="td2"><%= el.product_id.productname %></td></tr>
                             <tr><th>Quantity</th><td class="td3"><%= el.qty %></td></tr>
                             <tr><th>Unit Price</th><td class="td4">Rs.<%= el.product_id.price %></td></tr>
@@ -76,9 +78,11 @@
                             <tr><th>Action</th><td class="td6">
                               <% if(el.status === "Delivered") { %>
                                 <a href="/orders/return?id=<%= el.product_id._id %>"><button type="button" class="cancelorderbtn">Return</button></a>
-                                <% } else { %>
-                                  <button type="button" class="cancelorderbtn" data-proid="<%= el.product_id._id %>">Cancel Order</button>
-                                  <% } %>
+                                <% } else if(el.status == "Cancelled") { %>
+                                  No Action
+                                  <% }else{ %>
+                                  <button type="button" class="cancelorderbtn" data-orderid="<%= element._id %>" data-proid="<%= el.product_id._id %>">Cancel Order</button>
+                                  <% } %>  
                             </td></tr>
                         </table>
                     </div>
@@ -90,7 +94,7 @@
                 <%  }); } else { %>
                   <div class="card-body h-100 d-flex justify-content-center align-items-center ordersmain">
                   <div class="card-title d-flex flex-column justify-content-center align-items-center ">
-                    <img src="/public/images/oops.png" alt="" width="300rem" height="300rem">
+                    <img src="/public/images/favicon.png" alt="" width="300rem" height="300rem">
                     <h2>No Orders Placed!!</h2>
                   </div>
                 </div>
