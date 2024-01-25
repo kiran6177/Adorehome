@@ -1,5 +1,6 @@
 const { promiseImpl } = require('ejs')
 const Order = require('../models/orderSchema')
+const User = require('../models/userSchema')
 const Product = require('../models/productSchema')
 const Coupon = require('../models/couponSchema')
 const { ObjectId } = require('mongodb')
@@ -55,10 +56,15 @@ const changeStatus = async (req,res)=>{
                 if(orderdata.coupon_id != "Nil"){
                     const coupondet = await Coupon.aggregate([{$match:{_id:new ObjectId(orderdata.coupon_id)}}])
                     if(coupondet.length > 0){
-                        if(coupondet[0].couponlimit > totamount){
+                        if(coupondet[0].couponlimit > totamount && totamount != 0){
                             totamount = totamount + coupondet[0].reductionrate
                         }
                     }
+                }
+                if(orderdata.payment_method === "RazorPay"){
+                    let amounttorefund =  orderdata.total_amount - totamount 
+                    const walletaddition = await User.findByIdAndUpdate({_id:orderdata.user_id},{$inc:{walletamount:amounttorefund}},{new:true})
+                    console.log(walletaddition)
                 }
                 console.log(qtytoupdate)
                 const UpdateTotal = await Order.findByIdAndUpdate({_id:id},{$set:{total_amount:totamount}})
@@ -76,9 +82,55 @@ const changeStatus = async (req,res)=>{
     }
 }
 
+const initiateRefund = async (req,res)=>{
+    try {
+        const {oid,pid} = req.query
+        const findOrder = await Order.aggregate([{$match:{_id:new ObjectId(oid)}}])
+        const findReturnedProduct = await Order.aggregate([{$match:{_id:new ObjectId(oid)}},{$unwind:'$products'},{$match:{'products.product_id':new ObjectId(pid)}},{$project:{_id:0,products:1}}])
+        const ProductPrice = await Product.aggregate([{$match:{_id:new ObjectId(pid)}},{$project:{_id:0,price:1}}])
+        console.log(findReturnedProduct[0].products.qty)
+        console.log(ProductPrice[0].price)
+        console.log(findOrder)
+        let refundamount = 0
+        if(findOrder[0].coupon_id!= undefined && findOrder[0].coupon_id!="Nil"){
+            const coupondata = await Coupon.aggregate([{$match:{_id:new ObjectId(findOrder[0].coupon_id)}}])
+            if(findOrder[0].total_amount < coupondata[0].couponlimit){
+                refundamount = (findReturnedProduct[0].products.qty * ProductPrice[0].price) - coupondata[0].reductionrate
+            }
+            else{
+                let amounttorefund = findReturnedProduct[0].products.qty * ProductPrice[0].price
+                console.log(amounttorefund)
+                refundamount = amounttorefund
+            }
+        }else{
+            let amounttorefund = findReturnedProduct[0].products.qty * ProductPrice[0].price
+            console.log(amounttorefund)
+            refundamount = amounttorefund
+        }
+        console.log(refundamount)
+        const refund = await User.findByIdAndUpdate({_id:findOrder[0].user_id},{$inc:{walletamount:refundamount}},{new:true})
+        if(refund){
+            const statustorefunded = await Order.findOneAndUpdate({_id:oid,products:{$elemMatch:{product_id:pid}}},{$set:{'products.$.status':'Refunded'}},{new:true})
+            console.log(statustorefunded)
+            if(statustorefunded){
+                res.json({refunded:"Refunded Successfully"})
+            }
+            else{
+                res.json({refunderr:"Error in refund"})
+
+            }
+        }else{
+            res.json({refunderr:"Error in refund"})
+        }
+    } catch (error) {
+        console.log(error.message)
+    }
+}
+
 module.exports = {
     loadOrder,
     loadOrderDetail,
-    changeStatus
+    changeStatus,
+    initiateRefund
 
 }

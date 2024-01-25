@@ -65,6 +65,10 @@ const userSchema = new mongoose.Schema({
     required: true,
     default:0
   },
+  walletamount:{
+    type:Number,
+    default:0
+  }
 });
 
 const User = mongoose.model("User", userSchema);

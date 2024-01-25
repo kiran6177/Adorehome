@@ -141,7 +141,13 @@ async function orderPlace(paymethod) {
     }
     else if(data.wallet)
     {
-
+        window.location.href = `/ordered?id=${data.wallet}`
+    }
+    else if(data.walleterr){
+        Swal.fire({
+            title:data.walleterr,
+            
+        })
     }
   } catch (error) {
     window.location.href = '/login'

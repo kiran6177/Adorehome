@@ -79,6 +79,13 @@ const paymentConfirm = async (req,res)=>{
         if(paymethod==="COD")
         {
             paystatus = "Paid"
+        }else if(paymethod === "Wallet"){
+            const walletdata = await User.findById({_id:uid})
+            if(walletdata.walletamount >= total){
+                paystatus = "Paid"
+            }else{
+              return  res.json({walleterr:"Insufficient Wallet Balance!!"})
+            }
         }
         else{
             paystatus = "Pending"
@@ -141,6 +148,14 @@ const paymentConfirm = async (req,res)=>{
                 const udata = await User.aggregate([{$match:{_id:new mongoose.Types.ObjectId(uid)}}])
                 console.log(udata)
                  res.json({razorpay:{id:razorOrderId.id,amount:razorOrderId.amount,userdata:udata[0],orderId:orderSaved._id}})
+            }
+            else{
+                const reduceWallet = await User.findByIdAndUpdate({_id:uid},{$inc:{walletamount:-orderSaved.total_amount}},{new:true})
+                if(reduceWallet){
+                    res.json({wallet:orderSaved._id})
+                }else{
+                    console.log("error in wallet")
+                }
             }
         }
     } catch (error) {

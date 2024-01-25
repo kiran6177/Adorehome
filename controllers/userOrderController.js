@@ -81,12 +81,17 @@ const cancelOrder = async (req,res)=>{
                 if(cancelData.coupon_id != "Nil"){
                     const coupondet = await Coupon.aggregate([{$match:{_id:new ObjectId(cancelData.coupon_id)}}])
                     if(coupondet.length > 0){
-                        if(coupondet[0].couponlimit > totamount){
+                        if(coupondet[0].couponlimit > totamount && totamount != 0){
                             totamount = totamount + coupondet[0].reductionrate
                         }
                     }
                 }
                 console.log(totamount)
+                if(cancelData.payment_method === "RazorPay" || cancelData.payment_method === "Wallet"){
+                    let amounttorefund =  cancelData.total_amount - totamount 
+                    const walletaddition = await User.findByIdAndUpdate({_id:cancelData.user_id},{$inc:{walletamount:amounttorefund}},{new:true})
+                    console.log(walletaddition)
+                }
               const UpdateTotal = await Order.findByIdAndUpdate({_id:oid},{$set:{total_amount:totamount}})
             
 
@@ -143,6 +148,57 @@ const cancelOrderPayment = async (req,res)=>{
         else{
             res.json({err:"Cannot Cancel Order!!"})
         }
+    } catch (error) {
+        console.log(error.message)
+    }
+}
+
+const returnOrder = async (req,res)=>{
+    try {
+        const {oid,pid} = req.query
+        const returndata = await Order.findOneAndUpdate({_id:oid,'products.product_id':pid},{$set:{'products.$.status':"Returned"}},{new:true})
+        console.log(returndata)
+        if(returndata!=null)
+        {  
+                let qtytoupdate = 0
+                returndata.products.forEach(el=>{
+                    if(el.product_id == pid && el.status == "Returned"){
+                        qtytoupdate = el.qty
+                    }
+                })
+                let tot = 0
+                let productdet = await Product.findById({_id:pid})
+                if(productdet){
+                    tot = productdet.price
+                }
+                let totamount = returndata.total_amount - (tot * qtytoupdate)
+                console.log(totamount)
+                if(returndata.coupon_id != "Nil"){
+                    const coupondet = await Coupon.aggregate([{$match:{_id:new ObjectId(returndata.coupon_id)}}])
+                    if(coupondet.length > 0){
+                        if(coupondet[0].couponlimit > totamount && totamount != 0){
+                            totamount = totamount + coupondet[0].reductionrate
+                        }
+                    }
+                }
+                console.log(totamount)
+                
+              const UpdateTotal = await Order.findByIdAndUpdate({_id:oid},{$set:{total_amount:totamount}})
+            
+
+             const stockUpdate = await Product.findByIdAndUpdate({_id:pid},{$inc:{stock:qtytoupdate}})
+                if(stockUpdate!=null)
+                {
+                res.json({success:"Order Returned!!"})
+                }
+                else{
+                res.json({err:"Cannot Return Order!!"})
+                }                 
+            
+        }
+        else{
+            res.json({err:"Cannot Return Order!!"})
+         }
     } catch (error) {
         console.log(error.message)
     }
@@ -215,5 +271,6 @@ module.exports = {
     loadSummary,
     cancelOrder,
     cancelOrderPayment,
+    returnOrder,
     generateInvoice
 }

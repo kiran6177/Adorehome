@@ -174,6 +174,11 @@ router.get(
   adminAuth.isLogin,
   orderController.changeStatus
 );
+router.get(
+  "/orders/orderdetail/initiaterefund",
+  adminAuth.isLogin,
+  orderController.initiateRefund
+);
 
 router.get("/salesreport", adminAuth.isLogin, reportController.loadReport);
 router.get(

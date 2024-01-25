@@ -31,7 +31,13 @@
                                         <% }else if(element.status === "Cancelled") {%>
                                           <div class="cancelstat"><h3 class="fw-bold text-center">Cancelled</h3>
                                             <p>Your Order is cancelled.</p></div>
-                                    <% } %>
+                                    <% }else if(element.status === "Returned") {%>
+                                      <div class="cancelstat"><h3 class="fw-bold text-center">Returned</h3>
+                                        <p>Your Order is returned.</p></div>
+                                <% }else if(element.status === "Refunded") {%>
+                                  <div class="cancelstat"><h3 class="fw-bold text-center">Refunded</h3>
+                                    <p>Your Order is refunded.</p></div>
+                            <% } %>
                                 <%   }) %>
                                 
                                 

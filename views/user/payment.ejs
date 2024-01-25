@@ -36,6 +36,7 @@
                                     <input type="radio" name="paymethod" class="payradio" value="Wallet">
                                     <div class="paydet">
                                         <h4 class="fw-normal">Pay With <b>Wallet</b></h4>
+                                        <p>Wallet Balance : Rs.<% if(locals.udata && locals.udata.walletamount) {%><%= locals.udata.walletamount %><% }else{ %>0<% } %></p>
                                     </div>
                                     <div class="payimg"><img src="/public/images/wallet.png" alt="" width="150px" height="150px"></div>
                                 </div>

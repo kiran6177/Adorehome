@@ -58,7 +58,7 @@
                                         <div class="walletcard  my-5" style="min-width: 281px;"><a href=""><div class="card w-75">
                                             <div class="card-body">
                                                 <div class="card-title"><h1>Wallet</h1></div>
-                                                <div class="card-title varypro "><h2>&#8377;250</h2><h6>Balance</h6></div>
+                                                <div class="card-title varypro "><h2>&#8377; <% if(locals.udata.walletamount){ %><%= locals.udata.walletamount %><% }else{ %>0<% } %></h2><h6>Balance</h6></div>
                                             </div>
                                         </div></a></div>
 

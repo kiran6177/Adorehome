@@ -74,7 +74,9 @@ router.get('/ordered',userAuth.isLogin,userOrderController.loadOrdered)
 router.get('/orders',userAuth.isLogin,userOrderController.loadOrders)
 router.get('/orders/summary',userAuth.isLogin,userOrderController.loadSummary)
 router.get('/orders/cancel',userAuth.isLogin,userOrderController.cancelOrder)
-// router.get('/orders/cancelorder',userAuth.isLogin,userOrderController.cancelOrderPayment)
+router.get('/orders/cancelorder',userAuth.isLogin,userOrderController.cancelOrderPayment)
+router.get('/orders/return',userAuth.isLogin,userOrderController.returnOrder)
+
 
 router.get('/wishlist',userAuth.isLogin,userWishlistController.loadWishlist)
 router.get('/wishlist/add',userAuth.isLogin,userWishlistController.addToWishlist)

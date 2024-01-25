@@ -41,13 +41,17 @@
                                     <span class="stat3">Shipped</span>
                                   <% } else if(el.status === "Cancelled") { %>
                                     <span class="stat4">Cancelled</span>
+                                  <% }else if(el.status === "Returned"){%>
+                                    <span class="stat4">Returned</span>
+                                  <% }else if(el.status === "Refunded"){%>
+                                    <span class="stat4">Refunded</span>
                                   <% } %>
                                     
                                 </td>
                                 <td class="td6"> 
                                   <% if(el.status === "Delivered") { %>
-                                    <a href="/orders/return?id=<%= el.product_id._id %>"><button type="button" class="cancelorderbtn">Return</button></a>
-                                    <% } else if(el.status == "Cancelled") { %>
+                                    <button type="button" class="returnbtn" data-orderid="<%= element._id %>" data-proid="<%= el.product_id._id %>">Return</button>
+                                    <% } else if(el.status == "Cancelled" || el.status == "Returned" || el.status == "Refunded") { %>
                                       No Action
                                       <% }else{ %>
                                       <button type="button" class="cancelorderbtn" data-orderid="<%= element._id %>" data-proid="<%= el.product_id._id %>">Cancel Order</button>
@@ -72,13 +76,17 @@
                                   <span class="stat3">Shipped</span>
                                 <% } else if(el.status === "Cancelled") { %>
                                   <span class="stat4">Cancelled</span>
+                                <% } else if(el.status === "Returned"){%>
+                                  <span class="stat4">Returned</span>
+                                <% } else if(el.status === "Refunded"){%>
+                                  <span class="stat4">Refunded</span>
                                 <% } %>
                               
                             </td></tr>
                             <tr><th>Action</th><td class="td6">
                               <% if(el.status === "Delivered") { %>
-                                <a href="/orders/return?id=<%= el.product_id._id %>"><button type="button" class="cancelorderbtn">Return</button></a>
-                                <% } else if(el.status == "Cancelled") { %>
+                                <button type="button" class="returnbtn"  data-orderid="<%= element._id %>" data-proid="<%= el.product_id._id %>">Return</button>
+                                <% } else if(el.status == "Cancelled" || el.status == "Returned" || el.status == "Refunded") { %>
                                   No Action
                                   <% }else{ %>
                                   <button type="button" class="cancelorderbtn" data-orderid="<%= element._id %>" data-proid="<%= el.product_id._id %>">Cancel Order</button>

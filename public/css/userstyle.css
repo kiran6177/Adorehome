@@ -2373,7 +2373,7 @@ transition: top 200ms ease-in;
     background-color: white;
     color: black;
 }
-.cancelorderbtn{
+.cancelorderbtn,.returnbtn{
     padding: 5px 12px;
     border: 1px solid #ff3f00;
     border-radius: 5px;
@@ -2381,11 +2381,15 @@ transition: top 200ms ease-in;
     color: black;
     font-size: 0.8rem;
 }
+
 .paydet{
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
     justify-content: flex-start;
-    gap: 15px;
+}
+.paydet p{
+    font-size: 0.8rem;
 }
 .orderscard{
     display: flex;

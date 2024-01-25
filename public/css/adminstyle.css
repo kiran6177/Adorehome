@@ -1106,6 +1106,23 @@ transition: top 200ms ease-in;
     color: white;
     text-shadow:0px 0px 15px #31313190;
 }
+.refund{
+
+    width: 100%;
+}
+.refundbtn{
+    float: right;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.381);
+    padding: 6px 15px;
+    font-size: 1rem;
+    border: 1px solid #ff3f00;
+    border-radius: 5px;
+    background-color: white;
+    transition: all 0.3s ease;
+}
+.refundbtn:hover{
+    transform: scale(1.1);
+}
 .cancelstat{
     width: 100%;
     background-color: rgb(246, 142, 142);
@@ -1147,6 +1164,13 @@ transition: top 200ms ease-in;
 .statdiv{
     display: flex;
     justify-content: space-between;
+}
+@media (max-width:768px) {
+    .refundbtn{
+        padding: 4px 12px;
+        font-size: 0.9rem;
+        float: none;
+    }
 }
 @media (max-width:550px) {
     .statuschanger select{

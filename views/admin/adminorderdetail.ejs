@@ -15,6 +15,7 @@
                                             <% if(locals.orderdetail) {  %>
                                             <input type="hidden" name="orderid" id="orderid" value="<%= locals.orderdetail._id %>">
                                                 <% if(locals.orderdetail.products && locals.orderdetail.products.length > 0) { locals.orderdetail.products.forEach(element => { %>
+                                                    <% if(element.status === "Returned") {%><div class="refund"><button type="button" class="refundbtn" data-proid="<%= element.product_id._id %>">Initiate Refund</button></div><% } %>
                                                 <div class="prodiv w-100"><img src="/assets/<%= element.product_id.mainimage %>" alt="" width="350px" height="350px">
                                                 <div class="protext">
                                                 <h5><span>Product Name :</span><%= element.product_id.productname %></h5>
@@ -44,9 +45,11 @@
                                                 <div class="dispstat w-50"><h3 class="fw-bold text-center">Dispatched</h3></div>
                                                      <% }else if(element.status === "Cancelled") { %>
                                                 <div class="cancelstat w-50"><h3 class="fw-bold text-center">Cancelled</h3></div>
-                                                <% }else if(element.status === "Return") { %>
-                                                <div class="returnstat w-50"><h3 class="fw-bold text-center">Return Requested</h3></div>
-                                                    <% } %>
+                                                <% }else if(element.status === "Returned") { %>
+                                                <div class="cancelstat w-50 "><h3 class="d-flex  fw-bold text-center">Return Requested</h3></div>
+                                                    <% }else if(element.status === "Refunded") { %>
+                                                <div class="cancelstat w-50 "><h3 class="d-flex  fw-bold text-center">Refunded</h3></div>
+                                                <% } %>
                                                 </div>
                                                 </div>
 
