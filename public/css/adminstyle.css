@@ -850,10 +850,12 @@ transition: top 200ms ease-in;
     width: 50%;
 }
 .preview1{
+    position: relative;
     width: 50%;
 }
 .preview2
 {
+    position: relative;
     width: 100%;
 }
 .probtn{
@@ -1426,5 +1428,184 @@ transition: top 200ms ease-in;
     }
     .coupfield,.coupfield1{
         width: 100%;
+    }
+}
+
+.mainimgoverlay{
+    top: 0;
+    left: 0;
+    opacity: 20%;
+    z-index: 5;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background-color: #313131;
+}
+.modalformain{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.404);
+    position: fixed;
+    top: 20%;
+    left: 20%;
+    z-index: 6;
+    width: 60%;
+    height: 60%;
+    border-radius: 20px;
+    opacity: 1;
+    background-color: white;
+    gap: 5px;
+}
+
+.modalformain img{
+    display: block;
+    width: auto;
+    height: 100%;
+    object-fit: contain;
+}
+.modalformain button{
+    padding: 5px 15px;
+    background: none;
+    border: 1px solid #ff3f00;
+    border-radius: 5px;
+}
+.imgmain{
+    background-color: #313131;
+    overflow: hidden;
+    width: 70%;
+    height: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.buttonmain{
+    height: 2rem;
+}
+
+#maincropbtn {
+    padding: 3px 11px;
+    font-size: 0.8rem;
+    background: white;
+    border: 1px solid #ff3f00;
+    border-radius: 5px;
+    position: absolute;
+    bottom: 0;
+    left: 15%;
+}
+#imgcropbtn1{
+    padding: 3px 11px;
+    font-size: 0.8rem;
+    background: white;
+    border: 1px solid #ff3f00;
+    border-radius: 5px;
+    position: absolute;
+    bottom: 0;
+    left: 7%; 
+}
+#imgcropbtn2{
+    padding: 3px 11px;
+    font-size: 0.8rem;
+    background: white;
+    border: 1px solid #ff3f00;
+    border-radius: 5px;
+    position: absolute;
+    bottom: 0;
+    left: 30%; 
+}
+#imgcropbtn3{
+    padding: 3px 11px;
+    font-size: 0.8rem;
+    background: white;
+    border: 1px solid #ff3f00;
+    border-radius: 5px;
+    position: absolute;
+    bottom: 0;
+    left: 52%; 
+}
+#imgcropbtn4{
+    padding: 3px 11px;
+    font-size: 0.8rem;
+    background: white;
+    border: 1px solid #ff3f00;
+    border-radius: 5px;
+    position: absolute;
+    bottom: 0;
+    left: 75%; 
+}
+.closecrop{
+    position: absolute;
+    font-size: 2rem;
+    top: 15px;
+    right: 15px;
+    border: none !important;
+    padding: 0 !important;
+}
+.errorpage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+}
+.errorpage img{
+    width: 100%;
+    height: 100%;
+}
+.errordat{
+    display: flex;
+    align-items: center;
+}
+.errordatimg{
+    width:200px;
+    height:60px;
+}
+
+.errordat h2{
+    font-size: 2rem;
+    padding-top: 18px;
+}
+.errorrebtn a{
+    text-decoration: none;
+    color: white;
+    background-color: #ff3f00;
+    border: 1px solid #ff3f00;
+    border-radius: 7px;
+    padding: 9px 25px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.204);
+}
+.errorrebtn a:hover{
+    color: black;
+    background: none;
+}
+@media (max-width:992px) {
+    .errordat{
+        flex-direction: column;
+        justify-content: center;
+        padding: 0;
+    }
+    .errordat h2{
+        padding: 0;
+    }
+}
+@media (max-width:768px) {
+    .errordat h2{
+        font-size: 1.7rem;
+    }
+}
+@media (max-width:576px) {
+    .errordat h2{
+        font-size: 1.3rem;
+    }
+}
+@media (max-width:460px) {
+    .errordat h2{
+        font-size: 1rem;
+    }
+}
+@media (max-width:400px) {
+    .errordat h2{
+        font-size: 0.8rem;
     }
 }

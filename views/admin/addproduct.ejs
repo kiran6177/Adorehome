@@ -88,10 +88,16 @@
                                 <div class="proform col-md-10">
                                     <label for="mainimage">Main Image</label>
                                     <input type="file" id="mainimage" name="mainimage" class="form-control" >
+                                    <input type="hidden" id="cropvaluesmain" name="cropvaluesmain" >
                                     <p class="perror mb-2" id="error6" style="display: none;"></p>
                                     <div class="preview1" id="preview1"></div>
                                     <label for="img1"> Image</label>
                                     <input type="file" id="imgs" name="imgs" class="form-control"  multiple>
+                                    <input type="hidden" id="cropvaluesimg1" name="cropvaluesimg1" >
+                                    <input type="hidden" id="cropvaluesimg2" name="cropvaluesimg2" >
+                                    <input type="hidden" id="cropvaluesimg3" name="cropvaluesimg3" >
+                                    <input type="hidden" id="cropvaluesimg4" name="cropvaluesimg4" >
+
                                     <div class="preview2" id="preview2"></div>
                                     <p class="perror mb-2" id="error7" style="display: none;"></p>
                                 </div>
@@ -123,8 +129,10 @@
                 </div>
                 </div>              
           </section>
+      <div class="mainimgoverlay" id="mainimageoverlay" style="display: none;"></div>
+      <div id="mainimagemodal" class="modalformain" style="display: none;"><div class="imgmain"><img src="" id="mainmodimg" alt=""></div><div class="buttonmain"><button type="button" id="cropsavebtn" style="display: none;">CROP</button><button type="button" id="cropsavebtn1" style="display: none;">CROP</button><button type="button" id="cropsavebtn2" style="display: none;">CROP</button><button type="button" id="cropsavebtn3" style="display: none;">CROP</button><button type="button" id="cropsavebtn4" style="display: none;">CROP</button></div><button class="closecrop">&times;</button></div>
       </main>
-
+      
 
       
 <script src="/public/js/addproduct.js"></script>

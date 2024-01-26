@@ -6,6 +6,7 @@ const stock = document.getElementById('stock')
 const main = document.getElementById('mainimage')
 const imgs = document.getElementById('imgs')
 
+const mainmodimg = document.getElementById('mainmodimg')
 
 const error1 = document.getElementById('error1')
 const error2 = document.getElementById('error2')
@@ -228,13 +229,14 @@ proform.addEventListener('submit',(e)=>{
 
     if(error1.innerHTML !=="" || error2.innerHTML !=="" || error3.innerHTML !=="" || error4.innerHTML !=="" || error5.innerHTML !=="" || error6.innerHTML !=="" || error7.innerHTML !=="" )
     {
-        e.preventDefault()
+        // e.preventDefault()
     }
 })
 
-
+let mainpre
 function loadMain(event,preview1)
 {   
+
     if(preview1.hasChildNodes())
     {
         while(preview1.firstChild)
@@ -252,22 +254,70 @@ function loadMain(event,preview1)
         reader.onload = function (e)
         {
   
-            const mainpre = document.createElement('img')
+            mainpre = document.createElement('img')
             mainpre.style.aspectRatio = '1/1'
             mainpre.style.width = "200px"
             mainpre.style.height = "200px"
-            
+            mainpre.id = 'previewmain'
             mainpre.src = e.target.result
-
             preview1.appendChild(mainpre)
         }
 
         reader.readAsDataURL(files[0])
     }
 }
+let cropper
+let cropper1
+
 
 main.addEventListener('change',(e)=>{
     loadMain(e,preview1)
+    const maincrop = document.createElement('button')
+    maincrop.type = "button"
+    maincrop.innerHTML = "CROP"
+    maincrop.id = "maincropbtn"
+    preview1.appendChild(maincrop)
+    const maincropbtn = document.querySelector('#maincropbtn')
+
+    if(maincropbtn){
+    console.log(maincropbtn)
+    maincropbtn.addEventListener('click',()=>{
+        if(cropper1){
+            cropper1.destroy()
+        }
+        if(cropper){
+            cropper.destroy()
+        }
+        
+        mainmodimg.src = document.getElementById('previewmain').src
+        document.getElementById('mainimageoverlay').style.display = 'block'
+        document.getElementById('mainimagemodal').style.display = 'flex'
+        document.getElementById('cropsavebtn').style.display = 'block'
+         cropper = new Cropper(mainmodimg,{
+            aspectRatio:1/1,
+            viewMode:2,
+            scalable:false
+        })
+        document.getElementById('cropsavebtn').addEventListener('click',()=>{
+        console.log(cropper.getData())
+        document.getElementById('cropvaluesmain').value = JSON.stringify(cropper.getData())
+        console.log(cropper.getCroppedCanvas().toDataURL())
+        mainpre.src = cropper.getCroppedCanvas().toDataURL()
+        document.getElementById('mainimageoverlay').style.display = 'none'
+        document.getElementById('mainimagemodal').style.display = 'none'
+        document.getElementById('cropsavebtn').style.display = 'none'
+
+        })
+        document.querySelectorAll('.closecrop').forEach(el=>{
+            el.addEventListener('click',()=>{
+                document.getElementById('mainimageoverlay').style.display = 'none'
+                document.getElementById('mainimagemodal').style.display = 'none'
+                document.getElementById('cropsavebtn').style.display = 'none'
+
+            })
+        })
+    })
+    }
 })
 
 
@@ -282,10 +332,10 @@ function loadMain1(event,preview2)
     }
     const files = event.target.files
     console.log(files.length)
+    let  i = 0
     if(files && files.length === 4)
     {
         for(let element of files) {
-            
            
         const reader = new FileReader()
 
@@ -295,16 +345,143 @@ function loadMain1(event,preview2)
             const imgpre = document.createElement('img')
             imgpre.src = ""
             imgpre.src = e.target.result
+            imgpre.id = `img${i+1}`
             imgpre.style.width = "200px"
             imgpre.style.height = "200px"
             preview2.appendChild(imgpre)
+           i++ 
+
         }
 
         reader.readAsDataURL(element)
     };
+    for(let i = 0 ; i < files.length ; i++){
+        const imgcrop = document.createElement('button')
+        imgcrop.type = "button"
+        imgcrop.innerHTML = "CROP"
+        imgcrop.id = `imgcropbtn${i+1}`
+        imgcrop.classList.add = 'imgcrop'
+        preview2.appendChild(imgcrop)
+    }
+
+    function saveImgData(){
+    
+        document.getElementById('mainimageoverlay').style.display = 'none'
+        document.getElementById('mainimagemodal').style.display = 'none'
+        if(document.getElementById('cropsavebtn1')){
+            document.getElementById('cropsavebtn1').style.display = 'none'
+        }
+        if(document.getElementById('cropsavebtn2')){
+            document.getElementById('cropsavebtn2').style.display = 'none'
+        }
+        if(document.getElementById('cropsavebtn3')){
+            document.getElementById('cropsavebtn3').style.display = 'none'
+        }
+        if(document.getElementById('cropsavebtn4')){
+            document.getElementById('cropsavebtn4').style.display = 'none'
+        }
+
+    }
+    function cropperInit(){
+        if(cropper1){
+            cropper1.destroy()
+        }
+        if(cropper){
+            cropper.destroy()
+        }
+        cropper1 = new Cropper(mainmodimg,{
+            aspectRatio:1/1,
+            viewMode:2,
+            scalable:false
+        })
+        return cropper1
+    }
+    const cropvaluesimg1 = document.getElementById('cropvaluesimg1')
+    const cropvaluesimg2 = document.getElementById('cropvaluesimg2')
+    const cropvaluesimg3 = document.getElementById('cropvaluesimg3')
+    const cropvaluesimg4 = document.getElementById('cropvaluesimg4')
+
+    const imgcropbtn1 = document.getElementById('imgcropbtn1')
+    imgcropbtn1.addEventListener('click',()=>{
+
+        mainmodimg.src = document.getElementById('img1').src
+        document.getElementById('mainimageoverlay').style.display = 'block'
+        document.getElementById('mainimagemodal').style.display = 'flex'
+        document.getElementById('cropsavebtn1').style.display = 'block'
+        const crop = cropperInit()
+        document.getElementById('cropsavebtn1').addEventListener('click',()=>{
+        document.getElementById('img1').src = crop.getCroppedCanvas().toDataURL()
+        cropvaluesimg1.value = JSON.stringify(crop.getData())
+        saveImgData()
+        
+    })
+
+    })
+    const imgcropbtn2 = document.getElementById('imgcropbtn2')
+    imgcropbtn2.addEventListener('click',()=>{
+        mainmodimg.src = document.getElementById('img2').src
+        document.getElementById('mainimageoverlay').style.display = 'block'
+        document.getElementById('mainimagemodal').style.display = 'flex'
+        document.getElementById('cropsavebtn2').style.display = 'block'
+        const crop = cropperInit()
+        document.getElementById('cropsavebtn2').addEventListener('click',()=>{
+            document.getElementById('img2').src = crop.getCroppedCanvas().toDataURL()
+            cropvaluesimg2.value = JSON.stringify(crop.getData())
+            saveImgData()})
+
+    })
+    const imgcropbtn3 = document.getElementById('imgcropbtn3')
+    imgcropbtn3.addEventListener('click',()=>{
+        mainmodimg.src = document.getElementById('img3').src
+        document.getElementById('mainimageoverlay').style.display = 'block'
+        document.getElementById('mainimagemodal').style.display = 'flex'
+        document.getElementById('cropsavebtn3').style.display = 'block'
+        const crop = cropperInit()
+        document.getElementById('cropsavebtn3').addEventListener('click',()=>{
+            document.getElementById('img3').src = crop.getCroppedCanvas().toDataURL()
+            cropvaluesimg3.value = JSON.stringify(crop.getData())
+            saveImgData()})
+
+    })
+    const imgcropbtn4 = document.getElementById('imgcropbtn4')
+    imgcropbtn4.addEventListener('click',()=>{
+        mainmodimg.src = document.getElementById('img4').src
+        document.getElementById('mainimageoverlay').style.display = 'block'
+        document.getElementById('mainimagemodal').style.display = 'flex'
+        document.getElementById('cropsavebtn4').style.display = 'block'
+        const crop = cropperInit()
+        document.getElementById('cropsavebtn4').addEventListener('click',()=>{
+            document.getElementById('img4').src = crop.getCroppedCanvas().toDataURL()
+            cropvaluesimg4.value = JSON.stringify(crop.getData())
+            saveImgData()})
+
+    })
+    document.querySelectorAll('.closecrop').forEach(el=>{
+        el.addEventListener('click',()=>{
+            mainmodimg.src = ""
+            document.getElementById('mainimageoverlay').style.display = 'none'
+            document.getElementById('mainimagemodal').style.display = 'none'
+            if(document.getElementById('cropsavebtn1')){
+                document.getElementById('cropsavebtn1').style.display = 'none'
+            }
+            if(document.getElementById('cropsavebtn2')){
+                document.getElementById('cropsavebtn2').style.display = 'none'
+            }
+            if(document.getElementById('cropsavebtn3')){
+                document.getElementById('cropsavebtn3').style.display = 'none'
+            }
+            if(document.getElementById('cropsavebtn4')){
+                document.getElementById('cropsavebtn4').style.display = 'none'
+            }
+        })
+    })
     }
 }
 
+
+
 imgs.addEventListener('change',(e)=>{
     loadMain1(e,preview2)
+
 })
+
