@@ -228,7 +228,7 @@ function doughnut() {
           label: "Earnings",
           data: catValues,
           borderWidth: 1,
-          backgroundColor: ["#ff3f00", "#1e96fc", "#fcf300","#00FDDC"],
+          backgroundColor: ["#ff3f00", "#1e96fc", "#fcf300","#00FDDC",'#D90368','#541388','#E952DE','#048A81','#D62246','#17BEBB','#E28413','#247BA0','#FFBFB7'],
         },
       ],
     },

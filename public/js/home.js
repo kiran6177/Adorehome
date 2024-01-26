@@ -123,3 +123,58 @@ wishicon3.forEach(el=>{
         }
     })
 })
+
+
+const bannerimg = document.getElementById('bannerimg')
+const prevbtn = document.getElementById('prevbtn')
+const nextbtn = document.getElementById('nextbtn')
+const bannercontent = document.getElementById('bannercontent')
+let bannerdata = [{head:"CHAIR",desc:"chjbsjhbdjc"},{head:"SOFA",desc:"chjbsjhbdjc"},{head:"OONJAL",desc:"chjbsjhbdjc"},{head:"BASKET",desc:"chjbsjhbdjc"}]
+let imagearray = ['/public/images/chair2.jpg','/public/images/holmsund-corner-sofa-bed-orrsta-light-blue__0728013_pe735994_s5.jpg','/public/images/oonnjal.jpg','/public/images/konstfull-vase-patterned-brown__1151187_pe884818_s5.avif']
+function insertBanner(pos){
+    bannerimg.style.transform = 'translateX(-100%)'
+    if(pos > imagearray.length - 1){
+        pos = 0
+    }
+setTimeout(()=>{ bannerimg.src  = imagearray[pos]
+    bannerimg.style.opacity = '1'
+    bannercontent.getElementsByTagName('h1')[0].innerHTML = bannerdata[pos].head
+    bannercontent.style.opacity = '1'
+
+},200)
+setTimeout(()=>{
+    bannerimg.style.transform = 'translateX(0%)'
+   },200)
+}
+let i = 0
+prevbtn.addEventListener('click',()=>{
+    bannerimg.style.transform = 'translateX(100%)'
+    bannerimg.style.opacity = '0'
+    bannercontent.style.opacity = '0'
+    setTimeout(()=>{
+    if(i==0){
+        i = imagearray.length - 1
+    }
+    else{
+        i--
+    }
+    insertBanner(i)
+    },200)
+
+})
+nextbtn.addEventListener('click',()=>{
+    bannerimg.style.transform = 'translateX(100%)'
+    bannerimg.style.opacity = '0'
+    bannercontent.style.opacity = '0'
+    setTimeout(() => {
+    insertBanner(i + 1)
+    if(i==imagearray.length - 1){
+        i = 0
+    }
+    else{
+        i++
+    }
+    }, 200);
+
+})
+insertBanner(0)

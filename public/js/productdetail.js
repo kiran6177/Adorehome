@@ -146,3 +146,8 @@ buynowbtn.addEventListener('click',function(){
     addBuyCart(proid,qty)
 
 })
+
+$('#zoom_01').ezPlus({
+    zoomType: 'inner',
+    cursor: 'crosshair'
+});

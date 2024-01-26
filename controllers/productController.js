@@ -2,6 +2,7 @@ const Product = require('../models/productSchema')
 const Brand = require('../models/brandSchema')
 const Category = require('../models/categorySchema')
 const Room = require('../models/roomSchema')
+const Jimp = require('jimp')
 const fs = require('fs').promises
 const path = require('path')
 
@@ -28,7 +29,51 @@ const loadaddproducts = async (req,res)=>{
 }
 const addproducts = async (req,res)=>{
    try{ 
-    const {productname,description,color,brandname,procategory,roomcategory,price,stock,offer} = req.body
+    const {productname,description,color,brandname,procategory,roomcategory,price,stock,offer,cropvaluesmain,cropvaluesimg1,cropvaluesimg2,cropvaluesimg3,cropvaluesimg4} = req.body
+    console.log(cropvaluesmain,cropvaluesimg1,cropvaluesimg2,cropvaluesimg3,cropvaluesimg4)
+    const croppedmain = cropvaluesmain ? JSON.parse(cropvaluesmain) : null
+    const cropped1 = cropvaluesimg1 ? JSON.parse(cropvaluesimg1) : null
+    const cropped2 = cropvaluesimg2 ? JSON.parse(cropvaluesimg2) : null
+    const cropped3 = cropvaluesimg3 ? JSON.parse(cropvaluesimg3) : null
+    const cropped4 = cropvaluesimg4 ? JSON.parse(cropvaluesimg4) : null
+
+    async function cropAndSave(inputPath, outputFilePath, x, y, width, height) {
+        try {
+          const image = await Jimp.read(inputPath);
+          image.crop(x, y, width, height);
+          await image.writeAsync(outputFilePath);
+          console.log('Image saved successfully!');
+        } catch (error) {
+          console.error('Error:', error);
+        }
+      }
+
+      if(croppedmain!=null){
+        const inputImagePath = path.join(__dirname,'../assets',req.files['mainimage'][0].filename)
+        const outputImagePath = path.join(__dirname,'../assets',req.files['mainimage'][0].filename)
+        cropAndSave(inputImagePath, outputImagePath, croppedmain.x, croppedmain.y, croppedmain.width, croppedmain.height);
+      }
+      if(cropped1!=null){
+        const inputImagePath = path.join(__dirname,'../assets',req.files['imgs'][0].filename)
+        const outputImagePath = path.join(__dirname,'../assets',req.files['imgs'][0].filename)
+        cropAndSave(inputImagePath, outputImagePath, cropped1.x, cropped1.y, cropped1.width, cropped1.height);
+      }
+      if(cropped2!=null){
+        const inputImagePath = path.join(__dirname,'../assets',req.files['imgs'][1].filename)
+        const outputImagePath = path.join(__dirname,'../assets',req.files['imgs'][1].filename)
+        cropAndSave(inputImagePath, outputImagePath, cropped2.x, cropped2.y, cropped2.width, cropped2.height);
+      }
+      if(cropped3!=null){
+        const inputImagePath = path.join(__dirname,'../assets',req.files['imgs'][2].filename)
+        const outputImagePath = path.join(__dirname,'../assets',req.files['imgs'][2].filename)
+        cropAndSave(inputImagePath, outputImagePath, cropped3.x, cropped3.y, cropped3.width, cropped3.height);
+      }
+      if(cropped4!=null){
+        const inputImagePath = path.join(__dirname,'../assets',req.files['imgs'][3].filename)
+        const outputImagePath = path.join(__dirname,'../assets',req.files['imgs'][3].filename)
+        cropAndSave(inputImagePath, outputImagePath, cropped4.x, cropped4.y, cropped4.width, cropped4.height);
+      }
+
 
     const main = req.files['mainimage'][0].filename
     let img = []
@@ -52,7 +97,7 @@ const addproducts = async (req,res)=>{
         offer_id:offer
     }
 
-    // console.log(prodata)
+    console.log(prodata)
 
     const prosaved = await Product.create(prodata)
     if(prosaved != null){
