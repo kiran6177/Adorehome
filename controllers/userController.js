@@ -6,22 +6,7 @@ const mailer = require('../utils/mailer')
 const bcrypt = require('bcrypt');
 const Product = require("../models/productSchema");
 const saltRounds = 10;
-const Category = require('../models/categorySchema')
-
-
-// const loginRedirect =async (req, res) => {
-//     const existcatdata = await Category.find({status:"1"})
-//     console.log(existcatdata)
-//     let pdata = []
-//     let products
-//     for(let i = 0 ;i < existcatdata.length ; i++)
-//     {
-//        products = await Product.find({category_id:existcatdata[i]._id})
-//       pdata.push(products)
-//     }
-//     // console.log(data)
-//     res.render('user/home',{products:pdata})
-// };
+const Banner = require('../models/bannerSchema')
 
 const loginLoad =async (req, res) => {
   res.render("user/userlogin");
@@ -309,6 +294,20 @@ const loadHome = async(req,res)=>{
     }
 }
 
+const getBanner = async (req,res)=>{
+    try {
+        const bannerdata = await Banner.aggregate([{$match:{status:"1"}}])
+        if(bannerdata){
+            res.json({banner:bannerdata})
+        }
+        else{
+            res.json({bannererr:"Cannot fetch banner."})
+        }
+    } catch (error) {
+        console.log(error.message)
+    }
+}
+
 const logout = async (req,res)=>{
     try {
         res.clearCookie('token').json({data:"Logout Successful."})
@@ -330,5 +329,6 @@ module.exports = {
   verifyOtpLogin,
   loadHome,
   otpLogin,
-  logout
+  logout,
+  getBanner
 };

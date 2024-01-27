@@ -2820,8 +2820,14 @@ transition: top 200ms ease-in;
     transition: all 0.2s ease-in-out;
 }
 .bannerbtn{
+    padding: 15px;
     position: absolute;
     font-size: 2rem;
+    transition: all 0.3s ease;
+}
+.bannerbtn:hover{
+    background-color: #3131316c;
+    color: white;
 }
 .prevbtn{
     top: 50%;
@@ -2858,6 +2864,16 @@ transition: top 200ms ease-in;
     }
     .bannercontent p{
         font-size: 1rem;
+    }
+    .bannerbtn{
+        padding: 10px;
+        font-size: 1.5rem;
+    }
+    .prevbtn{
+        left: 35px;
+    }
+    .nextbtn{
+        right: 35px;
     }
 }
 @media (max-width:768px) {

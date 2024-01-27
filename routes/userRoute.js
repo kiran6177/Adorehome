@@ -28,6 +28,7 @@ router.get('/otpload',userAuth.isLogout,userController.otpLoad)
 router.post('/otpload',userAuth.isLogout,userController.verifyOtp)
 
 router.get('/',userAuth.isHome,userController.loadHome)
+router.get('/getbanner',userAuth.isHome,userController.getBanner)
 router.get('/otplogin',userAuth.isLogout,userController.otpLogin)
 router.post('/otplogin',userAuth.isLogout,userController.verifyOtpLogin)
 

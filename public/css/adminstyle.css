@@ -1609,3 +1609,45 @@ transition: top 200ms ease-in;
         font-size: 0.8rem;
     }
 }
+.previewimg{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    width: 70%;
+    margin: auto;
+    position: relative;
+}
+.previewimg img{
+    display: block;
+    aspect-ratio: 16/9;
+    object-fit: contain;
+    width: auto;
+    height: 100%;
+}
+#bannerdataimg{
+    width: 70%;
+}
+#cropbannerbtn{
+    padding: 3px 11px;
+    font-size: 0.8rem;
+    background: white;
+    border: 1px solid #ff3f00;
+    border-radius: 5px;
+
+}
+.deleteimg{
+    position: absolute;
+    top: 0;
+    right: 10px;
+}
+.deleteimg button{
+    background: none;
+    border: none;
+    font-size: 2rem;
+}
+.plusimg{
+    padding: 10px;
+
+}

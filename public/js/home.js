@@ -129,8 +129,34 @@ const bannerimg = document.getElementById('bannerimg')
 const prevbtn = document.getElementById('prevbtn')
 const nextbtn = document.getElementById('nextbtn')
 const bannercontent = document.getElementById('bannercontent')
-let bannerdata = [{head:"CHAIR",desc:"chjbsjhbdjc"},{head:"SOFA",desc:"chjbsjhbdjc"},{head:"OONJAL",desc:"chjbsjhbdjc"},{head:"BASKET",desc:"chjbsjhbdjc"}]
-let imagearray = ['/public/images/chair2.jpg','/public/images/holmsund-corner-sofa-bed-orrsta-light-blue__0728013_pe735994_s5.jpg','/public/images/oonnjal.jpg','/public/images/konstfull-vase-patterned-brown__1151187_pe884818_s5.avif']
+let bannerdata = []
+let imagearray = []
+
+window.onload = async function(){
+    try {
+        const res = await fetch(`/getbanner`)
+        const data = await res.json()
+        if(data){
+            console.log(data.banner)
+            data.banner.forEach(el=>{
+                let obj = {
+                    head:el.bannertitle,
+                    desc:el.description
+                }
+                bannerdata.push(obj)
+
+                imagearray.push(`/assets/${el.bannerimage}`)
+            })
+
+        }
+        else{
+            console.log('error')
+        }
+    } catch (error) {
+        console.log(error.message)
+    }
+}
+
 function insertBanner(pos){
     bannerimg.style.transform = 'translateX(-100%)'
     if(pos > imagearray.length - 1){
@@ -139,6 +165,7 @@ function insertBanner(pos){
 setTimeout(()=>{ bannerimg.src  = imagearray[pos]
     bannerimg.style.opacity = '1'
     bannercontent.getElementsByTagName('h1')[0].innerHTML = bannerdata[pos].head
+    bannercontent.getElementsByTagName('p')[0].innerHTML = bannerdata[pos].desc
     bannercontent.style.opacity = '1'
 
 },200)

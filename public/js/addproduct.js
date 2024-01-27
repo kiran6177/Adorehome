@@ -229,7 +229,7 @@ proform.addEventListener('submit',(e)=>{
 
     if(error1.innerHTML !=="" || error2.innerHTML !=="" || error3.innerHTML !=="" || error4.innerHTML !=="" || error5.innerHTML !=="" || error6.innerHTML !=="" || error7.innerHTML !=="" )
     {
-        // e.preventDefault()
+        e.preventDefault()
     }
 })
 

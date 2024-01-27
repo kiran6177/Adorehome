@@ -7,7 +7,7 @@ const { ObjectId } = require('mongodb')
 
 const loadOrder = async (req,res)=>{
     try {
-        const orderdata = await Order.find({payment_status:"Paid"}).populate('user_id')
+        const orderdata = await Order.find({payment_status:"Paid"}).populate('user_id').sort({date:-1})
         res.render('admin/adminorders',{orderdata:orderdata})
     } catch (error) {
         console.log(error.message)

@@ -1,0 +1,80 @@
+<%- include('layouts/header.ejs') %>
+<script>
+    if(window.history.replaceState)
+    {
+      window.history.replaceState(null,null,window.location.href)
+    }
+  </script>
+<%- include('layouts/sidenav.ejs') %>
+
+<section class="maincontent">
+    <div class="container">
+        <div class="row">
+            <div class="usermain p-3  col-md-12">
+            <div class="titlemain"><h2 class="fw-bold ps-4  my-3">BANNERS</h2></div>
+            <div class="container">
+                <form action="/admin/banner/edit" method="post" id="bannerform" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="prolabel col-md-12">
+                        <% if(locals.message){ %>
+                            <div class="error1 alert alert-danger w-75"><%= locals.message %></div>
+                        <% } %>
+                        <% if(locals.banner){ %>
+                        <h4 class="fw-bold">Edit Banner</h4>
+                        <hr class="my-4">
+                        <div class="couponform">
+                            <input type="hidden" name="bannerid" id="bannerid" value="<%= locals.banner._id %>">
+                            <div class="coupfield "><label for="bannertitle">Banner Title</label>
+                            <input type="text" id="bannertitle" name="bannertitle" class="form-control" value="<%= locals.banner.bannertitle %>" >
+                            <p class="perror mb-2" id="error1" style="display: none;"></p>
+                        </div>
+                            <div class="coupfield"><label for="status">Status</label>
+                                    <select name="status" class="form-control" id="status" >
+                                        <% if(locals.banner.status == "1") {%>
+                                        <option value="1">Active</option>
+                                        <option value="0">Inactive</option>
+                                        <% }else{ %>
+                                        <option value="0">Inactive</option>
+                                        <option value="1">Active</option>
+                                        <% } %>
+                                    </select>
+                                </div>
+                                   
+                        </div>
+                        <div class="catform my-4">
+
+                        <div class="coupontext"><label for="bannerdescription">Banner Description</label>
+                            <textarea name="description" id="bannerdescription" cols="50" rows="5"><%= locals.banner.description %></textarea>
+                            <p class="perror mb-2" id="error2" style="display: none;"></p>
+                        </div>
+
+                        </div>
+                        <div class="catform my-4">
+
+                            <div class="coupontext"><label for="bannerimg">Banner Image</label>
+                                <input type="file" class="form-contrl" id="bannerimg" name="bannerimg" style="display: none;">
+                                <input type="hidden" id="croppeddata" name="croppeddata" >
+                                <p class="perror mb-2" id="error3" style="display: none;"></p>
+                            </div>
+
+                            </div>
+                            <div class="previewimg" id="bannerpreview"><img src="/assets/<%= locals.banner.bannerimage %>" id="bannerdataimg" alt="">
+                                <img src="/public/images/plus-circle-1.png" alt="" id="plusbtn" class="plusimg" style="display: none;">
+                            <div class="deleteimg"><button type="button" id="deletebanner">&times;</button></div>
+                            </div>
+                        <div class="catbtn mt-5 mb-2"><button type="submit" class="btn" id="editbannerbtn">Edit Banner</button></div>
+                        <% } %>
+                        </form>
+                    </div>
+                   
+
+                    </div>
+                </div>
+        </div>
+                
+    </div>
+            
+</section>
+</main>
+<script src="/public/js/editbanner.js"></script>
+<%- include('layouts/footer.ejs') %>

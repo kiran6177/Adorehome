@@ -14,6 +14,8 @@ const orderController = require("../controllers/orderController");
 const reportController = require("../controllers/reportController");
 const dashboardController = require("../controllers/dashboardController");
 const couponController = require('../controllers/couponController')
+const bannerController = require('../controllers/bannerController')
+
 
 router.get("/", adminAuth.isLogout, adminController.loginredirect);
 router.get("/login", adminAuth.isLogout, adminController.loginload);
@@ -226,6 +228,12 @@ router.get("/coupon",adminAuth.isLogin,couponController.loadCoupon)
 router.post("/coupon",adminAuth.isLogin,couponController.addCoupon)
 router.get("/coupon/edit",adminAuth.isLogin,couponController.loadEditCoupon)
 router.post("/coupon/edit",adminAuth.isLogin,couponController.editCoupon)
+
+router.get('/banner',adminAuth.isLogin,bannerController.loadBanner)
+router.post('/banner',adminAuth.isLogin,upload.single('bannerimg'),bannerController.addBanner)
+router.get('/banner/edit',adminAuth.isLogin,bannerController.loadEditBanner)
+router.post('/banner/edit',adminAuth.isLogin,upload.single('bannerimg'),bannerController.editBanner)
+router.get('/banner/delete',adminAuth.isLogin,bannerController.deleteBanner)
 
 
 
