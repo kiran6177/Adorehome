@@ -19,6 +19,10 @@ const userCouponController = require('../controllers/userCouponController')
 
 router.get('/login',userAuth.isLogout,userController.loginLoad)
 router.post('/login',userAuth.isLogout,userController.login)
+router.get('/forgotpassword',userAuth.isLogout,userController.loadEmailPage)
+router.post('/forgotpassword',userAuth.isLogout,userController.sendEmail)
+router.get('/resetpassword',userController.resetPassword)
+router.post('/resetpassword',userController.reset)
 router.get('/logout',userAuth.isLogin,userController.logout)
 
 router.get('/signup',userAuth.isLogout,userController.signupLoad)

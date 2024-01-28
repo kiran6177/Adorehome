@@ -1,0 +1,31 @@
+<%- include('layouts/header.ejs') , {udata:locals.udata} %>
+
+<main class="main mb-4">
+    <div class="container">
+      <div class="row main-in">
+    <div class="card text-center maincard col-md-8 col-12 col-lg-6 " >
+        <div class="card-body mainbody">
+          <h5 class="card-title my-4 form-title">FORGOT PASSWORD</h5>
+          <form class="form1 w-100" id="forgotform" method="post" action="/forgotpassword">
+           <% if(locals.success){ %>
+            <div class="alert alert-success"><%= locals.success %></div>
+            <% } %>
+            <div class="mb-5 field w-75 ">
+                <input type="text" class="form-control input " placeholder="" name="email" id="email">
+                <label for="email" class="form-label label">Enter your e-mail</label>
+                <p class="error mb-2" id="error1" style="display: none;"></p>
+                <% if(locals.error){ %>
+                <p class="error mb-2 "><%= locals.error %></p>
+                <% } %>
+              </div>
+
+            <input type="submit" class="logbtn mt-5 mb-3" value="Submit">
+
+          </form>
+        </div>
+      </div>
+    </div>
+    </div>
+  </main>
+  <script src="/public/js/emailforgot.js"></script>
+<%- include('layouts/footer.ejs')  %>

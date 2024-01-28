@@ -147,7 +147,7 @@ window.onload = async function(){
 
                 imagearray.push(`/assets/${el.bannerimage}`)
             })
-
+            insertBanner(0)
         }
         else{
             console.log('error')
@@ -204,4 +204,3 @@ nextbtn.addEventListener('click',()=>{
     }, 200);
 
 })
-insertBanner(0)
