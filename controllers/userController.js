@@ -7,6 +7,10 @@ const bcrypt = require('bcrypt');
 const Product = require("../models/productSchema");
 const saltRounds = 10;
 const Banner = require('../models/bannerSchema')
+const jwt = require('jsonwebtoken')
+const forgotMailer = require('../utils/forgotmailer');
+const { default: Swal } = require("sweetalert2");
+const { ObjectId } = require("mongodb");
 
 const loginLoad =async (req, res) => {
   res.render("user/userlogin");
@@ -317,6 +321,89 @@ const logout = async (req,res)=>{
     }
 }
 
+const loadEmailPage = async (req,res)=>{
+    try {
+        res.render('user/enteremail')
+    } catch (error) {
+        console.log(error.message)
+    }
+}
+
+const sendEmail = async (req,res)=>{
+    try {
+        const {email} = req.body
+
+        const isRegisteredUser = await User.findOne({email:email})
+        if(isRegisteredUser){
+            const payload = {id:isRegisteredUser._id}
+            const secret = process.env.JWT_secret + isRegisteredUser.password
+            const token = jwt.sign(payload,secret,{expiresIn:'10m'})
+            const link = `http://localhost:3003/resetpassword?id=${isRegisteredUser._id}&token=${token}`
+            console.log(link)
+            const mailSend = forgotMailer.sendForgotmail(isRegisteredUser.email,link)
+            if(mailSend){
+                console.log("mail")
+                    res.render('user/enteremail',{success:"A link is send to your e-mail."})
+            }
+        }else{
+            res.render('user/enteremail',{error:"Invalid E-mail."})
+        }
+    } catch (error) {
+        console.log(error.message)
+    }
+}
+
+const resetPassword = async (req,res)=>{
+    try {
+        console.log("hello")
+        const {id,token} = req.query
+        const matchUser = await User.aggregate([{$match:{_id:new ObjectId(id),type:"user"}}])
+        console.log(matchUser)
+        if(matchUser.length > 0){
+            if(token){
+                    const secret = process.env.JWT_secret + matchUser[0].password
+                    const isVerified = jwt.verify(token,secret)
+                    console.log(isVerified)
+                    if(isVerified){
+                        res.render('user/forgotpassword',{id:matchUser[0]._id})
+                    }else{
+                        console.log("hi")
+                        res.status(404)
+                    }
+            }else{
+                res.status(404)
+            }
+        }else{
+            res.status(404)
+        }
+    } catch (error) {
+        res.redirect('/error')
+        console.log(error.message)
+    }
+}
+
+const reset = async (req,res)=>{
+    try {
+        const {newpassword,confirmpassword,uid} = req.body
+        if(newpassword === confirmpassword){
+            const hashed = await bcrypt.hash(confirmpassword,saltRounds)
+            if(hashed){
+                const changePassword = await User.findByIdAndUpdate({_id:uid},{$set:{password:hashed}})
+                if(changePassword){
+                    res.redirect('/')
+                }
+            }
+            else{
+            res.render("user/forgotpassword")
+            }
+        }else{
+            res.render("user/forgotpassword")
+        }
+    } catch (error) {
+        console.log(error.message)
+    }
+}
+
 module.exports = {
 
   loginLoad,
@@ -330,5 +417,9 @@ module.exports = {
   loadHome,
   otpLogin,
   logout,
-  getBanner
+  getBanner,
+  loadEmailPage,
+  sendEmail,
+  resetPassword,
+  reset
 };
