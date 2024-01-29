@@ -216,7 +216,9 @@
                 <div class="row report  my-5">
                   <div class="card col-md-12">
                     <div class="card-body">
-                      <div class="reportsales"><h3>Turnover Report</h3><div class="rightoptions"><div class="downoptions"><button type="button" id="maindownpdf">Download PDF</button><button type="button" id="maindownexcel">Download Excel</button></div><div class="optionbuttons"><button type="button" id="dailybtn1">Daily</button><button type="button" id="weekbtn1">Weekly</button><button type="button" id="monthbtn1"> Monthly</button><button type="button" id="yearbtn1"> Yearly</button></div></div></div>
+                      <div class="reportsales"><h3>Turnover Report</h3><div class="rightoptions">
+                        <!-- <div class="downoptions"><button type="button" id="maindownpdf">Download PDF</button><button type="button" id="maindownexcel">Download Excel</button></div> -->
+                      <div class="optionbuttons"><button type="button" id="dailybtn1">Daily</button><button type="button" id="weekbtn1">Weekly</button><button type="button" id="monthbtn1"> Monthly</button><button type="button" id="yearbtn1"> Yearly</button></div></div></div>
                       <div class="dailybuttons" id="dailybuttons1" >
                         <h6>Select Date</h6>
                         <div class="dailyselect"><select name="Dday1" id="Dday1">
@@ -378,3 +380,4 @@
       </main>
       <script src="/public/js/salesreport.js"></script>
 
+      <%- include('layouts/footer.ejs') %>
