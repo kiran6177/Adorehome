@@ -224,6 +224,10 @@ router.get(
   reportController.yearlyTurnover
 );
 
+router.get('/salesreport/getexcelpro',adminAuth.isLogin,reportController.getExcelData)
+router.get('/salesreport/getpdfpro',adminAuth.isLogin,reportController.getPdfData)
+
+
 router.get("/coupon",adminAuth.isLogin,couponController.loadCoupon)
 router.post("/coupon",adminAuth.isLogin,couponController.addCoupon)
 router.get("/coupon/edit",adminAuth.isLogin,couponController.loadEditCoupon)

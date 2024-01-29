@@ -2482,3 +2482,228 @@ yearbtn1.addEventListener("click", () => {
     dailybuttons1.style.display = "none";
   }
 });
+
+const prodownexcel = document.getElementById('prodownexcel')
+const prodownpdf =  document.getElementById('prodownpdf')
+
+async function downProExcelDaily(day,month,year){
+  try {
+    const res = await fetch(`/admin/salesreport/getexcelpro?day=${day}&month=${month}&year=${year}`)
+    const data = await res.blob()
+    if(data){
+      const url = window.URL.createObjectURL(data);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'salesreport.xlsx';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
+    }
+  } catch (error) {
+    window.location.href = '/admin/login'
+    console.log(error.message)
+  }
+}
+
+async function downProPdfDaily(day,month,year){
+  try {
+    const res = await fetch(`/admin/salesreport/getpdfpro?day=${day}&month=${month}&year=${year}`)
+    const data = await res.blob()
+    if(data){
+      console.log(data)
+      if(data.type== "application/pdf"){
+        const url = window.URL.createObjectURL(data);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'salesreport.pdf';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+      }else{
+        window.location.href = '/admin/login'
+      }
+    }
+  } catch (error) {
+    console.log(error.message)
+  }
+}
+
+async function downProExcelWeekly(week,month,year){
+  try {
+    const res = await fetch(`/admin/salesreport/getexcelpro?week=${week}&month=${month}&year=${year}`)
+    const data = await res.blob()
+    if(data){
+      const url = window.URL.createObjectURL(data);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'salesreport.xlsx';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
+    }
+  } catch (error) {
+    window.location.href = '/admin/login'
+    console.log(error.message)
+  }
+}
+
+async function downProPdfWeekly(week,month,year){
+  try {
+    const res = await fetch(`/admin/salesreport/getpdfpro?week=${week}&month=${month}&year=${year}`)
+    const data = await res.blob()
+    if(data){
+      console.log(data)
+      if(data.type== "application/pdf"){
+        const url = window.URL.createObjectURL(data);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'salesreport.pdf';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+      }else{
+        window.location.href = '/admin/login'
+      }
+    }
+  } catch (error) {
+    console.log(error.message)
+  }
+}
+
+async function downProExcelMonthly(month,year){
+  try {
+    const res = await fetch(`/admin/salesreport/getexcelpro?month=${month}&year=${year}`)
+    const data = await res.blob()
+    if(data){
+      const url = window.URL.createObjectURL(data);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'salesreport.xlsx';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
+    }
+  } catch (error) {
+    window.location.href = '/admin/login'
+    console.log(error.message)
+  }
+}
+
+async function downProPdfMonthly(month,year){
+  try {
+    const res = await fetch(`/admin/salesreport/getpdfpro?month=${month}&year=${year}`)
+    const data = await res.blob()
+    if(data){
+      console.log(data)
+      if(data.type== "application/pdf"){
+        const url = window.URL.createObjectURL(data);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'salesreport.pdf';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+      }else{
+        window.location.href = '/admin/login'
+      }
+    }
+  } catch (error) {
+    console.log(error.message)
+  }
+}
+
+async function downProExcelYearly(year){
+  try {
+    const res = await fetch(`/admin/salesreport/getexcelpro?year=${year}`)
+    const data = await res.blob()
+    if(data){
+      const url = window.URL.createObjectURL(data);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'salesreport.xlsx';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
+    }
+  } catch (error) {
+    window.location.href = '/admin/login'
+    console.log(error.message)
+  }
+}
+
+async function downProPdfYearly(year){
+  try {
+    const res = await fetch(`/admin/salesreport/getpdfpro?year=${year}`)
+    const data = await res.blob()
+    if(data){
+      console.log(data)
+      if(data.type== "application/pdf"){
+        const url = window.URL.createObjectURL(data);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'salesreport.pdf';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+      }else{
+        window.location.href = '/admin/login'
+      }
+    }
+  } catch (error) {
+    console.log(error.message)
+  }
+}
+
+prodownexcel.addEventListener('click',()=>{
+  console.log("hello")
+  if(window.getComputedStyle(dailybuttons).display === 'block'){
+    console.log(Dday.value)
+    console.log(Dmonth.value)
+    console.log(Dyear.value)
+    downProExcelDaily(Dday.value,Dmonth.value,Dyear.value)
+  }
+  else if(window.getComputedStyle(weekbuttons).display === 'block'){
+    console.log(Wweek.value)
+    console.log(Wmonth.value)
+    console.log(Wyear.value)
+    downProExcelWeekly(Wweek.value,Wmonth.value,Wyear.value)
+  }else if(window.getComputedStyle(monthbuttons).display === 'block'){
+    console.log(Mmonth.value)
+    console.log(Myear.value)
+    downProExcelMonthly(Mmonth.value,Myear.value)
+  }else if(window.getComputedStyle(yearbuttons).display === 'block'){
+    console.log(Yyear.value)
+    downProExcelYearly(Yyear.value)
+  }
+})
+
+prodownpdf.addEventListener('click',()=>{
+  console.log("hellopdf")
+  if(window.getComputedStyle(dailybuttons).display === 'block'){
+    console.log(Dday.value)
+    console.log(Dmonth.value)
+    console.log(Dyear.value)
+    downProPdfDaily(Dday.value,Dmonth.value,Dyear.value)
+  }
+  else if(window.getComputedStyle(weekbuttons).display === 'block'){
+    console.log(Wweek.value)
+    console.log(Wmonth.value)
+    console.log(Wyear.value)
+    downProPdfWeekly(Wweek.value,Wmonth.value,Wyear.value)
+  }else if(window.getComputedStyle(monthbuttons).display === 'block'){
+    console.log(Mmonth.value)
+    console.log(Myear.value)
+    downProPdfMonthly(Mmonth.value,Myear.value)
+  }else if(window.getComputedStyle(yearbuttons).display === 'block'){
+    console.log(Yyear.value)
+    downProPdfYearly(Yyear.value)
+  }
+})
