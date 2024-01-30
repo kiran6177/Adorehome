@@ -2,6 +2,7 @@ const Product = require('../models/productSchema')
 const Brand = require('../models/brandSchema')
 const Category = require('../models/categorySchema')
 const Room = require('../models/roomSchema')
+const Offer = require('../models/offerSchema')
 const Jimp = require('jimp')
 const fs = require('fs').promises
 const path = require('path')
@@ -21,7 +22,8 @@ const loadaddproducts = async (req,res)=>{
     const bdata = await Brand.find({status:"1"})
     const cdata = await Category.find({status:"1"})
     const rdata = await Room.find({status:"1"})
-    res.render("admin/addproduct",{brand:bdata,category:cdata,room:rdata})
+    const odata = await Offer.aggregate([{$match:{status:"1"}}])
+    res.render("admin/addproduct",{brand:bdata,category:cdata,room:rdata,offer:odata})
 }catch(error)
 {
     console.log(error.message)
@@ -82,20 +84,22 @@ const addproducts = async (req,res)=>{
     })
     console.log(main)
     console.log(img)
+     const prodata = {
+            productname,
+            description,
+            color,
+            brand_id:brandname,
+            category_id:procategory,
+            room_id:roomcategory,
+            price,
+            mainimage:main,
+            image:img,
+            stock,
+            offer_id:offer != "NA" ? offer : null
+        }
 
-    const prodata = {
-        productname,
-        description,
-        color,
-        brand_id:brandname,
-        category_id:procategory,
-        room_id:roomcategory,
-        price,
-        mainimage:main,
-        image:img,
-        stock,
-        offer_id:offer
-    }
+    
+    
 
     console.log(prodata)
 
@@ -120,11 +124,12 @@ const loadeditproducts = async (req,res)=>{
         const bdata = await Brand.find({status:"1"})
         const cdata = await Category.find({status:"1"})
         const rdata = await Room.find({status:"1"})
+        const odata = await Offer.aggregate([{$match:{status:"1"}}])
         const pdata = await Product.findById({_id:pid}).populate('brand_id category_id room_id')
          console.log(pdata)
         if(pdata)
         {
-        res.render('admin/editproduct',{prodata:pdata,bdata:bdata,cdata:cdata,rdata:rdata})
+        res.render('admin/editproduct',{prodata:pdata,bdata:bdata,cdata:cdata,rdata:rdata,offer:odata})
         }
         else{
             console.log("No Product data")
@@ -206,7 +211,7 @@ const editproducts = async (req,res)=>{
         ...(img3!== undefined  && {"image.2":img3}),
         ...(img4!== undefined  && {"image.3":img4}),
         stock,
-        offer_id:offer
+        offer_id:offer!="NA" ? offer : null
     }
      console.log(prodata)
      const edit = await Product.findByIdAndUpdate({_id:proid},{$set:prodata})

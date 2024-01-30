@@ -25,11 +25,21 @@
                             </div>
                             <div class="cartprice">
                             <h6>Unit Price</h6>
+                            <% let discount %>
+                            <% if(element.product_id.offer_id ) {%>
+                              <%  discount = element.product_id.price - (element.product_id.price * (element.product_id.offer_id.discount / 100)) %>
+                              <p>Rs.<%= discount %></p>
+                              <% }else{ %>
                                 <p>Rs.<%= element.product_id.price %></p>
+                                <% } %>
                             </div>
                             <div class="carttotal">
                                 <h6>Total Price</h6>
+                            <% if(element.product_id.offer_id ) {%>
+                              <p>Rs.<%= discount * element.qty %></p>
+                              <% }else{ %>
                                 <p>Rs. <%= element.product_id.price * element.qty %></p>
+                              <% } %>
                             </div>
                                   <div class="addrembtn">
                                     <button type="button" class="leftbtn" data-proleft = "<%= element.product_id._id %>"><i class="fa-solid fa-angles-left"></i></button>

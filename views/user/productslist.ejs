@@ -35,6 +35,9 @@
                             <% } %>
                           <div class="addcart"><button type="button" id="addcartbtn" data-proid="<%= el._id %>"><i class="fa-solid fa-cart-plus"></i></button></div>
                         </div>
+                        <% if(el.offer_id != "NA" && el.offerdata.length > 0) {%>
+                          <div class="offervalue"><%= el.offerdata[0].discount %>%</div>
+                          <% } %>
                     </div>
                 </div>
                 <% })  } %>              

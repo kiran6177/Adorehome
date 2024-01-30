@@ -283,9 +283,9 @@ const loadHome = async(req,res)=>{
         console.log("wishlist")
         }
 
-        let pdata  = await Product.find({isBlocked:0}).limit(8)
-
-        // console.log(pdata)
+        let pdata  = await Product.aggregate([{$match:{isBlocked:0}},{$lookup:{from:'offers',localField:'offer_id',foreignField:'_id',as:'offerdata'}},{$limit:8}])
+        
+         console.log(pdata[0].offerdata)
         if(req.userid)
         {
         res.render('user/home',{products:pdata,udata:data})

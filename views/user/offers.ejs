@@ -1,0 +1,26 @@
+<%- include('layouts/header.ejs') , {udata:locals.udata} %>
+
+<main class="promain pb-5">
+    <section class="products pt-5 pt-sm-5">
+      <div class="container">
+          <div class="row p-3">
+              <h2 class=" mt-4 mb-3">OFFERS</h2>
+              <% if(locals.offer && locals.offer.length > 0) { locals.offer.forEach(element => { %>
+              <div class="offer my-4 col-md-6">
+                <div class="offerdiv"><img src="/assets/<%= element.offerimage %>" alt=""></div>
+                <div class="offerdata1"><h3><u><%= element.offertitle %></u></h3>
+                <p><%= element.description %></p>
+                <p>Flat <span class="rateoffer"><%= element.discount %>%</span>Off!!</p>
+                <a>Shop Now</a></div>
+                <div class="offerdatabg"></div>
+            </div>
+            <%  }); } %>
+                    </div>
+              </div>
+
+          </div>
+      </div>
+  </section>
+  </main>
+
+<%- include('layouts/footer.ejs') %>

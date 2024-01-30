@@ -15,7 +15,7 @@ const reportController = require("../controllers/reportController");
 const dashboardController = require("../controllers/dashboardController");
 const couponController = require('../controllers/couponController')
 const bannerController = require('../controllers/bannerController')
-
+const offerController = require('../controllers/offerController')
 
 router.get("/", adminAuth.isLogout, adminController.loginredirect);
 router.get("/login", adminAuth.isLogout, adminController.loginload);
@@ -240,5 +240,10 @@ router.post('/banner/edit',adminAuth.isLogin,upload.single('bannerimg'),bannerCo
 router.get('/banner/delete',adminAuth.isLogin,bannerController.deleteBanner)
 
 
+router.get('/offer',adminAuth.isLogin,offerController.loadOffer)
+router.post('/offer',adminAuth.isLogin,upload.single('offerimage'),offerController.addOffer)
+router.get('/offer/edit',adminAuth.isLogin,offerController.loadEditOffer)
+router.post('/offer/edit',adminAuth.isLogin,upload.single('offerimage'),offerController.editOffer)
+router.get('/offer/delete',adminAuth.isLogin,offerController.deleteOffer)
 
 module.exports = router;

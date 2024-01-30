@@ -22,7 +22,12 @@
                     <% } else { %>
                     <h6 class="prostockd my-2">Out of Stock </h6>
                     <% } %>
+                    <% if(locals.product.offer_id != null ) {%>
+                    <% let discountprice = locals.product.price -  (locals.product.price * (locals.product.offer_id.discount / 100 ))%>    
+                    <h5 class="proprice my-2">Rs.<%= discountprice %>&nbsp;&nbsp;<del class="small">Rs.<%= locals.product.price %></del></h5>
+                    <% } else{%>    
                     <h5 class="proprice my-2">Rs.<%= locals.product.price %></h5>
+                    <% } %>
                     <h6 class="desc"><%= desc %></h6>
                     <hr style="width: 300px;">
                     <h5 class="procolor mt-5 mb-4">Color : <%= locals.product.color %></h5>

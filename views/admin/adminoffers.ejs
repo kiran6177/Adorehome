@@ -1,0 +1,86 @@
+<%- include('layouts/header.ejs') %>
+<script>
+    if(window.history.replaceState)
+    {
+      window.history.replaceState(null,null,window.location.href)
+    }
+  </script>
+<%- include('layouts/sidenav.ejs') %>
+
+<section class="maincontent">
+    <div class="container">
+        <div class="row">
+            <div class="usermain p-3  col-md-12">
+            <div class="titlemain"><h2 class="fw-bold ps-4  my-3">OFFERS</h2>
+            </div>
+            <div class="container">
+                <form action="/admin/offer" method="post" id="catform" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="prolabel col-md-12">
+                        <% if(locals.message){ %>
+                            <div class="error1 alert alert-danger w-75"><%= locals.message %></div>
+                        <% } %>
+                        <h4 class="fw-bold">Add Offers</h4>
+                        <hr class="my-4">
+                        <div class="couponform">
+                            
+                            <div class="coupfield "><label for="offertitle">Offer Title</label>
+                            <input type="text" id="offertitle" name="offertitle" class="form-control">
+                            <p class="perror mb-2" id="error1" style="display: none;"></p>
+                        </div>
+                            <div class="coupfield"><label for="status">Status</label>
+                                    <select name="status" class="form-control" id="status" >
+                                        <option value="1">Active</option>
+                                        <option value="0">Inactive</option>
+                                    </select>
+                                </div>
+                                   
+                        </div>
+                        <div class="catform my-4">
+
+                        <div class="coupontext"><label for="offerdescription">Offer Description</label>
+                            <textarea name="description" id="offerdescription" cols="50" rows="5"></textarea>
+                            <p class="perror mb-2" id="error2" style="display: none;"></p>
+                        </div>
+
+                        </div>
+                        <div class="couponform mb-4">
+                            
+                            <div class="coupfield1 "><label for="percentage">Discount Percentage</label>
+                            <input type="number" id="percentage" name="percentage" class="form-control">
+                            <p class="perror mb-2" id="error1" style="display: none;"></p>
+                        </div>
+                            <div class="coupfield2"><label for="offerimage">Offer Image</label>
+                                <input type="file" id="offerimage" name="offerimage" class="form-control">
+                                <input type="hidden" id="croppeddata" name="croppeddata" >
+                                <p class="perror mb-2" id="error1" style="display: none;"></p>
+                                </div> 
+                        </div>
+                        <div class="previewimg" id="offerpreview"></div>
+                        <div class="catbtn mt-5 mb-2"><button type="submit" class="btn" id="addcouponbtn">Add Offer</button></div>
+            </form>
+                    </div>
+                    <hr class="my-5 ">
+                    <div class="row mb-5">
+                        <div class="catlist col-md-12 my-4">
+                            <h4 class="fw-bold">Offer Details</h4>
+                            <hr class="my-4">
+                        <% if(locals.offer && locals.offer.length > 0){ locals.offer.forEach(element => { %>
+                            <div class="catitem"><h6 class="my-auto fw-normal" title="<%= element.offertitle %>" id=""><%= element.offertitle %></h6><a href="/admin/offer/edit?id=<%= element._id %>"><button type="button" >Edit</button></a><a href="/admin/offer/delete?id=<%= element._id %>"><button type="button" >Delete</button></a></div>
+                            <hr class="my-3">
+                        <% });} %>    
+                        </div>
+
+                    </div>
+                </div>
+                
+            </div>
+            
+    </div>
+    </div>
+    </div>              
+</section>
+</main>
+
+<script src="/public/js/adminoffers.js"></script>
+<%- include('layouts/footer.ejs') %>

@@ -75,10 +75,15 @@ let proqty = 0
 crosscheck.forEach(el=>{
     el.addEventListener('click',()=>{
         const checkcards = el.closest('.checkcard')
+        const productstotal = parseInt(prosum.innerHTML.split('.')[1])
+        const totalamount = parseInt(ordertotal.innerHTML.split('.')[1])
          proprice = checkcards.dataset.price
          proqty = checkcards.dataset.qty
+         console.log(proprice,proqty,productstotal,totalamount)
         const couponcode = coupon.value
+        if(coupon.value !=""){
         verifyCoupon(couponcode)
+        }
         prosum.innerHTML = `Rs. ${productstotal - (proprice*proqty)}`
         ordertotal.innerHTML = `Rs. ${totalamount - (proprice*proqty)}`
         checkcards.style.display = "none"
