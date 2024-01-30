@@ -178,8 +178,10 @@
                                     <label for="offer">Offer</label>
                                     <select name="offer" class="form-control" id="offer" >
                                         <option value="<%= locals.prodata.offer_id %>"><%= locals.prodata.offer_id %></option>
-
-
+                                        <% if(locals.offer && locals.offer.length > 0){ locals.offer.forEach(element => { %>
+                                        <option value="<%= element._id %>"><%= element.offertitle %></option>    
+                                            <% }); } %>
+                                        <option value="NA">NA</option>    
                                     </select>
                                 </div>
                             </div>

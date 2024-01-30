@@ -1,0 +1,88 @@
+<%- include('layouts/header.ejs') %>
+<script>
+    if(window.history.replaceState)
+    {
+      window.history.replaceState(null,null,window.location.href)
+    }
+  </script>
+<%- include('layouts/sidenav.ejs') %>
+<section class="maincontent">
+    <div class="container">
+        <div class="row">
+            <div class="usermain p-3  col-md-12">
+            <div class="titlemain"><h2 class="fw-bold ps-4  my-3">OFFERS</h2>
+            </div>
+            <div class="container">
+                <form action="/admin/offer/edit" method="post" id="offerform" enctype="multipart/form-data">
+                <div class="row">
+                    <div class="prolabel col-md-12">
+                        <% if(locals.message) {%>
+                            <div class="error1 alert alert-danger w-75"><%= locals.message %></div>
+                        <% } %>
+                        <h4 class="fw-bold">Edit Offer</h4>
+                        <hr class="my-4">
+                        <div class="couponform">
+                            <% if(locals.offer) {%>
+                            <div class="coupfield "><label for="offertitle">Offer Title</label>
+                            <input type="text" id="offertitle" name="offertitle" class="form-control" value="<%= locals.offer.offertitle %>">
+                            <input type="hidden" name="id" value="<%= locals.offer._id %>">
+                            <p class="perror mb-2" id="error1" style="display: none;"></p>
+                        </div>
+                            <div class="coupfield"><label for="status">Status</label>
+                                    <select name="status" class="form-control" id="status" >
+                                        <% if(locals.offer.status === "1") {%>
+                                        <option value="1">Active</option>
+                                        <option value="0">Inactive</option>
+                                        <% }else{ %>
+                                            <option value="0">Inactive</option>
+                                            <option value="1">Active</option>
+                                        <% } %>
+                                    </select>
+                                </div>
+                                   
+                        </div>
+                        <div class="catform my-4">
+
+                        <div class="coupontext"><label for="offerdescription">Offer Description</label>
+                            <textarea name="description" id="offerdescription" cols="50" rows="5"><%= locals.offer.description %></textarea>
+                            <p class="perror mb-2" id="error2" style="display: none;"></p>
+                        </div>
+
+                        </div>
+                        <div class="couponform">
+                            
+                            <div class="coupfield1 "><label for="percentage">Discount Percentage</label>
+                            <input type="number" id="percentage" name="percentage" class="form-control" value="<%= locals.offer.discount %>">
+                            <p class="perror mb-2" id="error1" style="display: none;"></p>
+                        </div>
+                            
+                        </div>
+                        <div class="couponform my-4">
+                            <div class="coupfield2"><label for="offerimage">Offer Image</label>
+                                <input type="file" id="offerimage" name="offerimage" class="form-control" style="display: none;">
+                                <input type="hidden" id="croppeddata" name="croppeddata" >
+                                <p class="perror mb-2" id="error1" style="display: none;"></p>
+                                </div> 
+                            </div>
+                        <div class="previewimg" id="offerpreview"><img src="/assets/<%= locals.offer.offerimage %>" id="offerdataimg" alt="">
+                            <img src="/public/images/plus-circle-1.png" alt="" id="plusbtn" class="plusimg" style="display: none;">
+                        <div class="deleteimg"><button type="button" id="deleteofferimg">&times;</button></div>
+                        </div>
+                        <% } %>
+                        <div class="catbtn mt-5 mb-2"><button type="submit" class="btn" id="addcouponbtn">Edit Offer</button></div>
+            </form>
+                    </div>
+
+                </div>
+                
+            </div>
+            
+    </div>
+    </div>
+    </div>              
+</section>
+</main>
+
+<script src="/public/js/editoffer.js"></script>
+<%- include('layouts/footer.ejs') %>
+

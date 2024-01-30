@@ -46,8 +46,9 @@ const productSchema = new mongoose.Schema({
         required:true
     },
     offer_id:{
-        type:String,
-        default:"NA"
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'offer',
+        default:null
     },
     isBlocked:{
         type:Number,

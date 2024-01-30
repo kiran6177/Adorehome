@@ -4,7 +4,8 @@ const Product = require('../models/productSchema')
 
 const loadCart = async (req,res)=>{
     const uid = req.userid
-    const udata = await User.findById({_id:uid}).populate('cart.product_id')
+    const udata = await User.findById({_id:uid}).populate({path:'cart.product_id',populate:{path:'offer_id',model:'offer'} })
+    console.log(udata.cart[2].product_id)
     res.render('user/cart',{udata:udata})
 }
 

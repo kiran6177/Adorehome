@@ -113,9 +113,11 @@
                                     <p class="perror mb-2" id="error5" style="display: none;"></p>
                                     <label for="offer">Offer</label>
                                     <select name="offer" class="form-control" id="offer" >
-                                        <% if(locals.offer) { %>
-                                        <option value="combo">Combo Offer</option>
-                                            <% } else { %>
+                                        <% if(locals.offer && locals.offer.length > 0) { %>
+                                        <option value="NA">Select Offer</option>
+                                            <% locals.offer.forEach(element => { %>
+                                        <option value="<%= element._id %>"><%= element.offertitle %></option>
+                                            <%  });} else { %>
                                         <option value="NA">NA</option>
                                                 <% } %>
                                     </select>

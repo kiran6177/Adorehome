@@ -5,7 +5,7 @@ const User = require('../models/userSchema')
 const loadProducts = async (req, res) => {
   try {
     const uid = req.userid
-    let pdata  = await Product.aggregate([{$match:{isBlocked:0}},{$sort:{date:-1}},{$limit:8}])
+    let pdata  = await Product.aggregate([{$match:{isBlocked:0}},{$lookup:{from:'offers',localField:'offer_id',foreignField:'_id',as:'offerdata'}},{$sort:{date:-1}},{$limit:8}])
     let pcount  = await Product.find({isBlocked:0}).countDocuments()
     console.log(pcount)
     const udata = await User.findById({_id:uid}).populate('cart.product_id')
@@ -24,13 +24,14 @@ const loadProductDetail = async (req, res) => {
     {
       qty = req.query.qty
     }
-    const productdetail = await Product.findById({ _id: proid });
+    const productdetail = await Product.findById({ _id: proid }).populate('offer_id');
     const udata = await User.findById({_id:uid}).populate('cart.product_id')
     const cat = productdetail.category_id;
     const pdata = await Product.find({
       _id: { $ne: proid },
       category_id: cat,
-    }).limit(4);
+    }).populate('offer_id').limit(4);
+    console.log(productdetail)
     if (productdetail != null) {
       res.render("user/productdetail", { product: productdetail, rel: pdata ,udata:udata ,qty:qty});
     }
@@ -45,7 +46,7 @@ const proSearch = async (req,res)=>{
     const {search} = req.query
     const uid = req.userid
     const udata = await User.findById({_id:uid}).populate('cart.product_id')
-    const pdata = await Product.aggregate([{$match:{productname:{$regex: new RegExp(search,'i')}}},{$limit:8}])
+    const pdata = await Product.aggregate([{$match:{productname:{$regex: new RegExp(search,'i')}}},{$lookup:{from:'offers',localField:'offer_id',foreignField:'_id',as:'offerdata'}},{$limit:8}])
     const pdatacount = await Product.aggregate([{$match:{productname:{$regex: new RegExp(search,'i')}}},{$count:'pcount'}])
 
     console.log(pdatacount)
@@ -89,11 +90,11 @@ const productListFetch = async (req,res)=>{
     console.log(filterbydate)
     console.log(filterbyprice)
     if(filterbydate != undefined){
-       pdata = await Product.aggregate([{$match:{productname:{$regex: new RegExp(search,'i')}}},{$sort:{date:filterbydate}},{$skip:(page - 1)* 8},{$limit:8}])
+       pdata = await Product.aggregate([{$match:{productname:{$regex: new RegExp(search,'i')}}},{$lookup:{from:'offers',localField:'offer_id',foreignField:'_id',as:'offerdata'}},{$sort:{date:filterbydate}},{$skip:(page - 1)* 8},{$limit:8}])
        pdatacount = await Product.aggregate([{$match:{productname:{$regex: new RegExp(search,'i')}}},{$sort:{date:filterbydate}},{$count:'pcount'}])
     }
     else{
-       pdata = await Product.aggregate([{$match:{productname:{$regex: new RegExp(search,'i')}}},{$sort:{price:filterbyprice}},{$skip:(page - 1)* 8},{$limit:8}])
+       pdata = await Product.aggregate([{$match:{productname:{$regex: new RegExp(search,'i')}}},{$lookup:{from:'offers',localField:'offer_id',foreignField:'_id',as:'offerdata'}},{$sort:{price:filterbyprice}},{$skip:(page - 1)* 8},{$limit:8}])
        pdatacount = await Product.aggregate([{$match:{productname:{$regex: new RegExp(search,'i')}}},{$sort:{price:filterbyprice}},{$count:'pcount'}])
     }
     const uid = req.userid
@@ -137,11 +138,11 @@ const proFilter = async (req,res)=>{
     console.log(filterbydate)
     console.log(filterbyprice)
     if(filterbydate != undefined){
-       pdata = await Product.aggregate([{$match:{productname:{$regex: new RegExp(search,'i')}}},{$sort:{date:filterbydate}},{$limit:8}])
+       pdata = await Product.aggregate([{$match:{productname:{$regex: new RegExp(search,'i')}}},{$lookup:{from:'offers',localField:'offer_id',foreignField:'_id',as:'offerdata'}},{$sort:{date:filterbydate}},{$limit:8}])
        pdatacount = await Product.aggregate([{$match:{productname:{$regex: new RegExp(search,'i')}}},{$sort:{date:filterbydate}},{$count:'pcount'}])
     }
     else{
-       pdata = await Product.aggregate([{$match:{productname:{$regex: new RegExp(search,'i')}}},{$sort:{price:filterbyprice}},{$limit:8}])
+       pdata = await Product.aggregate([{$match:{productname:{$regex: new RegExp(search,'i')}}},{$lookup:{from:'offers',localField:'offer_id',foreignField:'_id',as:'offerdata'}},{$sort:{price:filterbyprice}},{$limit:8}])
        pdatacount = await Product.aggregate([{$match:{productname:{$regex: new RegExp(search,'i')}}},{$sort:{price:filterbyprice}},{$count:'pcount'}])
     }
     const uid = req.userid

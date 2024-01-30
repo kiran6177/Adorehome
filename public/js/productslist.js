@@ -282,6 +282,9 @@ function productPageLoop(totalproductpages, currentPage) {
              } 
             newdiv1.innerHTML +=  `<div class="addcart"><button type="button" id="addcartbtn" data-proid="${data.products[i]._id }"><i class="fa-solid fa-cart-plus"></i></button></div>`
             newdiv1.innerHTML += `</div>`
+            if(data.products[i].offer_id != "NA" && data.products[i].offerdata && data.products[i].offerdata.length > 0){
+              newdiv1.innerHTML += `<div class="offervalue">${data.products[i].offerdata[0].discount}%</div>`
+            }
             newdiv.appendChild(newdiv1)
         productsdiv.appendChild(newdiv)
         }

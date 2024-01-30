@@ -55,7 +55,9 @@
                             <div class="cartdetails">
                                 <h4 class="card-title  fw-normal ">Product Details</h4>
                                 <% if(locals.udata && locals.udata.cart && locals.udata.cart.length > 0) { locals.udata.cart.forEach(element => { %>
-                                <div class="card  col-lg-6 col-xl-12 my-4 checkcard" data-price="<%= element.product_id.price %>" data-qty="<%= element.qty %>">
+                                <div class="card  col-lg-6 col-xl-12 my-4 checkcard"<% if(element.product_id.offer_id){  let discount = element.product_id.price - (element.product_id.price*(element.product_id.offer_id.discount /100));  %>
+                                    data-price=<%= discount %>
+                                 <%  }else{ %> data-price="<%= element.product_id.price %>"<% } %> data-qty="<%= element.qty %>">
                                     <div class="card-body checkpro">
                                     <input type="hidden" class="productsId" value="<%= element.product_id._id %>,<%= element.qty %>">
                                     <a href=""><img src="/assets/<%= element.product_id.mainimage %>" alt="" width="70px" height="70px"></a>
@@ -75,7 +77,13 @@
                             </div>
                             <div class="checkpricepro">
                             <h6>Products</h6>
-                            <% let tot = locals.udata.cart.map(el=>{ return el.product_id.price * el.qty }) %>
+                            <% let tot = locals.udata.cart.map(el=>{ 
+                               if(el.product_id.offer_id){
+                                let discount = el.product_id.price - (el.product_id.price*(el.product_id.offer_id.discount /100))
+                                return discount * el.qty
+                               }else{
+                                return el.product_id.price * el.qty
+                               }  }) %>
                             <% let prosum = tot.reduce((acc,curr) => { return acc + curr}) %>
                                 <p id="prosum">Rs.<%= prosum %></p>
                             </div>

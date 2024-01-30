@@ -148,6 +148,16 @@ window.onload = async function(){
                 imagearray.push(`/assets/${el.bannerimage}`)
             })
             insertBanner(0)
+            let i = 0   
+            setInterval(()=>{
+                if(i === imagearray.length - 1){
+                    i = 0
+                }
+                else{
+                    i++
+                }
+                insertBanner(i)
+            },4000)
         }
         else{
             console.log('error')

@@ -14,6 +14,7 @@ const userOrderController = require('../controllers/userOrderController')
 const userWishlistController = require('../controllers/userWishlistController')
 const userBrandController = require('../controllers/userBrandController')
 const userCouponController = require('../controllers/userCouponController')
+const userOfferController = require('../controllers/userOfferController')
 
 // router.get('/',userController.loginRedirect)
 
@@ -89,6 +90,9 @@ router.get('/wishlist/rem',userAuth.isLogin,userWishlistController.removeFromWis
 
 router.get('/coupon',userAuth.isLogin,userCouponController.loadCoupon)
 router.get('/coupon/apply',userAuth.isLogin,userCouponController.applyCoupon)
+
+router.get('/offer',userAuth.isLogin,userOfferController.loadOffer)
+
 
 router.get('/generateInvoice',userAuth.isLogin,userOrderController.generateInvoice)
 
