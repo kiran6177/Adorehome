@@ -2841,7 +2841,7 @@ transition: top 200ms ease-in;
     color: white;
     background-color: #ff3f00;
     border: 1px solid #ff3f00;
-    border-radius: 7px;
+    border-radius: 4px;
     padding: 9px 25px;
     box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.204);
 }
@@ -3071,5 +3071,34 @@ transition: top 200ms ease-in;
     }
     .wallhead h2 , .wallhead h6{
         margin: 10px !important;
+    }
+}
+.ooptext{
+    position: relative;
+    font-size: 15rem;
+}
+.servererr{
+    white-space: nowrap;
+    font-size: 1.8rem;
+    position: absolute;
+    background-color: #fff;
+    bottom: 24%;
+    left: 9%;
+}
+@media (max-width:992px) {
+    .ooptext{
+        font-size: 10rem;
+    }
+    .servererr{
+        font-size: 1.1rem;
+    }
+}
+@media (max-width:576px) {
+    .ooptext{
+        font-size: 6rem;
+    }
+    .servererr{
+        left: 5%;
+        font-size: 0.8rem;
     }
 }

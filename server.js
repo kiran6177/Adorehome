@@ -36,6 +36,11 @@ app.use("/",(req, res)=>{
     res.status(404).render('user/user404'); 
 });
 
+app.use((err,req,res,next)=>{
+    console.log(err.stack)
+    res.status(500).render('user/internalserver')
+})
+
 app.listen(PORT,()=>{
     console.log(`Server running on http://localhost:${PORT}`)
 })
