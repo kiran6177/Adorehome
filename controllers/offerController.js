@@ -66,7 +66,6 @@ const loadEditOffer = async (req,res)=>{
 const editOffer = async (req,res)=>{
     try {
         const {offertitle,status,description,percentage,croppeddata,id} = req.body
-        console.log(req.file.filename)
         console.log(offertitle,status,description,percentage,croppeddata)
         let offerdata
         if(req.file){

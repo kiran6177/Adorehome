@@ -1,0 +1,76 @@
+<%- include('layouts/header.ejs') %>
+<script>
+    if(window.history.replaceState)
+    {
+      window.history.replaceState(null,null,window.location.href)
+    }
+  </script>
+<main class="mainframe ">
+    <section class="sidenav">
+        <div class="text1 "><a href="/admin">Dashboard</a></div>
+        <div class="text1 "><a href="/admin/products">Products</a></div>
+        <div class="text1"><a href="/admin/users">Users</a></div>
+        <div class="text1 "><a href="/admin/products/addproduct">Add Product</a></div>
+        <div class="text1 "><a href="/admin/brands">Brand</a></div>
+        <div class="text1 "><a href="/admin/category">Category</a></div>
+        <div class="text1 selected"><a href="/admin/rooms">Rooms</a></div>
+        <div class="text1 "><a href="/admin/coupon">Coupon Generator</a></div>
+        <div class="text1 "><a href="/admin/orders">Orders</a></div>
+        <div class="text1 "><a href="/admin/salesreport">Sales Report</a></div>
+        <div class="text1 "><a href="/admin/offer">Offers</a></div>
+        <div class="text1 "><a href="/admin/banner">Banners</a></div>
+      </section>
+
+        
+          <section class="maincontent">
+                <div class="container">
+                    <div class="row">
+                        <div class="usermain p-3  col-md-12">
+                        <div class="titlemain"><h2 class="fw-bold ps-4  my-3">ROOMS</h2>
+                            <!-- <a class="pe-4  my-3" href=""><button type="submit">Add New Product</button></a> -->
+                        </div>
+                        <div class="container">
+                            <form action="/admin/rooms/edit" method="post" id="roomform" enctype="multipart/form-data">
+                            <div class="row">
+                                <div class="prolabel col-md-12">
+                                    <h4 class="fw-bold">Edit Room</h4>
+                                    <hr class="my-4">
+                                    <div class="catform">
+                                        <% if(locals.roomdata){ %>
+                                        <div class="catfield"><label for="roomname">Room Name</label>
+                                            <input type="hidden" name="id" id="id" value="<%= locals.roomdata._id %>">
+                                        <input type="text" id="roomname" name="roomname" class="form-control" value="<%= locals.roomdata.roomname %>">
+                                        <p class="perror mb-2" id="error1" style="display: none;"></p></div>
+                                        <div class="catfield"><label for="status">Status</label>
+                                                <select name="status" class="form-control" id="status" >
+                                                    <% if(locals.roomdata.status === "1"){ %>
+                                                    <option value="1">Active</option>
+                                                    <option value="0">Inactive</option>
+                                                    <% }else{ %>
+                                                    <option value="0">Inactive</option>
+                                                    <option value="1">Active</option> 
+                                                    <% } %>
+                                                </select></div>
+                                                <div class="catfield"><label for="roomimage">Room Image</label>
+                                                <input type="file" id="roomimage" name="roomimage" class="form-control">
+                                                <p class="perror mb-2" id="error2" style="display: none;"></p></div>
+                                    </div>
+                                    <% } %>
+                                    <div class="catbtn mt-5 mb-2"><button type="submit" class="btn" >Edit Room</button></div>
+                        </form>
+                                </div>
+                                
+                            </div>
+                            
+                        </div>
+                        
+                </div>
+                </div>
+                </div>              
+          </section>
+      </main>
+
+
+      
+<script src="/public/js/editroom.js"></script>
+<%- include('layouts/footer.ejs') %>

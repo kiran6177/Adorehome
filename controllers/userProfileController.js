@@ -2,10 +2,14 @@ const User = require('../models/userSchema')
 const bcrypt = require('bcrypt')
 const Order = require('../models/orderSchema')
 const mongoose = require('mongoose')
+const Category = require('../models/categorySchema')
+const Room = require('../models/roomSchema')
 
 const profileLoad = async (req,res)=>{
     try {
         const uid = req.userid
+        let footcdata = await Category.aggregate([{$match:{status:"1",isListed:0}},{$limit:4}])
+        let footrdata = await Room.aggregate([{$match:{status:"1"}},{$limit:4}])
         const orderDetails = await Order.aggregate([{$match:{user_id:new mongoose.Types.ObjectId(uid),payment_status:"Paid"}},{$count:'orderCount'}])
         //  console.log(orderDetails)
         const orderCount = orderDetails.length > 0 ? orderDetails[0].orderCount : 0
@@ -13,7 +17,7 @@ const profileLoad = async (req,res)=>{
         if(udata.length !=0)
         {
             // console.log(udata)
-        res.render('user/userprofile',{udata:udata,orderCount:orderCount })
+        res.render('user/userprofile',{footcdata,footrdata,udata:udata,orderCount:orderCount })
         }
         else{
             console.log("error in profilerender")
@@ -26,8 +30,10 @@ const profileLoad = async (req,res)=>{
 const editProfileLoad = async (req,res)=>{
     try {
         const uid = req.userid
+        let footcdata = await Category.aggregate([{$match:{status:"1",isListed:0}},{$limit:4}])
+        let footrdata = await Room.aggregate([{$match:{status:"1"}},{$limit:4}])
         const udata = await User.findById({_id:uid}).populate('cart.product_id')
-        res.render('user/usereditprofile',{udata:udata})
+        res.render('user/usereditprofile',{footcdata,footrdata,udata:udata})
     } catch (error) {
         console.log(error.message)
     }
@@ -58,8 +64,10 @@ const editProfile = async (req,res)=>{
 const changePasswordLoad = async(req,res)=>{
     try {
         const uid = req.userid
+        let footcdata = await Category.aggregate([{$match:{status:"1",isListed:0}},{$limit:4}])
+        let footrdata = await Room.aggregate([{$match:{status:"1"}},{$limit:4}])
         const udata = await User.findById({_id:uid}).populate('cart.product_id')
-        res.render('user/changepassword',{udata:udata})
+        res.render('user/changepassword',{footcdata,footrdata,udata:udata})
     } catch (error) {
         console.log(error.message);
     }
@@ -69,6 +77,8 @@ const changePassword = async (req,res)=>{
     try {
         const uid = req.userid
         const {oldpassword,newpassword,confirmpassword} = req.body
+        let footcdata = await Category.aggregate([{$match:{status:"1",isListed:0}},{$limit:4}])
+        let footrdata = await Room.aggregate([{$match:{status:"1"}},{$limit:4}])
         const udata = await User.findOne({_id:uid})
         if(udata!=null)
         {   
@@ -86,12 +96,12 @@ const changePassword = async (req,res)=>{
                     }
                 }
                 else{
-                    res.render('user/changepassword',{err:"New Password should be matched."})
+                    res.render('user/changepassword',{footcdata,footrdata,err:"New Password should be matched."})
                 }
                 
             }
             else{
-                res.render('user/changepassword',{err:"Password does not match."})
+                res.render('user/changepassword',{footcdata,footrdata,err:"Password does not match."})
             }
         }
     } catch (error) {

@@ -1,18 +1,22 @@
 const User = require('../models/userSchema')
 const Address = require('../models/addressSchema')
+const Category = require('../models/categorySchema')
+const Room = require('../models/roomSchema')
 
 const loadAddress = async (req,res)=>{
     try {
         const uid = req.userid
+        let footcdata = await Category.aggregate([{$match:{status:"1",isListed:0}},{$limit:4}])
+        let footrdata = await Room.aggregate([{$match:{status:"1"}},{$limit:4}])
         const udata = await User.findById({_id:uid}).populate("cart.product_id")
         const addData = await Address.find({user_id:uid})
         if(addData.length > 0)
         {
-        res.render('user/manageaddress',{udata:udata,addData:addData})           
+        res.render('user/manageaddress',{footcdata,footrdata,udata:udata,addData:addData})           
         }
         else{
 
-        res.render('user/manageaddress',{err:"No Addresses added!!"})           
+        res.render('user/manageaddress',{footcdata,footrdata,err:"No Addresses added!!"})           
             console.log("Cannot Fetch addresses");
         }
     } catch (error) {
@@ -23,8 +27,10 @@ const loadAddress = async (req,res)=>{
 const loadAddAddress = async (req,res)=>{
     try {
         const uid = req.userid
+        let footcdata = await Category.aggregate([{$match:{status:"1",isListed:0}},{$limit:4}])
+        let footrdata = await Room.aggregate([{$match:{status:"1"}},{$limit:4}])
         const udata = await User.findById({_id:uid}).populate("cart.product_id")
-        res.render('user/addaddress',{udata:udata})
+        res.render('user/addaddress',{footcdata,footrdata,udata:udata})
     } catch (error) {
         console.log(error.message)
     }
@@ -59,12 +65,14 @@ const saveAddress = async (req,res)=>{
 const loadEditAddress = async (req,res)=>{
     try {
         const uid = req.userid
-        const addressid = req.query.id        
+        const addressid = req.query.id  
+        let footcdata = await Category.aggregate([{$match:{status:"1",isListed:0}},{$limit:4}])
+        let footrdata = await Room.aggregate([{$match:{status:"1"}},{$limit:4}])      
         const udata = await User.findById({_id:uid}).populate('cart.product_id')
         const addressData = await Address.findById({_id:addressid})
         if(addressData)
         {
-        res.render('user/editaddress',{udata:udata,addData:addressData})
+        res.render('user/editaddress',{footcdata,footrdata,udata:udata,addData:addressData})
         }
     } catch (error) {
         console.log(error.message)

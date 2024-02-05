@@ -11,7 +11,7 @@
                 <div class="offerdata1"><h3><u><%= element.offertitle %></u></h3>
                 <p><%= element.description %></p>
                 <p>Flat <span class="rateoffer"><%= element.discount %>%</span>Off!!</p>
-                <a>Shop Now</a></div>
+                <a href="/offer/products?id=<%= element._id %>">Shop Now</a></div>
                 <div class="offerdatabg"></div>
             </div>
             <%  }); } %>

@@ -9,16 +9,19 @@ const saltRounds = 10;
 const Banner = require('../models/bannerSchema')
 const jwt = require('jsonwebtoken')
 const forgotMailer = require('../utils/forgotmailer');
-const { default: Swal } = require("sweetalert2");
 const { ObjectId } = require("mongodb");
-
+const Category = require("../models/categorySchema");
+const Room = require('../models/roomSchema')
 const loginLoad =async (req, res) => {
-  res.render("user/userlogin");
+    let footcdata = await Category.aggregate([{$match:{status:"1",isListed:0}},{$limit:4}])
+    let footrdata = await Room.aggregate([{$match:{status:"1"}},{$limit:4}])
+  res.render("user/userlogin",{footcdata,footrdata});
 };
 const login =async (req, res) => {
     const {email,password} = req.body
     const loggeduser = await User.findOne({email:email,type:"user",isActive:1})
-    
+    let footcdata = await Category.aggregate([{$match:{status:"1",isListed:0}},{$limit:4}])
+    let footrdata = await Room.aggregate([{$match:{status:"1"}},{$limit:4}])
     if(loggeduser != null)
     {   
         const passtrue = await bcrypt.compare(password,loggeduser.password)
@@ -27,16 +30,18 @@ const login =async (req, res) => {
             res.redirect(`/otplogin?uid=${loggeduser._id}`)
         }
         else{
-            res.render("user/userlogin",{err:"Invalid Password"})
+            res.render("user/userlogin",{footcdata,footrdata,err:"Invalid Password"})
         }
     }
     else{
-        res.render('user/userlogin',{err:"Invalid User"})
+        res.render('user/userlogin',{footrdata,footcdata,err:"Invalid User"})
     }
 };
 
-const signupLoad = (req, res) => {
-  res.render("user/usersignup");
+const signupLoad = async (req, res) => {
+    let footcdata = await Category.aggregate([{$match:{status:"1",isListed:0}},{$limit:4}])
+    let footrdata = await Room.aggregate([{$match:{status:"1"}},{$limit:4}])
+  res.render("user/usersignup",{footcdata,footrdata});
 };
 
 let calledpost
@@ -44,9 +49,11 @@ let calledpost
 const otpLoad = async (req,res)=>{
     const {uid} = req.query
     // console.log("otppload "+uid)
+    let footcdata = await Category.aggregate([{$match:{status:"1",isListed:0}},{$limit:4}])
+    let footrdata = await Room.aggregate([{$match:{status:"1"}},{$limit:4}])
     calledpost = false
     try {
-    res.render("user/otpsignup",{uid:uid})
+    res.render("user/otpsignup",{footcdata,footrdata,uid:uid})
     setTimeout(()=>{ 
         if(!calledpost)
         {   console.log("entered into called post")
@@ -68,10 +75,12 @@ const otpLoad = async (req,res)=>{
 
 
 const otpLogin = async (req,res)=>{
+    try {
     const {uid} = req.query
     console.log("otppload "+uid)
-    try {
-    res.render("user/otplogin",{uid:uid})
+    let footcdata = await Category.aggregate([{$match:{status:"1",isListed:0}},{$limit:4}])
+    let footrdata = await Room.aggregate([{$match:{status:"1"}},{$limit:4}])
+    res.render("user/otplogin",{footcdata,footrdata,uid:uid})
 
     } catch (error) {
         console.log(error.message)
@@ -98,6 +107,8 @@ async function deleteUser(uid){
 const signup = async (req,res) =>{
    try{ 
     const {firstname,lastname,email,countrycode,mobile,password,confirmpassword} = req.body
+    let footcdata = await Category.aggregate([{$match:{status:"1",isListed:0}},{$limit:4}])
+    let footrdata = await Room.aggregate([{$match:{status:"1"}},{$limit:4}])
     if(password === confirmpassword)
     {   
         const hashedpass =await bcrypt.hash(password,saltRounds)
@@ -125,13 +136,13 @@ const signup = async (req,res) =>{
         }
         }
         else{
-            res.render("user/usersignup",{err:"Account already exist !!"})
+            res.render("user/usersignup",{footcdata,footrdata,err:"Account already exist !!"})
 
         }
         
     }
     else{
-        res.render("user/usersignup",{err:"Password does not Match !!"})
+        res.render("user/usersignup",{footcdata,footrdata,err:"Password does not Match !!"})
     }}
     catch(err)
     {
@@ -192,6 +203,8 @@ const verifyOtpLogin = async (req,res)=>{
     try {
         const {otp,uid} = req.body
         const hashed = await otpModel.findOne({user_id:uid})
+        let footcdata = await Category.aggregate([{$match:{status:"1",isListed:0}},{$limit:4}])
+        let footrdata = await Room.aggregate([{$match:{status:"1"}},{$limit:4}])
         if(hashed != null)
         {   console.log("hashed"+hashed)
          
@@ -217,12 +230,12 @@ const verifyOtpLogin = async (req,res)=>{
                  }
             }
             else{
-                res.render("user/otplogin",{err:"Invalid OTP !!",uid:uid})
+                res.render("user/otplogin",{footcdata,footrdata,err:"Invalid OTP !!",uid:uid})
             }
 
         }
         else{
-            res.render('user/otplogin',{err:"OTP timed out!! Register again.",uid:uid})
+            res.render('user/otplogin',{footcdata,footrdata,err:"OTP timed out!! Register again.",uid:uid})
         }
 
     } catch (error) {
@@ -234,7 +247,8 @@ const verifyOtpLogin = async (req,res)=>{
 const verifyOtp = async (req,res)=>{
     try {
         const {otp,uid} = req.body
-        
+        let footcdata = await Category.aggregate([{$match:{status:"1",isListed:0}},{$limit:4}])
+        let footrdata = await Room.aggregate([{$match:{status:"1"}},{$limit:4}])
         const hashed = await otpModel.findOne({user_id:uid})
         if(hashed != null)
         {
@@ -258,12 +272,12 @@ const verifyOtp = async (req,res)=>{
                 }
             }
             else{
-                res.render("user/otpsignup",{err:"Invalid OTP !!",uid:uid})
+                res.render("user/otpsignup",{footcdata,footrdata,err:"Invalid OTP !!",uid:uid})
             }
 
         }
         else{
-            res.render('user/otpsignup',{err:"OTP timed out!! Register again.",uid:uid})
+            res.render('user/otpsignup',{footcdata,footrdata,err:"OTP timed out!! Register again.",uid:uid})
         }
 
     } catch (error) {
@@ -279,19 +293,24 @@ const loadHome = async(req,res)=>{
         const uid = req.userid
          console.log("home "+uid)
          data = await User.findById({_id:uid}).populate({path:'cart.product_id'})
-        console.log()
-        console.log("wishlist")
+
         }
 
         let pdata  = await Product.aggregate([{$match:{isBlocked:0}},{$lookup:{from:'offers',localField:'offer_id',foreignField:'_id',as:'offerdata'}},{$limit:8}])
-        
-         console.log(pdata[0].offerdata)
+        let cdata = await Category.aggregate([{$match:{status:"1",isListed:0}},{$limit:3}])
+        let rdata = await Room.aggregate([{$match:{status:"1"}},{$limit:2}])
+
+        let footcdata = await Category.aggregate([{$match:{status:"1",isListed:0}},{$limit:4}])
+        let footrdata = await Room.aggregate([{$match:{status:"1"}},{$limit:4}])
+
+        // console.log(rdata)
+        //  console.log(pdata[0].offerdata)
         if(req.userid)
         {
-        res.render('user/home',{products:pdata,udata:data})
+        res.render('user/home',{products:pdata,udata:data,rdata:rdata,cdata:cdata,footcdata,footrdata})
         }
         else{
-            res.render('user/home',{products:pdata})
+            res.render('user/home',{products:pdata,rdata:rdata,cdata:cdata,footcdata,footrdata})
         }
     } catch (error) {
         console.log(error.message)
@@ -323,7 +342,9 @@ const logout = async (req,res)=>{
 
 const loadEmailPage = async (req,res)=>{
     try {
-        res.render('user/enteremail')
+        let footcdata = await Category.aggregate([{$match:{status:"1",isListed:0}},{$limit:4}])
+        let footrdata = await Room.aggregate([{$match:{status:"1"}},{$limit:4}])
+        res.render('user/enteremail',{footcdata,footrdata})
     } catch (error) {
         console.log(error.message)
     }
@@ -332,7 +353,8 @@ const loadEmailPage = async (req,res)=>{
 const sendEmail = async (req,res)=>{
     try {
         const {email} = req.body
-
+        let footcdata = await Category.aggregate([{$match:{status:"1",isListed:0}},{$limit:4}])
+        let footrdata = await Room.aggregate([{$match:{status:"1"}},{$limit:4}])
         const isRegisteredUser = await User.findOne({email:email})
         if(isRegisteredUser){
             const payload = {id:isRegisteredUser._id}
@@ -343,10 +365,10 @@ const sendEmail = async (req,res)=>{
             const mailSend = forgotMailer.sendForgotmail(isRegisteredUser.email,link)
             if(mailSend){
                 console.log("mail")
-                    res.render('user/enteremail',{success:"A link is send to your e-mail."})
+                    res.render('user/enteremail',{footcdata,footrdata,success:"A link is send to your e-mail."})
             }
         }else{
-            res.render('user/enteremail',{error:"Invalid E-mail."})
+            res.render('user/enteremail',{footcdata,footrdata,error:"Invalid E-mail."})
         }
     } catch (error) {
         console.log(error.message)
@@ -358,6 +380,8 @@ const resetPassword = async (req,res)=>{
         console.log("hello")
         const {id,token} = req.query
         const matchUser = await User.aggregate([{$match:{_id:new ObjectId(id),type:"user"}}])
+        let footcdata = await Category.aggregate([{$match:{status:"1",isListed:0}},{$limit:4}])
+        let footrdata = await Room.aggregate([{$match:{status:"1"}},{$limit:4}])
         console.log(matchUser)
         if(matchUser.length > 0){
             if(token){
@@ -365,7 +389,7 @@ const resetPassword = async (req,res)=>{
                     const isVerified = jwt.verify(token,secret)
                     console.log(isVerified)
                     if(isVerified){
-                        res.render('user/forgotpassword',{id:matchUser[0]._id})
+                        res.render('user/forgotpassword',{footcdata,footrdata,id:matchUser[0]._id})
                     }else{
                         console.log("hi")
                         res.status(404)
@@ -385,6 +409,8 @@ const resetPassword = async (req,res)=>{
 const reset = async (req,res)=>{
     try {
         const {newpassword,confirmpassword,uid} = req.body
+        let footcdata = await Category.aggregate([{$match:{status:"1",isListed:0}},{$limit:4}])
+        let footrdata = await Room.aggregate([{$match:{status:"1"}},{$limit:4}])
         if(newpassword === confirmpassword){
             const hashed = await bcrypt.hash(confirmpassword,saltRounds)
             if(hashed){
@@ -394,10 +420,10 @@ const reset = async (req,res)=>{
                 }
             }
             else{
-            res.render("user/forgotpassword")
+            res.render("user/forgotpassword",{footcdata,footrdata})
             }
         }else{
-            res.render("user/forgotpassword")
+            res.render("user/forgotpassword",{footcdata,footrdata})
         }
     } catch (error) {
         console.log(error.message)

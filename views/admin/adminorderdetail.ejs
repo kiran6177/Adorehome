@@ -1,5 +1,19 @@
 <%- include('layouts/header.ejs') %>
-<%- include('layouts/sidenav.ejs') %>
+<main class="mainframe ">
+    <section class="sidenav">
+        <div class="text1 "><a href="/admin">Dashboard</a></div>
+        <div class="text1"><a href="/admin/products">Products</a></div>
+        <div class="text1"><a href="/admin/users">Users</a></div>
+        <div class="text1 "><a href="/admin/products/addproduct">Add Product</a></div>
+        <div class="text1"><a href="/admin/brands">Brand</a></div>
+        <div class="text1"><a href="/admin/category">Category</a></div>
+        <div class="text1"><a href="/admin/rooms">Rooms</a></div>
+        <div class="text1 "><a href="/admin/coupon">Coupon Generator</a></div>
+        <div class="text1 selected"><a href="/admin/orders">Orders</a></div>
+        <div class="text1"><a href="/admin/salesreport">Sales Report</a></div>
+        <div class="text1 "><a href="/admin/offer">Offers</a></div>
+        <div class="text1"><a href="/admin/banner">Banners</a></div>
+      </section>
 
           <section class="maincontent">
             <div class="container">
@@ -28,7 +42,7 @@
                                                 
                                                 <div class="statuschanger mt-3">
                                                     <h3 class="fw-normal ">Change Delivery Status</h3>
-                                                    <div class="statdiv"><select name="deliverystatus" class="deliverystatus" <% if(element.status === "Cancelled"){ %> disabled <% } %> data-proid="<%= element.product_id._id %>">
+                                                    <div class="statdiv"><select name="deliverystatus" class="deliverystatus" <% if(element.status === "Cancelled" ||element.status === "Returned" || element.status === "Refunded"){ %> disabled <% } %> data-proid="<%= element.product_id._id %>">
                                                         <option class="stat" value="Processing">Processing</option>
                                                         <option class="stat1" value="Dispatched">Dispatched</option>
                                                         <option class="stat2" value="Shipped">Shipped</option>

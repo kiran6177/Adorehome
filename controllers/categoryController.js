@@ -90,7 +90,16 @@ const editcategory = async (req,res)=>{
             status:status,
             ...(imag!==null && {image:imag} )
         }
-
+        const cat = await Category.findById({_id:id})
+        const catname1 = catname.trim()
+        const catnameMatch = await Category.find({categoryname:catname1})
+        let count = 0
+        catnameMatch.forEach(el=>{
+            if(el._id != id){
+                count++
+            }
+        })
+    if(count == 0){
         const upcat = await Category.findByIdAndUpdate({_id:id},{$set:catdata})
         if(catdata!="")
         {
@@ -99,6 +108,10 @@ const editcategory = async (req,res)=>{
         else{
             console.log("error in category edit")
         }
+    }else{
+        res.render('admin/editcategory',{cat:cat,err:"Category Already Exists."})
+
+    }
     } catch (error) {
         console.log(error.message)
     }

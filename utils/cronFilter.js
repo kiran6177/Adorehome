@@ -93,7 +93,9 @@ function monthly()
         
             monthStart.setMonth(thisMonth.getMonth() - i);
             monthEnd.setMonth(thisMonth.getMonth() - i + 1);
-            let monthName = getMonthName(monthEnd.getMonth())
+            let monthName = getMonthName(monthStart.getMonth())
+            monthStart.setDate(1)
+            monthEnd.setDate(1)
             monthdata.push({
                 monthName,
                 monthStart,
@@ -102,7 +104,7 @@ function monthly()
         }
         
 
-        
+        console.log(monthdata)
         return monthdata
 
 }

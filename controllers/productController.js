@@ -32,7 +32,11 @@ const loadaddproducts = async (req,res)=>{
 const addproducts = async (req,res)=>{
    try{ 
     const {productname,description,color,brandname,procategory,roomcategory,price,stock,offer,cropvaluesmain,cropvaluesimg1,cropvaluesimg2,cropvaluesimg3,cropvaluesimg4} = req.body
-    console.log(cropvaluesmain,cropvaluesimg1,cropvaluesimg2,cropvaluesimg3,cropvaluesimg4)
+    // console.log(cropvaluesmain,cropvaluesimg1,cropvaluesimg2,cropvaluesimg3,cropvaluesimg4)
+    let protrim = productname.trim()
+    const isExist = await Product.find({productname:protrim})
+    console.log(isExist)
+    if(isExist.length === 0){
     const croppedmain = cropvaluesmain ? JSON.parse(cropvaluesmain) : null
     const cropped1 = cropvaluesimg1 ? JSON.parse(cropvaluesimg1) : null
     const cropped2 = cropvaluesimg2 ? JSON.parse(cropvaluesimg2) : null
@@ -111,6 +115,13 @@ const addproducts = async (req,res)=>{
     else{
         console.log(prosaved)
     }
+}else{
+    const bdata = await Brand.find({status:"1"})
+    const cdata = await Category.find({status:"1"})
+    const rdata = await Room.find({status:"1"})
+    const odata = await Offer.aggregate([{$match:{status:"1"}}])
+    res.render("admin/addproduct",{err:"Product Already Exists.",brand:bdata,category:cdata,room:rdata,offer:odata})
+}
 }
 catch(error)
 {
@@ -135,6 +146,7 @@ const loadeditproducts = async (req,res)=>{
             console.log("No Product data")
         }
     } catch (error) {
+        res.redirect('/admin/products')
         console.log(error.message)
     }
 }
@@ -144,7 +156,15 @@ const editproducts = async (req,res)=>{
     const {proid,productname,description,color,brandname,procategory,roomcategory,price,stock,offer,oldmain,oldimg1,oldimg2,oldimg3,oldimg4} = req.body
         console.log("old"+oldimg1)
         console.log("old"+oldimg2)
-
+        let count = 0
+        const productname1 = productname.trim()
+        const anotherData = await Product.find({productname:productname1})
+        anotherData.forEach(el=>{
+            if(el._id != proid){
+                count++
+            }
+        })
+    if(count === 0){
     let main
     let img1
     let img2
@@ -221,6 +241,16 @@ const editproducts = async (req,res)=>{
      else{
         console.log("error in edit")
      }
+    }
+    else{
+        const bdata = await Brand.find({status:"1"})
+        const cdata = await Category.find({status:"1"})
+        const rdata = await Room.find({status:"1"})
+        const odata = await Offer.aggregate([{$match:{status:"1"}}])
+        const pdata = await Product.findById({_id:proid}).populate('brand_id category_id room_id')
+        res.render('admin/editproduct',{err:"Product Already Exists.",prodata:pdata,bdata:bdata,cdata:cdata,rdata:rdata,offer:odata})
+
+    }
     } catch (error) {
         console.log(error.message)
     }

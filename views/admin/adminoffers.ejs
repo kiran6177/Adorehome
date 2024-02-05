@@ -5,7 +5,21 @@
       window.history.replaceState(null,null,window.location.href)
     }
   </script>
-<%- include('layouts/sidenav.ejs') %>
+<main class="mainframe ">
+    <section class="sidenav">
+        <div class="text1 "><a href="/admin">Dashboard</a></div>
+        <div class="text1"><a href="/admin/products">Products</a></div>
+        <div class="text1"><a href="/admin/users">Users</a></div>
+        <div class="text1 "><a href="/admin/products/addproduct">Add Product</a></div>
+        <div class="text1"><a href="/admin/brands">Brand</a></div>
+        <div class="text1"><a href="/admin/category">Category</a></div>
+        <div class="text1"><a href="/admin/rooms">Rooms</a></div>
+        <div class="text1 "><a href="/admin/coupon">Coupon Generator</a></div>
+        <div class="text1"><a href="/admin/orders">Orders</a></div>
+        <div class="text1"><a href="/admin/salesreport">Sales Report</a></div>
+        <div class="text1 selected"><a href="/admin/offer">Offers</a></div>
+        <div class="text1"><a href="/admin/banner">Banners</a></div>
+      </section>
 
 <section class="maincontent">
     <div class="container">
@@ -14,7 +28,7 @@
             <div class="titlemain"><h2 class="fw-bold ps-4  my-3">OFFERS</h2>
             </div>
             <div class="container">
-                <form action="/admin/offer" method="post" id="catform" enctype="multipart/form-data">
+                <form action="/admin/offer" method="post" id="offerform" enctype="multipart/form-data">
                 <div class="row">
                     <div class="prolabel col-md-12">
                         <% if(locals.message){ %>
@@ -48,12 +62,12 @@
                             
                             <div class="coupfield1 "><label for="percentage">Discount Percentage</label>
                             <input type="number" id="percentage" name="percentage" class="form-control">
-                            <p class="perror mb-2" id="error1" style="display: none;"></p>
+                            <p class="perror mb-2" id="error3" style="display: none;"></p>
                         </div>
                             <div class="coupfield2"><label for="offerimage">Offer Image</label>
                                 <input type="file" id="offerimage" name="offerimage" class="form-control">
                                 <input type="hidden" id="croppeddata" name="croppeddata" >
-                                <p class="perror mb-2" id="error1" style="display: none;"></p>
+                                <p class="perror mb-2" id="error4" style="display: none;"></p>
                                 </div> 
                         </div>
                         <div class="previewimg" id="offerpreview"></div>

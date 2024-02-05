@@ -79,7 +79,10 @@ bannerform.addEventListener('submit',(e)=>{
     const pdata = bannertitle.value
     const ddata = bannerdescription.value
     const mdata = bannerimg.files.length
-    const mtype = bannerimg.files.type
+    let mtype
+    if(mdata!=0){
+         mtype = bannerimg.files[0].type
+    }
 
     console.log("ent")
     mainval(mdata,mtype)
@@ -91,17 +94,24 @@ bannerform.addEventListener('submit',(e)=>{
         e.preventDefault()
     }
 })
-
+let cropper
 bannerimg.addEventListener('change',(e)=>{
     const files = e.target.files
     const newimgdata = document.querySelector('#bannerimgpre')
+    const cropbannerbtn = document.getElementById('cropbannerbtn')
+    if(cropbannerbtn){
+        cropbannerbtn.remove()
+    }
     if(newimgdata){
         newimgdata.remove()
     }
+    if(cropper){
+        cropper.destroy()
+    }
     if(files && files[0]){
         const reader = new FileReader()
-
         reader.onload = function(e){
+
             const newimg = document.createElement('img')
             newimg.src = e.target.result
             newimg.id = "bannerimgpre"
@@ -113,7 +123,7 @@ bannerimg.addEventListener('change',(e)=>{
             bannerpreview.appendChild(newcropbtn)
            const bannerimgpre = document.getElementById('bannerimgpre')
            console.log(bannerimgpre)
-            let cropper = new Cropper(bannerimgpre,{
+            cropper = new Cropper(bannerimgpre,{
                 aspectRatio:16/9,
                 viewMode:2,
                 scalable:false

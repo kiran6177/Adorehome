@@ -939,6 +939,19 @@ transition: top 200ms ease-in;
     background: none;
     color: black;
 }
+.brandimgpre{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    height: 15rem;
+    overflow: hidden;
+}
+.brandimgpre img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
 @media (max-width:1092px) {
     .imgdiv{
         flex-direction: column;
@@ -1372,27 +1385,42 @@ transition: top 200ms ease-in;
     align-items: center;
     justify-content: space-between;
 }
-.weekbuttons select, .monthbuttons select, .yearbuttons select , .dailybuttons select{
+.rangebuttons p{
+    margin: 0;
+}
+.genbtn{
+    color: white;
+    background-color: #ff3f00;
+    border: 1px solid #ff3f00;
+    border-radius: 5px;
+    padding: 5px 15px;
+    font-size: 0.9rem;
+}
+.genbtn:hover{
+    background: none;
+    color: black;
+}
+.weekbuttons select, .monthbuttons select, .yearbuttons select , .dailybuttons select ,.rangebuttons select{
     padding: 5px 15px;
     border: 1px solid black;
     border-radius: 4px;
 }
 
-.weekbuttons select:hover , .monthbuttons select:hover, .yearbuttons select:hover , .dailybuttons select:hover{
+.weekbuttons select:hover , .monthbuttons select:hover, .yearbuttons select:hover , .dailybuttons select:hover ,.rangebuttons select:hover{
     border-color: #ff3f00;
 }
-.weekselect , .monthselect , .yearselect , .dailyselect{
+.weekselect , .monthselect , .yearselect , .dailyselect .rangeselect1 , .rangeselect2{
     display: flex;
     gap: 10px;
 }
-.weekbuttons h6 , .monthbuttons h6 , .yearbuttons h6 , .dailybuttons h6{
+.weekbuttons h6 , .monthbuttons h6 , .yearbuttons h6 , .dailybuttons h6 ,.rangebuttons h6{
     color: #fb8e6d;
 }
 @media (max-width:768px) {
     .reportsales{
         flex-direction: column;
     }
-    .weekbuttons select, .monthbuttons select, .yearbuttons select , .dailybuttons select{
+    .weekbuttons select, .monthbuttons select, .yearbuttons select , .dailybuttons select .rangebuttons select{
         padding: 2px 5px;
        font-size: 0.9rem;
     }

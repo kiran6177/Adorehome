@@ -29,8 +29,8 @@
                                 <td class="td1"><%= element.date.toISOString().split('T')[0].split('-')[2] %>&nbsp;<%= element.date.toString().split(' ')[1] %>&nbsp;<%= element.date.toString().split(' ')[3] %>&nbsp;</td>
                                 <td class="td2"><%= el.product_id.productname %></td>
                                 <td class="td3"><%= el.qty %></td>
-                                <td class="td4">Rs.<%= el.product_id.price %></td>
-                                <td class="td5">Rs.<%= el.qty * el.product_id.price %></td>
+                                <td class="td4">Rs.<%= el.price ? el.price : el.product_id.price %></td>
+                                <td class="td5">Rs.<%= el.qty * (el.price ? el.price : el.product_id.price) %></td>
                                 <td class="td6"> <% if(el.status === "Processing") { %>
                                   <span class="stat1">Processing</span>
                                   <% } else if(el.status === "Delivered") { %>
@@ -63,8 +63,8 @@
                             <tr><th>Date</th><td class="td1"><%= element.date.toISOString().split('T')[0].split('-')[2] %>&nbsp;<%= element.date.toString().split(' ')[1] %>&nbsp;<%= element.date.toString().split(' ')[3] %>&nbsp;</td></tr>
                             <tr><th>Product Name</th><td class="td2"><%= el.product_id.productname %></td></tr>
                             <tr><th>Quantity</th><td class="td3"><%= el.qty %></td></tr>
-                            <tr><th>Unit Price</th><td class="td4">Rs.<%= el.product_id.price %></td></tr>
-                            <tr><th>Total Price</th><td class="td5">Rs.<%= el.qty * el.product_id.price %></td></tr>
+                            <tr><th>Unit Price</th><td class="td4">Rs.<%= el.price ? el.price : el.product_id.price %></td></tr>
+                            <tr><th>Total Price</th><td class="td5">Rs.<%=  el.qty * (el.price ? el.price : el.product_id.price) %></td></tr>
                             <tr><th>Status</th><td class="td6">
                               <% if(el.status === "Processing") { %>
                                 <span class="stat1">Processing</span>

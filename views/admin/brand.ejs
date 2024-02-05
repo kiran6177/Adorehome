@@ -5,7 +5,21 @@
       window.history.replaceState(null,null,window.location.href)
     }
   </script>
-<%- include('layouts/sidenav.ejs') %>
+<main class="mainframe ">
+    <section class="sidenav">
+        <div class="text1 "><a href="/admin">Dashboard</a></div>
+        <div class="text1"><a href="/admin/products">Products</a></div>
+        <div class="text1"><a href="/admin/users">Users</a></div>
+        <div class="text1 "><a href="/admin/products/addproduct">Add Product</a></div>
+        <div class="text1 selected"><a href="/admin/brands">Brand</a></div>
+        <div class="text1"><a href="/admin/category">Category</a></div>
+        <div class="text1"><a href="/admin/rooms">Rooms</a></div>
+        <div class="text1 "><a href="/admin/coupon">Coupon Generator</a></div>
+        <div class="text1 "><a href="/admin/orders">Orders</a></div>
+        <div class="text1 "><a href="/admin/salesreport">Sales Report</a></div>
+        <div class="text1 "><a href="/admin/offer">Offers</a></div>
+        <div class="text1 "><a href="/admin/banner">Banners</a></div>
+      </section>
 
         
           <section class="maincontent">
@@ -16,14 +30,16 @@
                             <!-- <a class="pe-4  my-3" href=""><button type="submit">Add New Product</button></a> -->
                         </div>
                         <div class="container">
-                            <form action="/admin/brands" method="post" enctype="multipart/form-data">
+                            <form action="/admin/brands" method="post" id="brandform" enctype="multipart/form-data">
                             <div class="row">
                                 <div class="prolabel col-md-12">
                                     <h4 class="fw-bold">Add Brand</h4>
                                     <hr class="my-4">
                                     <div class="catform">
                                         <div class="catfield"><label for="brandname">Brand Name</label>
-                                        <input type="text" id="brandname" name="brandname" class="form-control"></div>
+                                        <input type="text" id="brandname" name="brandname" class="form-control">
+                                        <p class="perror mb-2" id="error1" style="display: none;"></p>
+                                    </div>
                                         <div class="catfield"><label for="status">Status</label>
                                                 <select name="status" class="form-control" id="status" >
                                                     <option value="1">Active</option>
@@ -31,7 +47,8 @@
                                                    
                                                 </select></div>
                                                 <div class="catfield"><label for="brandimage">Brand Image</label>
-                                                <input type="file" id="brandimage" name="brandimage" class="form-control"></div>
+                                                <input type="file" id="brandimage" name="brandimage" class="form-control">
+                                                <p class="perror mb-2" id="error2" style="display: none;"></p></div>
                                     </div>
                                     <div class="catbtn mt-5 mb-2"><button type="submit" class="btn" >Add Brand</button></div>
                         </form>
@@ -43,7 +60,7 @@
                                         <hr class="my-4">
                                         <% if(locals.data) { %>
                                         <% for(let i = 0 ; i < locals.data.length ; i++) { %>
-                                        <div class="catitem"><h6 class="my-auto fw-normal"><%= locals.data[i].brandname %></h6><a href="/admin/brands/edit?id=<%= locals.data[i]._id %>"><button type="submit" >Edit</button></a><a href="/admin/brands/delete?id=<%= locals.data[i]._id %>"><button type="submit" >Delete</button></a></div>
+                                        <div class="catitem"><h6 class="my-auto fw-normal"><%= locals.data[i].brandname %></h6><a href="/admin/brands/edit?id=<%= locals.data[i]._id %>"><button type="button" >Edit</button></a><a href="/admin/brands/delete?id=<%= locals.data[i]._id %>"><button type="button" >Delete</button></a></div>
                                         <hr class="my-3">
                                         <% } } %>
                                     </div>
@@ -61,5 +78,5 @@
 
 
       
-
+<script src="/public/js/brand.js"></script>
 <%- include('layouts/footer.ejs') %>

@@ -282,8 +282,8 @@ background-color: rgb(236, 236, 236);
   }
 
   .cartslidedetails{
-    height: 100%;
-    overflow: scroll;
+    height: 80%;
+    overflow-y: scroll;
   }
 
 .cartslide{
@@ -292,7 +292,7 @@ background-color: rgb(236, 236, 236);
     position: absolute;
     top: 80px;
     right: 0;
-    height: 100%;
+    height: 90%;
     background-color: white;
     z-index: 2;
     position: fixed;
@@ -315,7 +315,26 @@ background-color: rgb(236, 236, 236);
 .cartslideitem img{
     aspect-ratio: 1/1;
 }
-
+.cartfoot{
+    height: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.cartfoot a{
+    text-align: center;
+    width: 100%;
+    padding: 7px 19px;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    border: 1px solid #ff3f00;
+    color: black;
+    background: none;
+}
+.cartfoot a:hover{
+    background-color: #ff3f00;
+    color: white;
+}
 .qtybtn{
     display: flex;
     align-items: center;
@@ -1283,13 +1302,13 @@ transition: top 200ms ease-in;
     border-radius: 50%;
     background-color: rgb(246, 41, 41);
 }
-.products .viewbtn{
+.products .viewbtn, .categoryhome .viewbtn ,.roomhome .viewbtn{
     background-color: #ff3f00;
     width: auto;
     margin: auto;
     transition: all 200ms ease-in-out;
 }
-.products .viewbtn a{
+.products .viewbtn a ,.categoryhome .viewbtn a,.roomhome .viewbtn a{
     text-decoration: none;
     color: white;
     font-size: 0.9rem;
@@ -1300,6 +1319,20 @@ transition: top 200ms ease-in;
     border: 1px solid #ff3f00;
 }
 .products .viewbtn:hover a{
+    color: black;
+}
+.categoryhome .viewbtn:hover{
+    background:none;
+    border: 1px solid #ff3f00;
+}
+.categoryhome .viewbtn:hover a{
+    color: black;
+}
+.roomhome .viewbtn:hover{
+    background:none;
+    border: 1px solid #ff3f00;
+}
+.roomhome .viewbtn:hover a{
     color: black;
 }
 @media (max-width:1400px){
@@ -1764,6 +1797,13 @@ transition: top 200ms ease-in;
     border: 1px solid #eb501de4;
     font-size: 0.9rem;
 }
+.category .carddesc a{
+    text-decoration: none;
+    color: white;
+}
+.category .carddesc a:hover{
+    color: white;
+}
 .category .card-body{
     position: absolute;
     background: linear-gradient( to top,black,transparent);
@@ -1826,6 +1866,13 @@ transition: top 200ms ease-in;
     border: 1px solid #eb501de4;
     font-size: 0.9rem;
 }
+.room .carddesc a{
+    text-decoration: none;
+    color: white;
+}
+.room .carddesc a:hover{
+    color: white;
+}
 .room .card-body{
     position: absolute;
     background: linear-gradient( to top,black,transparent);
@@ -1860,6 +1907,15 @@ transition: top 200ms ease-in;
 }
 .prohead{
     text-align: center;
+}
+.refcodebox{
+    text-align: center;
+    border: 1px solid grey ;
+    width: 180px;
+    padding: 5px 15px;
+    letter-spacing: 2px;
+    margin-left: 1rem;
+    font-weight: 400;
 }
 .logoutbtn{
     position: absolute;
@@ -2933,7 +2989,15 @@ transition: top 200ms ease-in;
     aspect-ratio: 1/1;
     object-fit: fill;
 }
-
+.offer a{
+    text-decoration: none;
+    color: black;
+    transition: all 0.3s ease;
+}
+.offer a:hover{
+    background-color: #ff3f00;
+    color: white;
+}
 .offerdata1{
     position: absolute;
     top: 5em;
@@ -2984,5 +3048,28 @@ transition: top 200ms ease-in;
     .offerdatabg{
         top: 3em;
         left: 3em;
+    }
+}
+.wallhead{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+@media (max-width:992px) {
+    .walletmain .table1{
+        display: none;
+    }
+    .walletmain .table2{
+        display: table !important;
+    }
+}
+@media (max-width:576px) {
+    .wallhead{
+        flex-direction: column;
+        align-items: flex-start ;
+        justify-content: center;
+    }
+    .wallhead h2 , .wallhead h6{
+        margin: 10px !important;
     }
 }

@@ -12,6 +12,10 @@ const roomSchema = new mongoose.Schema({
     image:{
         type:String,
         required:true
+    },
+    isListed:{
+        type:Number,
+        default:0
     }
 })
 

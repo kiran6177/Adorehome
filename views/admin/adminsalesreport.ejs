@@ -1,5 +1,19 @@
 <%- include('layouts/header.ejs') %>
-<%- include('layouts/sidenav.ejs') %>
+<main class="mainframe ">
+  <section class="sidenav">
+      <div class="text1 "><a href="/admin">Dashboard</a></div>
+      <div class="text1"><a href="/admin/products">Products</a></div>
+      <div class="text1"><a href="/admin/users">Users</a></div>
+      <div class="text1 "><a href="/admin/products/addproduct">Add Product</a></div>
+      <div class="text1"><a href="/admin/brands">Brand</a></div>
+      <div class="text1"><a href="/admin/category">Category</a></div>
+      <div class="text1"><a href="/admin/rooms">Rooms</a></div>
+      <div class="text1 "><a href="/admin/coupon">Coupon Generator</a></div>
+      <div class="text1 "><a href="/admin/orders">Orders</a></div>
+      <div class="text1 selected"><a href="/admin/salesreport">Sales Report</a></div>
+      <div class="text1 "><a href="/admin/offer">Offers</a></div>
+      <div class="text1"><a href="/admin/banner">Banners</a></div>
+    </section>
 
 
           <section class="dashboard">
@@ -9,7 +23,121 @@
                 <div class="row report  my-5">
                   <div class="card col-md-12">
                     <div class="card-body">
-                      <div class="reportsales"><h3>Product Sales Report</h3><div class="rightoptions"><div class="downoptions"><button type="button" id="prodownpdf">Download PDF</button><button type="button" id="prodownexcel">Download Excel</button></div><div class="optionbuttons"><button type="button" id="dailybtn">Daily</button><button type="button" id="weekbtn">Weekly</button><button type="button" id="monthbtn"> Monthly</button><button type="button" id="yearbtn"> Yearly</button></div></div></div>
+                      <div class="reportsales"><h3>Product Sales Report</h3><div class="rightoptions"><div class="downoptions"><button type="button" id="prodownpdf">Download PDF</button><button type="button" id="prodownexcel">Download Excel</button></div><div class="optionbuttons"><button type="button" id="rangebtn">Range</button><button type="button" id="dailybtn">Daily</button><button type="button" id="weekbtn">Weekly</button><button type="button" id="monthbtn"> Monthly</button><button type="button" id="yearbtn"> Yearly</button></div></div></div>
+                      <div class="rangebuttons" id="rangebuttons" style="display: none;">
+                        <h6>Select Range</h6>
+                        <p>Start Date</p>
+                        <div class="rangeselect1"><select name="Rday1" id="Rday1">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                            <option value="13">13</option>
+                            <option value="14">14</option>
+                            <option value="15">15</option>
+                            <option value="16">16</option>
+                            <option value="17">17</option>
+                            <option value="18">18</option>
+                            <option value="19">19</option>
+                            <option value="20">20</option>
+                            <option value="21">21</option>
+                            <option value="22">22</option>
+                            <option value="23">23</option>
+                            <option value="24">24</option>
+                            <option value="25">25</option>
+                            <option value="26">26</option>
+                            <option value="27">27</option>
+                            <option value="28">28</option>
+                            <option value="29">29</option>
+                            <option value="30">30</option>
+                            <option value="31">31</option>
+
+                        </select>
+                        <select name="Rmonth1" id="Rmonth1">
+                        <option value="1">January</option>
+                        <option value="2">February</option>
+                        <option value="3">March</option>
+                        <option value="4">April</option>
+                        <option value="5">May</option>
+                        <option value="6">June</option>
+                        <option value="7">July</option>
+                        <option value="8">August</option>
+                        <option value="9">September</option>
+                        <option value="10">October</option>
+                        <option value="11">November</option>
+                        <option value="12">December</option>
+                      </select>
+                    <select name="Ryear1" id="Ryear1">
+                        <option value="2024">2024</option>
+                        <option value="2023">2023</option>
+
+                    </select>
+                    </div>
+                    <p>End Date</p>
+                    <div class="rangeselect1"><select name="Rday2" id="Rday2">
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                      <option value="6">6</option>
+                      <option value="7">7</option>
+                      <option value="8">8</option>
+                      <option value="9">9</option>
+                      <option value="10">10</option>
+                      <option value="11">11</option>
+                      <option value="12">12</option>
+                      <option value="13">13</option>
+                      <option value="14">14</option>
+                      <option value="15">15</option>
+                      <option value="16">16</option>
+                      <option value="17">17</option>
+                      <option value="18">18</option>
+                      <option value="19">19</option>
+                      <option value="20">20</option>
+                      <option value="21">21</option>
+                      <option value="22">22</option>
+                      <option value="23">23</option>
+                      <option value="24">24</option>
+                      <option value="25">25</option>
+                      <option value="26">26</option>
+                      <option value="27">27</option>
+                      <option value="28">28</option>
+                      <option value="29">29</option>
+                      <option value="30">30</option>
+                      <option value="31">31</option>
+
+                  </select>
+                  <select name="Rmonth2" id="Rmonth2">
+                  <option value="1">January</option>
+                  <option value="2">February</option>
+                  <option value="3">March</option>
+                  <option value="4">April</option>
+                  <option value="5">May</option>
+                  <option value="6">June</option>
+                  <option value="7">July</option>
+                  <option value="8">August</option>
+                  <option value="9">September</option>
+                  <option value="10">October</option>
+                  <option value="11">November</option>
+                  <option value="12">December</option>
+                </select>
+              <select name="Ryear2" id="Ryear2">
+                  <option value="2024">2024</option>
+                  <option value="2023">2023</option>
+
+              </select>
+              <button class="genbtn" id="generatebtn">Generate</button>
+              </div>
+                  </div>
                       <div class="dailybuttons" id="dailybuttons" >
                         <h6>Select Date</h6>
                         <div class="dailyselect"><select name="Dday" id="Dday">
@@ -204,6 +332,7 @@
                       <div id="wpage" class="pagemain mt-4" style="display: none;"><div class="pageblock" id="wpgmain"></div></div>
                       <div id="mpage" class="pagemain mt-4" style="display: none;"><div class="pageblock" id="mpgmain"></div></div>
                       <div id="ypage" class="pagemain mt-4" style="display: none;"><div class="pageblock" id="ypgmain"></div></div>
+                      <div id="rpage" class="pagemain mt-4" style="display: none;"><div class="pageblock" id="Rpgmain"></div></div>
 
                     </div>
                   </div>

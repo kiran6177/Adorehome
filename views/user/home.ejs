@@ -69,6 +69,52 @@
             </div>
     </section>
 
+    <section class="categoryhome">
+        <div class="container">
+          <div class="row p-5">
+            <h6><img src="/public/images/pin.png" class="pin" alt=""> Our Categories</h6>
+            <h2>Explore Our Categories</h2>
+            <% if(locals.cdata && locals.cdata.length > 0){ locals.cdata.forEach(element => { %>
+            <div class="category col-sm-6 col-md-4 mt-4">
+              <div class="card">
+                  <a href="/category/products?id=<%= element._id %>"><img src="/assets/<%= element.image %>" class="card-img-top" alt="..."></a>
+                  <div class="card-body">
+                    <h5 class="card-title cardhead"><%= element.categoryname %></h5>
+                    <div class="carddesc"><button type="button"><p class="card-text"><a href="/category/products?id=<%= element._id %>">Explore Now</a></p></button></div>
+                    
+                  </div>
+                </div>
+          </div>
+          <% });} %>
+          <button class="btn viewbtn my-4 text-center p-3"><a href="/category">View All Categories</a></button>
+
+          </div>
+        </div>
+      </section>
+
+      <section class="roomhome">
+        <div class="container">
+          <div class="row p-5">
+            <h6><img src="/public/images/pin.png" class="pin" alt=""> Our Rooms</h6>
+            <h2>Explore Our Rooms</h2>
+            <% if(locals.rdata && locals.rdata.length > 0){ locals.rdata.forEach(element => {%>
+            <div class="room col-md-6 mt-4">
+              <div class="card">
+                  <a href="/room/products?id=<%= element._id %>"><img src="/assets/<%= element.image %>" class="card-img-top" alt="..."></a>
+                  <div class="card-body">
+                    <h5 class="card-title cardhead"><%= element.roomname %></h5>
+                    <div class="carddesc"><button type="button"><p class="card-text"><a href="/room/products?id=<%= element._id %>">Explore Now</a></p></button></div>
+                    
+                  </div>
+                </div>
+          </div>
+          <% }); } %>
+          <button class="btn viewbtn my-4 text-center p-3"><a href="/room">View All Rooms</a></button>
+
+          </div>
+        </div>
+      </section>
+
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="/public/js/home.js"></script>        
 <%- include('layouts/footer.ejs') %>

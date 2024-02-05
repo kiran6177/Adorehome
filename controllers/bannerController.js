@@ -1,6 +1,7 @@
 const Banner = require('../models/bannerSchema')
 const path = require('path')
 const Jimp = require('jimp')
+const fs = require('fs').promises
 const { ObjectId } = require('mongodb')
 const loadBanner = async (req,res)=>{
     try {
@@ -76,8 +77,10 @@ const editBanner = async (req,res)=>{
         const {bannerid,bannertitle,description,status,croppeddata} = req.body
         console.log(bannerid,bannertitle,description,status,croppeddata)
         let bannerToedit 
-
+        
         if(req.file){
+            const bannerdata = await Banner.findById({_id:bannerid})
+            await fs.unlink(path.join(__dirname,'../assets',bannerdata.bannerimage))
             let croppedbanner = croppeddata ? JSON.parse(croppeddata) : null
 
         async function cropAndSave(inputPath, outputFilePath, x, y, width, height) {

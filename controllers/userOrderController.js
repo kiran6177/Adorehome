@@ -2,20 +2,25 @@ const User = require('../models/userSchema')
 const Order = require('../models/orderSchema')
 const Product = require('../models/productSchema')
 const Coupon = require('../models/couponSchema')
+const Wallet = require('../models/walletSchema')
 const { ObjectId } = require('mongodb')
 const easyinvoice = require('easyinvoice');
 const fs = require('fs')
 const path = require('path')
+const Category = require('../models/categorySchema')
+const Room = require('../models/roomSchema')
 
 const loadOrdered = async (req,res)=>{
     try {
         const uid = req.userid
         const orderid = req.query.id
+        let footcdata = await Category.aggregate([{$match:{status:"1",isListed:0}},{$limit:4}])
+        let footrdata = await Room.aggregate([{$match:{status:"1"}},{$limit:4}])
         const udata = await User.findById({_id:uid}).populate('cart.product_id')
         const orderdata = await Order.findById({_id:orderid}).populate('products.product_id')
         if(orderdata!= null)
         {
-        res.render('user/ordered',{udata:udata,orderdata:orderdata})
+        res.render('user/ordered',{footcdata,footrdata,udata:udata,orderdata:orderdata})
         }
     } catch (error) {
         console.log(error.message)
@@ -25,15 +30,17 @@ const loadOrdered = async (req,res)=>{
 const loadOrders = async (req,res)=>{
     try {
         const uid = req.userid
+        let footcdata = await Category.aggregate([{$match:{status:"1",isListed:0}},{$limit:4}])
+        let footrdata = await Room.aggregate([{$match:{status:"1"}},{$limit:4}])
         const udata = await User.findById({_id:uid}).populate('cart.product_id')
         const orderdata = await Order.find({user_id:uid,payment_status:"Paid"}).populate('products.product_id').sort({date:'desc'})
         console.log(orderdata[0].date)
         if(orderdata.length > 0)
         {
-        res.render('user/orders',{udata:udata,orderdata:orderdata})
+        res.render('user/orders',{footcdata,footrdata,udata:udata,orderdata:orderdata})
         }
         else{
-        res.render('user/orders',{err:"No Orders Added!!"})
+        res.render('user/orders',{footcdata,footrdata,err:"No Orders Added!!"})
 
         }
     } catch (error) {
@@ -45,12 +52,14 @@ const loadSummary = async (req,res)=>{
     try {
         const uid = req.userid
         const orderid = req.query.id
+        let footcdata = await Category.aggregate([{$match:{status:"1",isListed:0}},{$limit:4}])
+        let footrdata = await Room.aggregate([{$match:{status:"1"}},{$limit:4}])
         const udata = await User.findById({_id:uid}).populate('cart.product_id')
         const orderdata = await Order.findById({_id:orderid}).populate('products.product_id address_id')
         console.log(orderdata.address_id)
         if(orderdata!= null)
         {
-        res.render("user/ordersummary",{udata:udata,orderdata:orderdata})
+        res.render("user/ordersummary",{footcdata,footrdata,udata:udata,orderdata:orderdata})
         }
     } catch (error) {
         console.log(error.message);
@@ -89,8 +98,17 @@ const cancelOrder = async (req,res)=>{
                 console.log(totamount)
                 if(cancelData.payment_method === "RazorPay" || cancelData.payment_method === "Wallet"){
                     let amounttorefund =  cancelData.total_amount - totamount 
+                    let walletHistoryData = {
+                        order_id:oid,
+                        refundamount:amounttorefund,
+                        payment_method:cancelData.payment_method,
+                        user_id:cancelData.user_id,
+                        date:Date.now()
+                    }
+                    const walletHistory = await Wallet.create(walletHistoryData)
                     const walletaddition = await User.findByIdAndUpdate({_id:cancelData.user_id},{$inc:{walletamount:amounttorefund}},{new:true})
                     console.log(walletaddition)
+                    console.log(walletHistory)
                 }
               const UpdateTotal = await Order.findByIdAndUpdate({_id:oid},{$set:{total_amount:totamount}})
             

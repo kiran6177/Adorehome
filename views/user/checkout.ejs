@@ -59,7 +59,7 @@
                                     data-price=<%= discount %>
                                  <%  }else{ %> data-price="<%= element.product_id.price %>"<% } %> data-qty="<%= element.qty %>">
                                     <div class="card-body checkpro">
-                                    <input type="hidden" class="productsId" value="<%= element.product_id._id %>,<%= element.qty %>">
+                                    <input type="hidden" class="productsId" value="<%= element.product_id._id %>,<%= element.qty %>,<%= element.product_id.price %>">
                                     <a href=""><img src="/assets/<%= element.product_id.mainimage %>" alt="" width="70px" height="70px"></a>
                                         <div class="checkprodet"><h5><%= element.product_id.productname %></h5> <p><%= element.product_id.description.split(',')[0] %></p><p><%= element.product_id.price %></p></div>
                                         <div class="checkproqty mt-2 mt-sm-0"><h6>Quantity</h6><p><%= element.qty %> Items</p></div>
@@ -71,6 +71,7 @@
                                 <div class="couponmain">
                                 <input type="text" id="coupon" name="coupon" class="couponinput">
                                 <button type="button" id="applybtn" class="couponbutton">Apply Coupon</button>
+                                <button type="button" id="remcoup" class="couponbutton" style="display: none;">Remove Coupon</button>
                             </div>
                             <p class="couponerror" id="couponerrorid" style="display: none;"></p>
                                 <h4 class="card-title mt-5 mb-4 fw-normal ">Order Summary</h4>
@@ -100,22 +101,11 @@
                                   <% } %>
                           <div class="proceedbtn my-5 text-center " id="proceedbtn"><a href="/payment"><button>Proceed To Payment</button></a></div>
                                   
-                                </div>
-                            </div>
-
-                </div>
-
-
-
-                          
-
                         </div>
-                  </div>
-                  
-                  
+                    </div>
+                </div>
+            </div>
 
-              </div>
-          </div>
       </section>
       </main>
 

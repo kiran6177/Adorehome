@@ -1,12 +1,16 @@
 const User = require('../models/userSchema')
 const Product = require('../models/productSchema')
+const Category = require('../models/categorySchema')
+const Room = require('../models/roomSchema')
 
 
 const loadCart = async (req,res)=>{
     const uid = req.userid
+    let footcdata = await Category.aggregate([{$match:{status:"1",isListed:0}},{$limit:4}])
+    let footrdata = await Room.aggregate([{$match:{status:"1"}},{$limit:4}])
     const udata = await User.findById({_id:uid}).populate({path:'cart.product_id',populate:{path:'offer_id',model:'offer'} })
-    console.log(udata.cart[2].product_id)
-    res.render('user/cart',{udata:udata})
+    // console.log(udata.cart[2].product_id)
+    res.render('user/cart',{footcdata,footrdata,udata:udata})
 }
 
 const addToCart = async (req,res)=>{

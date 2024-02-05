@@ -147,6 +147,64 @@ buynowbtn.addEventListener('click',function(){
 
 })
 
+
+console.log("hello")
+async function addWishlist(proid){
+    try {
+      const res = await fetch(`/wishlist/add?productid=${proid}`)
+      const data = await res.json()
+      if(data.success){
+        return true
+      }
+      else{
+        return false
+      }
+    } catch (error) {
+      window.location.href = '/login'
+      console.log(error.message)
+    }
+  }
+  async function removeWishlist(proid){
+    try {
+      const res = await fetch(`/wishlist/rem?productid=${proid}`)
+      const data = await res.json()
+      if(data.success){
+        return true
+      }
+      else{
+        return false
+      }
+    } catch (error) {
+      window.location.href = '/login'
+      console.log(error.message)
+    }
+  }
+
+const wishaddbtn = document.querySelectorAll('.wishicon3')
+const wishiconsolid1  = document.querySelectorAll('.wishiconsolid3')
+
+wishaddbtn.forEach(el=>{
+    el.addEventListener('click',()=>{
+        let proid = el.dataset.proid
+        console.log(proid)
+        const added =  addWishlist(proid)
+        if(added){
+          window.location.reload()
+          }
+    })
+})
+
+wishiconsolid1.forEach(el=>{
+    el.addEventListener('click',()=>{
+        let proid = el.dataset.proid
+        console.log(proid)
+        const removed =  removeWishlist(proid)
+        if(removed){
+          window.location.reload()
+          }
+    })
+})
+
 $('#zoom_01').ezPlus({
     zoomType: 'inner',
     cursor: 'crosshair'

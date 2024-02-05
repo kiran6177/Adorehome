@@ -1,0 +1,59 @@
+<%- include('layouts/header.ejs') %>
+
+
+      <main class="promain ">
+        
+      <section class="products pt-5 pt-sm-5">
+        <div class="container">
+            <div class="row p-3" id="productsdiv">
+                <div class="head"><h2>Products</h2><div class="filterselect"><select name="filter" id="profilter">
+                  <option value="">--Choose Filter--</option>
+                  <option value="Price High-Low">Price - High to Low</option>
+                  <option value="Price Low-High">Price - Low to High</option>
+                  <option value="Date new">Newly Added</option>
+
+                </select></div></div>
+                <% if(locals.brandid){ %>
+                <input type="hidden" id="brandid" value="<%= locals.brandid %>">
+                <% } %>
+                <input type="hidden" id="totalproductscount" name="totalproductscount" <% if(locals.pcount){ %> value="<%= locals.pcount %>" <% } %>>
+                <% if(locals.products && locals.products.length > 0) { locals.products.forEach(el => { %>
+                <% let desc = el.description.split('.')[0] %>
+                <% let pname = el.productname.split(' ')[0] %>
+                <div class="product product1 col-md-3 mt-4">
+                    <div class="card">
+                        <a href="/products/viewproduct?id=<%= el._id %>"><img src="/assets/<%= el.mainimage %>" class="card-img-top" alt="..."></a>
+                        <div class="card-body">
+                          <h5 class="card-title cardhead"><%= pname %></h5>
+                          <div class="carddesc"><p class="card-text"><%= desc %></p></div>
+                          <div class="cardprice"><p class="card-text ">Rs.<%= el.price %></p></div>
+                          <% let isListed = 0 %>
+                              <% if(locals.udata && locals.udata.wishlist && locals.udata.wishlist.length > 0) { locals.udata.wishlist.forEach(element => { %>
+                                <% if(element.product_id.equals(el._id)) { isListed = 1 }%>
+                             <% });} %>
+                             <% if(isListed == 1){%>
+                              <div class="wishiconsolid3 " data-proid="<%= el._id %>"><i class="fa-solid fa-heart"></i></div>
+                             <% }else{ %>   
+                              <div class="wishicon3 " data-proid="<%= el._id %>"><i class="fa-regular fa-heart"></i></div>
+                            <% } %>
+                          <div class="addcart"><button type="button" id="addcartbtn" data-proid="<%= el._id %>"><i class="fa-solid fa-cart-plus"></i></button></div>
+                        </div>
+                        <% if(el.offer_id != "NA" && el.offerdata.length > 0) {%>
+                          <div class="offervalue"><%= el.offerdata[0].discount %>%</div>
+                          <% } %>
+                    </div>
+                </div>
+                <% })  }else{ %>
+                <div class="d-flex flex-column w-100 justify-content-center align-items-center"><div class="text-center">  <img src="/public/images/favicon.png" class="mx-auto" width="200rem" height="200rem" alt=""></div>
+            <h2 class="text-center">NO PRODUCTS FOUND!!</h2>
+            <button class="btn viewbtn my-4 text-center p-3"><a href="/products">View All Products</a></button></div>
+                <% } %>              
+            </div>
+            <!-- <div class="pagemain my-4"><div class="pageblock" id="pgmain"></div></div> -->
+        </div>
+    </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="/public/js/brandpro.js"></script>
+    <%- include('layouts/footer.ejs') %>

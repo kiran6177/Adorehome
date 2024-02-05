@@ -3,8 +3,10 @@ const Product = require('../models/productSchema')
 const Address = require('../models/addressSchema')
 const Order = require('../models/orderSchema')
 const mongoose = require('mongoose')
+const Wallet = require('../models/walletSchema')
 const RazorPay = require('../utils/razorpay')
-
+const Category = require('../models/categorySchema')
+const Room = require('../models/roomSchema')
 const loadPayment = async (req,res)=>{
     try {
         const uid = req.userid
@@ -12,11 +14,14 @@ const loadPayment = async (req,res)=>{
         const totalamount = req.cookies.totalamount
         const couponid = req.cookies.couponid ? req.cookies.couponid : null
         const prodet = req.cookies.prodet ? JSON.parse(req.cookies.prodet) : []
+        let footcdata = await Category.aggregate([{$match:{status:"1",isListed:0}},{$limit:4}])
+        let footrdata = await Room.aggregate([{$match:{status:"1"}},{$limit:4}])
         let products = []
         prodet.forEach(el=>{
             let obj = {
                 product_id: el.split(',')[0],
-                qty:el.split(',')[1]
+                qty:el.split(',')[1],
+                price:el.split(',')[2]
             }
             products.push(obj)
         })
@@ -28,7 +33,8 @@ const loadPayment = async (req,res)=>{
             {
                 proext.push({
                     product_id:data,
-                    qty:products[i].qty
+                    qty:products[i].qty,
+                    price:products[i].price
                 })
             }
             
@@ -40,7 +46,7 @@ const loadPayment = async (req,res)=>{
         // console.log(addData)
         if(addData!= null)
         {
-        res.render('user/payment',{udata:udata,addData:addData,proext:proext ,totalamount})
+        res.render('user/payment',{footcdata,footrdata,udata:udata,addData:addData,proext:proext ,totalamount})
         }
     } catch (error) {
         console.log(error.message)
@@ -60,15 +66,15 @@ const paymentConfirm = async (req,res)=>{
         prodet.forEach(el=>{
             let obj = {
                 product_id: el.split(',')[0],
-                qty:el.split(',')[1]
+                qty:el.split(',')[1],
+                price:el.split(',')[2]
             }
             products.push(obj)
         })
         let totarray = []
         for(let i = 0;i < products.length; i++)
         {
-            let data = await Product.findById({_id:products[i].product_id})
-            let pertot = data.price * products[i].qty
+            let pertot = products[i].price * products[i].qty
             totarray.push(pertot)
         }
         // totarray.reduce((acc,curr)=>acc+curr)
@@ -150,6 +156,14 @@ const paymentConfirm = async (req,res)=>{
                  res.json({razorpay:{id:razorOrderId.id,amount:razorOrderId.amount,userdata:udata[0],orderId:orderSaved._id}})
             }
             else{
+                let walletHistoryData = {
+                    order_id:orderSaved._id,
+                    redeemedamount:orderSaved.total_amount,
+                    payment_method:orderSaved.payment_method,
+                    user_id:orderSaved.user_id,
+                    date:Date.now()
+                }
+                const walletHistory = await Wallet.create(walletHistoryData)
                 const reduceWallet = await User.findByIdAndUpdate({_id:uid},{$inc:{walletamount:-orderSaved.total_amount}},{new:true})
                 if(reduceWallet){
                     res.json({wallet:orderSaved._id})

@@ -47,19 +47,19 @@ const monthReport = async (req,res)=>{
     try {
         const monthdata = filter.monthly()
 
-
+        console.log(monthdata)
         let monthdetails = []
 
         for(let i = 0; i< monthdata.length;i++)
         {
             const currentData = await Order.aggregate([{$match:{date:{$gte:monthdata[i].monthStart,$lt:monthdata[i].monthEnd}}},{$project:{_id:0,total_amount:1}},{$group:{_id:null,total_amount:{$sum:'$total_amount'}}},{$project:{_id:0,total_amount:1}}])
-
+            
             monthdetails.push({
                 month:monthdata[i].monthName,
                 amount:currentData[0]?currentData[0].total_amount : 0
             })
         }
-        // console.log(monthdetails)
+         console.log(monthdetails)
         if(monthdetails.length > 0 )
         {
             res.json({monthdata:monthdetails})

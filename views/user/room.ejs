@@ -10,10 +10,10 @@
                   <% if(locals.rdata && locals.rdata.length > 0) { locals.rdata.forEach(element => { %>
                   <div class="room  col-md-6 mt-4">
                       <div class="card">
-                          <a href="/products"><img src="/assets/<%= element.image %>" class="card-img-top" alt="..."></a>
+                          <a href="/room/products?id=<%= element._id %>"><img src="/assets/<%= element.image %>" class="card-img-top" alt="..."></a>
                           <div class="card-body">
                             <h5 class="card-title cardhead"><%= element.roomname %></h5>
-                            <div class="carddesc"><button type="button"><p class="card-text">Explore Now</p></button></div>
+                            <div class="carddesc"><button type="button"><p class="card-text"><a href="/room/products?id=<%= element._id %>">Explore Now</a></p></button></div>
                             
                           </div>
                         </div>

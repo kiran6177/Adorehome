@@ -1,9 +1,11 @@
 const Brand = require('../models/brandSchema')
+const fs = require('fs').promises
+const path = require('path')
 
 const loadbrand = async (req,res)=>{
 
     try{
-    const getbrand = await Brand.find()
+    const getbrand = await Brand.find({isListed:0})
     if(getbrand != null)
     {
     res.render("admin/brand",{data:getbrand})
@@ -42,7 +44,57 @@ try{
 }
 }
 
+const loadEditBrand = async (req,res)=>{
+    try {
+        const {id} = req.query
+        const getBrand = await Brand.findById({_id:id})
+        res.render("admin/editbrand",{data:getBrand})
+        
+    } catch (error) {
+        console.log(error.message)
+    }
+}
+
+const editBrand = async (req,res)=>{
+    try {
+        const {id,brandname,status} = req.body
+        let brandData
+        if(req.file){
+            const brands = await Brand.findById({_id:id})
+            await fs.unlink(path.join(__dirname,'../assets',brands.image))  
+            brandData = {
+                brandname,
+                status,
+                image:req.file.filename
+            }
+        }else{
+            brandData = {
+                brandname,
+                status,
+            }
+        }
+
+        const brandUpdate = await Brand.findByIdAndUpdate({_id:id},{$set:brandData})
+        res.redirect('/admin/brands')
+    } catch (error) {
+        console.log(error.message)
+    }
+}
+
+const deleteBrand = async (req,res)=>{
+    try {
+        const {id} = req.query
+        const unlistBrand = await Brand.findByIdAndUpdate({_id:id},{$set:{isListed:1}})
+        res.redirect('/admin/brands')
+    } catch (error) {
+        console.log(error.message)
+    }
+}
+
 module.exports = {
     loadbrand,
-    brandadd
+    brandadd,
+    loadEditBrand,
+    editBrand,
+    deleteBrand
 }

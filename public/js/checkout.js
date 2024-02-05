@@ -17,8 +17,10 @@ let couponid
 function changeTotal(coupondata){
     const currenttotal = parseInt(ordertotal.innerHTML.split('.')[1])
     const currentdiscount = parseInt(discountrate.innerHTML.split('.')[1])
-    console.log(currenttotal,currentdiscount)
-    if(currenttotal > coupondata.couponlimit){
+    // console.log(currenttotal,currentdiscount,coupondata.reductionrate)
+
+    if(currentdiscount !== coupondata.reductionrate || currenttotal < coupondata.couponlimit){
+        if(currenttotal > coupondata.couponlimit ){
         newtotal = currenttotal - coupondata.reductionrate
         newdiscount = currentdiscount + coupondata.reductionrate
         ordertotal.innerHTML = `Rs.${newtotal}`
@@ -32,7 +34,7 @@ function changeTotal(coupondata){
         setTimeout(()=>{
             window.location.reload()
         },1000)
-    }
+    }}
 
 }
 async function verifyCoupon(coupon){
@@ -42,6 +44,7 @@ async function verifyCoupon(coupon){
         if(data.isApplied){
             console.log(data.isApplied)
             changeTotal(data.isApplied)
+            return true
         }else{
             couponerrorid.innerHTML = 'Invalid Coupon.'
             couponerrorid.style.display = 'block'
@@ -49,27 +52,44 @@ async function verifyCoupon(coupon){
             setTimeout(()=>{
                 window.location.reload()
             },1000)
+            return false
         }
     } catch (error) {
         console.log(error.message)
     }
 }
-
-applybtn.addEventListener('click',()=>{
+const remcoup = document.getElementById('remcoup')
+applybtn.addEventListener('click',async ()=>{
     if(couponerrorid){
         couponerrorid.style.display = 'none'
     }
     const couponcode = coupon.value
     console.log(couponcode)
     if(couponcode != ""){
-    verifyCoupon(couponcode)
+    const isApplied = await verifyCoupon(couponcode)
+    if(isApplied){
+        applybtn.style.display = "none"
+        remcoup.style.display = 'block'
+
+    }
     }
     else{
         couponerrorid.innerHTML = 'Invalid Coupon.'
         couponerrorid.style.display = 'block'
     }
 })
-
+if(remcoup){
+    remcoup.addEventListener('click',()=>{
+        coupon.value = ""
+        const currentdisc = parseInt(discountrate.innerHTML.split('.')[1])
+        const totalamount = parseInt(ordertotal.innerHTML.split('.')[1])
+        const newtotal = totalamount + currentdisc
+        discountrate.innerHTML = `Rs.0`
+        ordertotal.innerHTML = `Rs.${newtotal}`
+        remcoup.style.display ='none'
+        applybtn.style.display ='block'
+    })
+}
 let proprice = 0
 let proqty = 0
 crosscheck.forEach(el=>{

@@ -214,6 +214,42 @@ const yearlyProducts = async (req,res)=>{
     }
 }
 
+const rangeProducts = async (req,res)=>{
+    try {
+        const {day1,day2,month1,month2,year1,year2} = req.query
+
+        let page = req.query.page ? parseInt(req.query.page) : 1
+        console.log(day1,day2,month1,month2,year1,year2)
+        let firstday = parseInt(day1)
+        let firstmonth = parseInt(month1)
+        let firstyear = parseInt(year1)
+        let secondday = parseInt(day2)
+        let secondmonth = parseInt(month2)
+        let secondyear = parseInt(year2)
+        const startdate = new Date(firstyear,firstmonth)
+        startdate.setUTCDate(firstday)
+        startdate.setUTCHours(0,0,0,0)
+        
+        const enddate = new Date(secondyear,secondmonth)
+        enddate.setUTCDate(secondday)
+        enddate.setUTCHours(0,0,0,0)
+        proSold = await Order.aggregate([{$match:{payment_status:"Paid",date:{$gte:startdate,$lt:enddate}}},{$unwind:'$products'},{$lookup:{from:'users',localField:'user_id',foreignField:'_id',as:'userdetails'}},{$lookup:{from:'products',localField:'products.product_id',foreignField:'_id',as:'prodetails'}},{$sort:{date:-1}},{$skip:(page - 1)*8},{$limit:8}])
+        proSoldCount = await Order.aggregate([{$match:{payment_status:"Paid",date:{$gte:startdate,$lt:enddate}}},{$unwind:'$products'},{$lookup:{from:'users',localField:'user_id',foreignField:'_id',as:'userdetails'}},{$lookup:{from:'products',localField:'products.product_id',foreignField:'_id',as:'prodetails'}},{$sort:{date:-1}},{$count:'procount'}])
+        console.log(proSold)
+        console.log(proSoldCount)
+        if(proSold.length > 0)
+        {
+            res.json({proSold:proSold,procount:proSoldCount ? proSoldCount[0].procount : 8})
+
+        }
+        else{
+            res.json({proerr:"NO PRODUCTS AVAILABLE"})
+        }
+    } catch (error) {
+        console.log(error.message)
+    }
+}
+
 const dailyTurnover = async (req,res)=>{
     try {
         const {day,month,year} = req.query
@@ -365,14 +401,21 @@ const yearlyTurnover = async (req,res)=>{
 const getExcelData = async (req,res)=>{
     try {
         console.log("excel")
-        const {day,month,year,week} = req.query
-        console.log(day,month,year,week)
+        const {day,month,year,week,firstday,firstmonth,firstyear,secondday,secondmonth,secondyear} = req.query
+        console.log(day,month,year,week,firstday,firstmonth,firstyear,secondday,secondmonth,secondyear)
         const day1 = day? parseInt(day) : undefined
         const week1 = week? parseInt(week) : undefined
         const month1 = month? parseInt(month) : undefined
         const year1 = year? parseInt(year) : undefined
+        const firstday1 = firstday ? parseInt(firstday) : undefined
+        const firstmonth1 = firstmonth ? parseInt(firstmonth) : undefined
+        const firstyear1 = firstyear ? parseInt(firstyear) : undefined
+        const secondday1 = secondday ? parseInt(secondday) : undefined
+        const secondmonth1 = secondmonth ? parseInt(secondmonth) : undefined
+        const secondyear1 = secondyear ? parseInt(secondyear) : undefined
+
         let proSold 
-        if(day!== undefined && month != undefined && year != undefined){
+        if(day!== undefined && month != undefined && year != undefined && firstday1 == undefined && firstmonth1 == undefined && firstyear1 == undefined && secondday1 == undefined && secondmonth1 == undefined && secondyear1 == undefined ){
             
             const date = new Date(year1,month1-1,day1+1)
             const start = new Date(date)
@@ -382,7 +425,7 @@ const getExcelData = async (req,res)=>{
             console.log(start,end)
           proSold = await Order.aggregate([{$match:{payment_status:"Paid",date:{$gte:start,$lt:end}}},{$unwind:'$products'},{$lookup:{from:'users',localField:'user_id',foreignField:'_id',as:'userdetails'}},{$lookup:{from:'products',localField:'products.product_id',foreignField:'_id',as:'prodetails'}},{$sort:{date:-1}}])
 
-        }else if(week!== undefined && month != undefined && year != undefined  && day=== undefined){
+        }else if(week!== undefined && month != undefined && year != undefined  && day=== undefined && firstday1 == undefined && firstmonth1 == undefined && firstyear1 == undefined && secondday1 == undefined && secondmonth1 == undefined && secondyear1 == undefined ){
             function getWeekDetails(week)
         {
             
@@ -420,7 +463,7 @@ const getExcelData = async (req,res)=>{
         const {startDay,endDay} = getWeekDetails(week1)
         console.log(startDay,endDay)
         proSold = await Order.aggregate([{$match:{payment_status:"Paid",date:{$gte:startDay,$lt:endDay}}},{$unwind:'$products'},{$lookup:{from:'users',localField:'user_id',foreignField:'_id',as:'userdetails'}},{$lookup:{from:'products',localField:'products.product_id',foreignField:'_id',as:'prodetails'}},{$sort:{date:-1}}])
-        }else if(month != undefined && year != undefined && week=== undefined && day=== undefined){
+        }else if(month != undefined && year != undefined && week=== undefined && day=== undefined && firstday1 == undefined && firstmonth1 == undefined && firstyear1 == undefined && secondday1 == undefined && secondmonth1 == undefined && secondyear1 == undefined ){
             function getMonthDetails(month1)
         {
                 
@@ -454,7 +497,7 @@ const getExcelData = async (req,res)=>{
         const {startDay,endDay} = getMonthDetails(month1)
         
          proSold = await Order.aggregate([{$match:{payment_status:"Paid",date:{$gte:startDay,$lt:endDay}}},{$unwind:'$products'},{$lookup:{from:'users',localField:'user_id',foreignField:'_id',as:'userdetails'}},{$lookup:{from:'products',localField:'products.product_id',foreignField:'_id',as:'prodetails'}},{$sort:{date:-1}}])
-        }else if( year != undefined && week=== undefined && day=== undefined && month == undefined ){
+        }else if( year != undefined && week=== undefined && day=== undefined && month == undefined && firstday1 == undefined && firstmonth1 == undefined && firstyear1 == undefined && secondday1 == undefined && secondmonth1 == undefined && secondyear1 == undefined ){
             function getYearData(year1)
             {
                 const date = new Date(year1,1)
@@ -470,8 +513,19 @@ const getExcelData = async (req,res)=>{
             const {startDay,endDay} = getYearData(year1)
         proSold = await Order.aggregate([{$match:{payment_status:"Paid",date:{$gte:startDay,$lt:endDay}}},{$unwind:'$products'},{$lookup:{from:'users',localField:'user_id',foreignField:'_id',as:'userdetails'}},{$lookup:{from:'products',localField:'products.product_id',foreignField:'_id',as:'prodetails'}},{$sort:{date:-1}}])
 
-        }
+        }else if(day == undefined && month == undefined && year == undefined && week == undefined && firstday1 != undefined && firstmonth1 != undefined && firstyear1 != undefined && secondday1 != undefined && secondmonth1 != undefined && secondyear1 != undefined ){
 
+            const startdate = new Date(firstyear1,firstmonth1)
+            startdate.setUTCDate(firstday1)
+            startdate.setUTCHours(0,0,0,0)
+            
+            const enddate = new Date(secondyear1,secondmonth1)
+            enddate.setUTCDate(secondday1)
+            enddate.setUTCHours(0,0,0,0)
+            proSold = await Order.aggregate([{$match:{payment_status:"Paid",date:{$gte:startdate,$lt:enddate}}},{$unwind:'$products'},{$lookup:{from:'users',localField:'user_id',foreignField:'_id',as:'userdetails'}},{$lookup:{from:'products',localField:'products.product_id',foreignField:'_id',as:'prodetails'}},{$sort:{date:-1}}])
+            //  console.log(proSold)
+ 
+        }
         // console.log(proSold)
         const workbook = new excelJS.Workbook()
         const workSheet = workbook.addWorksheet("Sales Report")
@@ -529,14 +583,21 @@ const getExcelData = async (req,res)=>{
 const getPdfData = async (req,res)=>{
     try {
         console.log("pdf")
-        const {day,month,year,week,html} = req.query
+        const {day,month,year,week,firstday,firstmonth,firstyear,secondday,secondmonth,secondyear} = req.query
         console.log(day,month,year,week)
         const day1 = day? parseInt(day) : undefined
         const week1 = week? parseInt(week) : undefined
         const month1 = month? parseInt(month) : undefined
         const year1 = year? parseInt(year) : undefined
+        const firstday1 = firstday ? parseInt(firstday) : undefined
+        const firstmonth1 = firstmonth ? parseInt(firstmonth) : undefined
+        const firstyear1 = firstyear ? parseInt(firstyear) : undefined
+        const secondday1 = secondday ? parseInt(secondday) : undefined
+        const secondmonth1 = secondmonth ? parseInt(secondmonth) : undefined
+        const secondyear1 = secondyear ? parseInt(secondyear) : undefined
+
         let proSold 
-        if(day!== undefined && month != undefined && year != undefined){
+        if(day!== undefined && month != undefined && year != undefined && firstday1 == undefined && firstmonth1 == undefined && firstyear1 == undefined && secondday1 == undefined && secondmonth1 == undefined && secondyear1 == undefined ){
             
             const date = new Date(year1,month1-1,day1+1)
             const start = new Date(date)
@@ -546,7 +607,7 @@ const getPdfData = async (req,res)=>{
             console.log(start,end)
           proSold = await Order.aggregate([{$match:{payment_status:"Paid",date:{$gte:start,$lt:end}}},{$unwind:'$products'},{$lookup:{from:'users',localField:'user_id',foreignField:'_id',as:'userdetails'}},{$lookup:{from:'products',localField:'products.product_id',foreignField:'_id',as:'prodetails'}},{$sort:{date:-1}}])
 
-        }else if(week!== undefined && month != undefined && year != undefined){
+        }else if(week!== undefined && month != undefined && year != undefined && firstday1 == undefined && firstmonth1 == undefined && firstyear1 == undefined && secondday1 == undefined && secondmonth1 == undefined && secondyear1 == undefined ){
             function getWeekDetails(week)
             {
                 
@@ -584,7 +645,7 @@ const getPdfData = async (req,res)=>{
             const {startDay,endDay} = getWeekDetails(week1)
             console.log(startDay,endDay)
             proSold = await Order.aggregate([{$match:{payment_status:"Paid",date:{$gte:startDay,$lt:endDay}}},{$unwind:'$products'},{$lookup:{from:'users',localField:'user_id',foreignField:'_id',as:'userdetails'}},{$lookup:{from:'products',localField:'products.product_id',foreignField:'_id',as:'prodetails'}},{$sort:{date:-1}}])
-        }else if(month != undefined && year != undefined && week=== undefined && day=== undefined){
+        }else if(month != undefined && year != undefined && week=== undefined && day=== undefined && firstday1 == undefined && firstmonth1 == undefined && firstyear1 == undefined && secondday1 == undefined && secondmonth1 == undefined && secondyear1 == undefined ){
             function getMonthDetails(month1)
             {
                     
@@ -618,7 +679,7 @@ const getPdfData = async (req,res)=>{
             const {startDay,endDay} = getMonthDetails(month1)
             
              proSold = await Order.aggregate([{$match:{payment_status:"Paid",date:{$gte:startDay,$lt:endDay}}},{$unwind:'$products'},{$lookup:{from:'users',localField:'user_id',foreignField:'_id',as:'userdetails'}},{$lookup:{from:'products',localField:'products.product_id',foreignField:'_id',as:'prodetails'}},{$sort:{date:-1}}])
-        }else if( year != undefined && week=== undefined && day=== undefined && month == undefined ){
+        }else if( year != undefined && week=== undefined && day=== undefined && month == undefined && firstday1 == undefined && firstmonth1 == undefined && firstyear1 == undefined && secondday1 == undefined && secondmonth1 == undefined && secondyear1 == undefined ){
             function getYearData(year1)
             {
                 const date = new Date(year1,1)
@@ -633,6 +694,17 @@ const getPdfData = async (req,res)=>{
             }
             const {startDay,endDay} = getYearData(year1)
         proSold = await Order.aggregate([{$match:{payment_status:"Paid",date:{$gte:startDay,$lt:endDay}}},{$unwind:'$products'},{$lookup:{from:'users',localField:'user_id',foreignField:'_id',as:'userdetails'}},{$lookup:{from:'products',localField:'products.product_id',foreignField:'_id',as:'prodetails'}},{$sort:{date:-1}}])
+        }else if(day == undefined && month == undefined && year == undefined && week == undefined && firstday1 != undefined && firstmonth1 != undefined && firstyear1 != undefined && secondday1 != undefined && secondmonth1 != undefined && secondyear1 != undefined ){
+
+            const startdate = new Date(firstyear1,firstmonth1)
+            startdate.setUTCDate(firstday1)
+            startdate.setUTCHours(0,0,0,0)
+            
+            const enddate = new Date(secondyear1,secondmonth1)
+            enddate.setUTCDate(secondday1)
+            enddate.setUTCHours(0,0,0,0)
+            proSold = await Order.aggregate([{$match:{payment_status:"Paid",date:{$gte:startdate,$lt:enddate}}},{$unwind:'$products'},{$lookup:{from:'users',localField:'user_id',foreignField:'_id',as:'userdetails'}},{$lookup:{from:'products',localField:'products.product_id',foreignField:'_id',as:'prodetails'}},{$sort:{date:-1}}])
+ 
         }
         // console.log(proSold)
         const doc = new PDFDocument()
@@ -689,6 +761,7 @@ module.exports = {
     monthlyTurnover,
     yearlyTurnover,
     getExcelData,
-    getPdfData
+    getPdfData,
+    rangeProducts
 
 }

@@ -2,10 +2,12 @@ const dailybtn = document.getElementById("dailybtn");
 const weekbtn = document.getElementById("weekbtn");
 const monthbtn = document.getElementById("monthbtn");
 const yearbtn = document.getElementById("yearbtn");
+const rangebtn = document.getElementById("rangebtn");
 const dailybuttons = document.getElementById("dailybuttons");
 const weekbuttons = document.getElementById("weekbuttons");
 const monthbuttons = document.getElementById("monthbuttons");
 const yearbuttons = document.getElementById("yearbuttons");
+const rangebuttons = document.getElementById('rangebuttons')
 const page = document.getElementById('page')
 const dpage = document.getElementById('dpage')
 const wpage = document.getElementById('wpage')
@@ -230,6 +232,458 @@ Dyear.addEventListener("change", () => {
   console.log(Dyear.value);
   fetchByDate(day, month, year);
 });
+const Rday1 = document.getElementById('Rday1')
+const Rday2 = document.getElementById('Rday2')
+const Rmonth1 = document.getElementById('Rmonth1')
+const Rmonth2 = document.getElementById('Rmonth2')
+const Ryear1 = document.getElementById('Ryear1')
+const Ryear2 = document.getElementById('Ryear2')
+const Rpgmain = document.getElementById('Rpgmain')
+const rpage = document.getElementById('rpage')
+const generatebtn = document.getElementById('generatebtn')
+let totalrangepgcount
+
+async function nextRangePage(page){
+  try{
+    const day1 = Rday1.value
+    const day2 = Rday2.value
+    const month1 = Rmonth1.value
+    const month2 = Rmonth2.value
+    const year1 = Ryear1.value
+    const year2 = Ryear2.value
+  const res = await fetch(`/admin/salesreport/getrangereport?day1=${day1}&month1=${month1}&year1=${year1}&day2=${day2}&month2=${month2}&year2=${year2}&page=${page}`)
+    const data = await res.json()
+    if (data.proSold.length > 0) {
+      const newdata = document.querySelectorAll(".newdata");
+      if (newdata) {
+        newdata.forEach((el) => el.remove());
+      }
+      protable.forEach((el) => el.remove());
+
+      for (let i = 0; i < data.proSold.length; i++) {
+        console.log(data.proSold);
+        const date = new Date(data.proSold[i].date);
+        date.setUTCHours(0,0,0,0)
+        console.log(date.getDate())
+        const monthno = date.getMonth();
+        function getMonthName(data) {
+          const monthNames = [
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December",
+          ];
+          return monthNames[data];
+        }
+        let month = getMonthName(monthno);
+
+        const newrow = document.createElement("tr");
+        newrow.classList.add("newdata");
+        newrow.innerHTML = `<td>${i + 1}</td>
+            <td> ${date.getDate()}&nbsp; ${month} &nbsp;${date.getFullYear()}&nbsp;</td>
+            <td>${data.proSold[i].userdetails[0].firstname}&nbsp; ${
+          data.proSold[i].userdetails[0].lastname
+        }</td>
+            <td>${data.proSold[i].prodetails[0].productname}</td>
+            <td>${data.proSold[i].products.qty}Pcs</td>
+            <td>Rs. ${data.proSold[i].prodetails[0].price}</td>
+            <td>Rs.${data.proSold[i].total_amount}</td>
+            <td>${data.proSold[i].payment_method}</td>`;
+
+        promaintable.appendChild(newrow);
+      }
+
+      promaintable1.innerHTML = "";
+      const newrow1 = document.createElement("tbody");
+        newrow1.classList.add("newdata");
+      for (let i = 0; i < data.proSold.length; i++) {
+        console.log(data.proSold);
+        const date = new Date(data.proSold[i].date);
+        date.setUTCHours(0,0,0,0)
+        const monthno = date.getMonth();
+        function getMonthName(data) {
+          const monthNames = [
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December",
+          ];
+          return monthNames[data];
+        }
+        let month = getMonthName(monthno);
+
+        
+        newrow1.innerHTML += `<tr><th>Serial No.</th><td>${i+1}</td> </tr>
+            <tr><th>Date Purchased</th>
+            <td> ${date.getDate()}&nbsp; ${month} &nbsp;${date.getFullYear()}&nbsp;</td>
+            </tr>
+            <tr>
+                <th>Customer Name</th>
+                <td>${data.proSold[i].userdetails[0].firstname}&nbsp; ${data.proSold[i].userdetails[0].lastname}</td>
+            </tr>
+            <tr>
+                <th>Product Name </th>
+                <td>${data.proSold[i].prodetails[0].productname }</td>
+            </tr>
+            <tr>
+                <th>Quantity</th>
+                <td>${data.proSold[i].products.qty}Pcs</td>
+            </tr>
+            <tr>
+                <th>Price</th>
+                <td>Rs. ${data.proSold[i].prodetails[0].price}</td>
+            </tr>
+            <tr>
+                <th>Order Amount</th>
+                <td>Rs.${data.proSold[i].total_amount}</td>
+
+            </tr>
+            <tr>
+                <th>Payment Method</th>
+                <td>${data.proSold[i].payment_method}</td>
+            </tr>
+           <tr><td></td><td></td></tr>`;
+
+
+      }
+      promaintable1.appendChild(newrow1);
+      console.log(data.procount)
+      totalrangepgcount = Math.ceil(data.procount / 8)
+      console.log(totalrangepgcount)
+      proRangePageLoop(totalrangepgcount,page)
+
+
+    } else {
+      const newdata = document.querySelectorAll(".newdata");
+      if (newdata) {
+        newdata.forEach((el) => el.remove());
+      }
+      protable.forEach((el) => el.remove());
+
+      const newrow = document.createElement("tr");
+      newrow.classList.add("newdata");
+      newrow.innerHTML =
+        "<td colspan = '8' class='text-center'>NO PRODUCTS AVAILABLE</td>";
+      promaintable.appendChild(newrow);
+
+      promaintable1.innerHTML = "";
+      const newrow1 = document.createElement("tbody");
+        newrow1.classList.add("newdata");
+        newrow1.innerHTML = `<tr><td>No Products Sold</td></tr> `
+        promaintable1.appendChild(newrow1)
+    }
+
+  } catch (error) {
+    console.log(error.message)
+  }
+}
+
+function proRangePageLoop(totalrangepgcount, currentPage) {
+  let beforepage = currentPage - 1;
+  let afterpage = currentPage + 1;
+
+  let active;
+
+  if (currentPage === totalrangepgcount && totalrangepgcount != 1) {
+    Rpgmain.innerHTML = "";
+    Rpgmain.innerHTML = `<button class="pagbtns" id="leftbtn" onclick="nextRangePage(${
+      currentPage - 1
+    })"><i class="fa-solid fa-chevron-left"></i></button>`;
+    if (totalrangepgcount < 4) {
+      for (let i = beforepage; i <= currentPage; i++) {
+        if (currentPage === i) {
+          active = "selectedbtn";
+        } else {
+          active = "";
+        }
+        Rpgmain.innerHTML += `<button class="pagbtns ${active}"  onclick="nextRangePage(${i})">${i}</button>`;
+      }
+    } else {
+      for (let i = beforepage - 2; i <= currentPage; i++) {
+        if (currentPage === i) {
+          active = "selectedbtn";
+        } else {
+          active = "";
+        }
+        Rpgmain.innerHTML += `<button class="pagbtns ${active}"  onclick="nextRangePage(${i})">${i}</button>`;
+      }
+    }
+
+    if (currentPage != totalrangepgcount) {
+      Rpgmain.innerHTML += `<button id="rightbtn" class="pagbtns" onclick="nextRangePage(${
+        currentPage + 1
+      })"><i class="fa-solid fa-angle-right"></i></button>`;
+    }
+  } else if (currentPage === 1) {
+    Rpgmain.innerHTML = "";
+
+    if (totalrangepgcount > 2) {
+      for (let i = beforepage; i <= afterpage + 2; i++) {
+        if (currentPage === i) {
+          active = "selectedbtn";
+        } else {
+          active = "";
+        }
+        if (i == 0) {
+          continue;
+        }
+        Rpgmain.innerHTML += `<button class="pagbtns ${active}" onclick="nextRangePage(${i})">${i}</button>`;
+      }
+    } else {
+      for (let i = beforepage; i < afterpage; i++) {
+        if (currentPage === i) {
+          active = "selectedbtn";
+        } else {
+          active = "";
+        }
+        if (i == 0) {
+          continue;
+        }
+        Rpgmain.innerHTML += `<button class="pagbtns ${active}" onclick="nextRangePage(${i})">${i}</button>`;
+      }
+    }
+    if (currentPage != totalrangepgcount) {
+      Rpgmain.innerHTML += `<button id="rightbtn" class="pagbtns" onclick="nextRangePage(${
+        currentPage + 1
+      })"><i class="fa-solid fa-angle-right"></i></button>`;
+    } else {
+      Rpgmain.innerHTML += "";
+    }
+  } else if (currentPage > 1) {
+    Rpgmain.innerHTML = `<button class="pagbtns" id="leftbtn" onclick="nextRangePage(${
+      currentPage - 1
+    })"><i class="fa-solid fa-chevron-left"></i></button>`;
+    for (let i = beforepage; i <= afterpage; i++) {
+      if (currentPage === i) {
+        active = "selectedbtn";
+      } else {
+        active = "";
+      }
+      Rpgmain.innerHTML += `<button class="pagbtns ${active}"  onclick="nextRangePage(${i})">${i}</button>`;
+    }
+    if (currentPage != totalrangepgcount) {
+      Rpgmain.innerHTML += `<button id="rightbtn" class="pagbtns" onclick="nextRangePage(${
+        currentPage + 1
+      })"><i class="fa-solid fa-angle-right"></i></button>`;
+    } else {
+      Rpgmain.innerHTML += "";
+    }
+  }
+
+  console.log(currentPage);
+}
+async function rangeReport(day1,day2,month1,month2,year1,year2){
+  try {
+    const res = await fetch(`/admin/salesreport/getrangereport?day1=${day1}&month1=${month1}&year1=${year1}&day2=${day2}&month2=${month2}&year2=${year2}`)
+    const data = await res.json()
+    if (data.proSold.length > 0) {
+      const newdata = document.querySelectorAll(".newdata");
+      if (newdata) {
+        newdata.forEach((el) => el.remove());
+      }
+      protable.forEach((el) => el.remove());
+
+      for (let i = 0; i < data.proSold.length; i++) {
+        console.log(data.proSold);
+        const date = new Date(data.proSold[i].date);
+        date.setUTCHours(0,0,0,0)
+        console.log(date.getDate())
+        const monthno = date.getMonth();
+        function getMonthName(data) {
+          const monthNames = [
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December",
+          ];
+          return monthNames[data];
+        }
+        let month = getMonthName(monthno);
+
+        const newrow = document.createElement("tr");
+        newrow.classList.add("newdata");
+        newrow.innerHTML = `<td>${i + 1}</td>
+            <td> ${date.getDate()}&nbsp; ${month} &nbsp;${date.getFullYear()}&nbsp;</td>
+            <td>${data.proSold[i].userdetails[0].firstname}&nbsp; ${
+          data.proSold[i].userdetails[0].lastname
+        }</td>
+            <td>${data.proSold[i].prodetails[0].productname}</td>
+            <td>${data.proSold[i].products.qty}Pcs</td>
+            <td>Rs. ${data.proSold[i].prodetails[0].price}</td>
+            <td>Rs.${data.proSold[i].total_amount}</td>
+            <td>${data.proSold[i].payment_method}</td>`;
+
+        promaintable.appendChild(newrow);
+      }
+
+      promaintable1.innerHTML = "";
+      const newrow1 = document.createElement("tbody");
+        newrow1.classList.add("newdata");
+      for (let i = 0; i < data.proSold.length; i++) {
+        console.log(data.proSold);
+        const date = new Date(data.proSold[i].date);
+        date.setUTCHours(0,0,0,0)
+        const monthno = date.getMonth();
+        function getMonthName(data) {
+          const monthNames = [
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December",
+          ];
+          return monthNames[data];
+        }
+        let month = getMonthName(monthno);
+
+        
+        newrow1.innerHTML += `<tr><th>Serial No.</th><td>${i+1}</td> </tr>
+            <tr><th>Date Purchased</th>
+            <td> ${date.getDate()}&nbsp; ${month} &nbsp;${date.getFullYear()}&nbsp;</td>
+            </tr>
+            <tr>
+                <th>Customer Name</th>
+                <td>${data.proSold[i].userdetails[0].firstname}&nbsp; ${data.proSold[i].userdetails[0].lastname}</td>
+            </tr>
+            <tr>
+                <th>Product Name </th>
+                <td>${data.proSold[i].prodetails[0].productname }</td>
+            </tr>
+            <tr>
+                <th>Quantity</th>
+                <td>${data.proSold[i].products.qty}Pcs</td>
+            </tr>
+            <tr>
+                <th>Price</th>
+                <td>Rs. ${data.proSold[i].prodetails[0].price}</td>
+            </tr>
+            <tr>
+                <th>Order Amount</th>
+                <td>Rs.${data.proSold[i].total_amount}</td>
+
+            </tr>
+            <tr>
+                <th>Payment Method</th>
+                <td>${data.proSold[i].payment_method}</td>
+            </tr>
+           <tr><td></td><td></td></tr>`;
+
+
+      }
+      promaintable1.appendChild(newrow1);
+      console.log(data.procount)
+      totalrangepgcount = Math.ceil(data.procount / 8)
+      console.log(totalrangepgcount)
+      proRangePageLoop(totalrangepgcount,1)
+
+
+    } else {
+      const newdata = document.querySelectorAll(".newdata");
+      if (newdata) {
+        newdata.forEach((el) => el.remove());
+      }
+      protable.forEach((el) => el.remove());
+
+      const newrow = document.createElement("tr");
+      newrow.classList.add("newdata");
+      newrow.innerHTML =
+        "<td colspan = '8' class='text-center'>NO PRODUCTS AVAILABLE</td>";
+      promaintable.appendChild(newrow);
+
+      promaintable1.innerHTML = "";
+      const newrow1 = document.createElement("tbody");
+        newrow1.classList.add("newdata");
+        newrow1.innerHTML = `<tr><td>No Products Sold</td></tr> `
+        promaintable1.appendChild(newrow1)
+    }
+
+  } catch (error) {
+    console.log(error.message)
+  }
+}
+
+rangebtn.addEventListener('click',()=>{
+  rangebuttons.style.display = "block";
+  if (monthbuttons) {
+    monthbuttons.style.display = "none";
+  }
+  if (weekbuttons) {
+    weekbuttons.style.display = "none";
+  }
+  if (dailybuttons) {
+    dailybuttons.style.display = "none";
+  }
+  if (yearbuttons) {
+    yearbuttons.style.display = "none";
+  }
+
+})
+
+if(generatebtn){
+  generatebtn.addEventListener('click',()=>{
+    const day1 = Rday1.value
+    const day2 = Rday2.value
+    const month1 = Rmonth1.value
+    const month2 = Rmonth2.value
+    const year1 = Ryear1.value
+    const year2 = Ryear2.value
+    console.log(day1,day2,month1,month2,year1,year2)
+    rangeReport(day1,day2,month1,month2,year1,year2)
+    rpage.style.display ='block'
+    if(dpage)
+    {
+      dpage.style.display = 'none'
+    }
+    if(wpage)
+    {
+      wpage.style.display = 'none'
+    }
+    if(mpage)
+    {
+      mpage.style.display = 'none'
+    }
+    if(ypage)
+    {
+      ypage.style.display = 'none'
+    }
+    if(page)
+    {
+      page.style.display = 'none'
+    }
+  })
+}
+
 
 dailybtn.addEventListener("click", () => {
   dailybuttons.style.display = "block";
@@ -245,9 +699,16 @@ dailybtn.addEventListener("click", () => {
   if (yearbuttons) {
     yearbuttons.style.display = "none";
   }
+  if (rangebuttons) {
+    rangebuttons.style.display = "none";
+  }
   if(wpage)
   {
     wpage.style.display = 'none'
+  }
+  if(rpage)
+  {
+    rpage.style.display = 'none'
   }
   if(mpage)
   {
@@ -1109,6 +1570,9 @@ weekbtn.addEventListener("click", () => {
   if (dailybuttons) {
     dailybuttons.style.display = "none";
   }
+  if (rangebuttons) {
+    rangebuttons.style.display = "none";
+  }
   if(dpage)
   {
     dpage.style.display = 'none'
@@ -1124,6 +1588,10 @@ weekbtn.addEventListener("click", () => {
   if(page)
   {
     page.style.display = 'none'
+  }
+  if(rpage)
+  {
+    rpage.style.display = 'none'
   }
 });
 
@@ -1557,6 +2025,9 @@ monthbtn.addEventListener("click", () => {
   if (dailybuttons) {
     dailybuttons.style.display = "none";
   }
+  if (rangebuttons) {
+    rangebuttons.style.display = "none";
+  }
   if(wpage)
   {
     wpage.style.display = 'none'
@@ -1572,6 +2043,10 @@ monthbtn.addEventListener("click", () => {
   if(page)
   {
     page.style.display = 'none'
+  }
+  if(rpage)
+  {
+    rpage.style.display = 'none'
   }
 });
 
@@ -1989,6 +2464,9 @@ yearbtn.addEventListener("click", () => {
   if (dailybuttons) {
     dailybuttons.style.display = "none";
   }
+  if (rangebuttons) {
+    rangebuttons.style.display = "none";
+  }
   if(wpage)
   {
     wpage.style.display = 'none'
@@ -2004,6 +2482,10 @@ yearbtn.addEventListener("click", () => {
   if(page)
   {
     page.style.display = 'none'
+  }
+  if(rpage)
+  {
+    rpage.style.display = 'none'
   }
 });
 
@@ -2662,6 +3144,50 @@ async function downProPdfYearly(year){
   }
 }
 
+async function downProExcelRange(firstday,secondday,firstmonth,secondmonth,firstyear,secondyear){
+  try {
+    const res = await fetch(`/admin/salesreport/getexcelpro?firstday=${firstday}&firstmonth=${firstmonth}&firstyear=${firstyear}&secondday=${secondday}&secondmonth=${secondmonth}&secondyear=${secondyear}`)
+    const data = await res.blob()
+    if(data){
+      const url = window.URL.createObjectURL(data);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'salesreport.xlsx';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
+    }
+  } catch (error) {
+    window.location.href = '/admin/login'
+    console.log(error.message)
+  }
+}
+
+async function downProPdfRange(firstday,secondday,firstmonth,secondmonth,firstyear,secondyear){
+  try {
+    const res = await fetch(`/admin/salesreport/getpdfpro?firstday=${firstday}&firstmonth=${firstmonth}&firstyear=${firstyear}&secondday=${secondday}&secondmonth=${secondmonth}&secondyear=${secondyear}`)
+    const data = await res.blob()
+    if(data){
+      console.log(data)
+      if(data.type== "application/pdf"){
+        const url = window.URL.createObjectURL(data);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'salesreport.pdf';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+      }else{
+        window.location.href = '/admin/login'
+      }
+    }
+  } catch (error) {
+    console.log(error.message)
+  }
+}
+
 prodownexcel.addEventListener('click',()=>{
   console.log("hello")
   if(window.getComputedStyle(dailybuttons).display === 'block'){
@@ -2682,6 +3208,16 @@ prodownexcel.addEventListener('click',()=>{
   }else if(window.getComputedStyle(yearbuttons).display === 'block'){
     console.log(Yyear.value)
     downProExcelYearly(Yyear.value)
+  }
+  else if(window.getComputedStyle(rangebuttons).display === 'block'){
+    const day1 = Rday1.value
+    const day2 = Rday2.value
+    const month1 = Rmonth1.value
+    const month2 = Rmonth2.value
+    const year1 = Ryear1.value
+    const year2 = Ryear2.value
+    console.log(day1,day2,month1,month2,year1,year2)
+    downProExcelRange(day1,day2,month1,month2,year1,year2)
   }
 })
 
@@ -2705,5 +3241,14 @@ prodownpdf.addEventListener('click',()=>{
   }else if(window.getComputedStyle(yearbuttons).display === 'block'){
     console.log(Yyear.value)
     downProPdfYearly(Yyear.value)
+  }  else if(window.getComputedStyle(rangebuttons).display === 'block'){
+    const day1 = Rday1.value
+    const day2 = Rday2.value
+    const month1 = Rmonth1.value
+    const month2 = Rmonth2.value
+    const year1 = Ryear1.value
+    const year2 = Ryear2.value
+    console.log(day1,day2,month1,month2,year1,year2)
+    downProPdfRange(day1,day2,month1,month2,year1,year2)
   }
 })
