@@ -3102,3 +3102,10 @@ transition: top 200ms ease-in;
         font-size: 0.8rem;
     }
 }
+.zoomContainer{
+    width:80% !important;
+    left: 20% !important;
+}
+.zoomWindow{
+    width: 100% !important;
+}

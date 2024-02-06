@@ -48,7 +48,7 @@ const loadReport = async (req, res) => {
       },
       { $count: "proCount" },
     ]);
-    console.log(totPro[0].proCount);
+    // console.log(totPro[0].proCount);
     const totalProducts = await Order.aggregate([
       { $unwind: "$products" },
       { $group: { _id: null, quantity: { $sum: "$products.qty" } } },
@@ -67,11 +67,11 @@ const loadReport = async (req, res) => {
     // console.log(totalRevenue)
     res.render("admin/adminsalesreport", {
       prosold: proSold,
-      totalProducts: totalProducts[0].quantity,
-      totalUsers: totalUsers[0].users,
-      totalOrders: totalOrders[0].orders,
-      totalRevenue: totalRevenue[0].total,
-      totPro: totPro[0].proCount,
+      totalProducts: totalProducts.length > 0 ? totalProducts[0].quantity : 0,
+      totalUsers: totalUsers.length > 0 ? totalUsers[0].users : 0,
+      totalOrders: totalOrders.length > 0 ? totalOrders[0].orders : 0,
+      totalRevenue: totalRevenue.length > 0 ? totalRevenue[0].total : 0,
+      totPro: totPro.length > 0 ? totPro[0].proCount : 0,
     });
   } catch (error) {
     console.log(error.message);

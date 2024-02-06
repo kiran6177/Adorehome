@@ -195,7 +195,11 @@
                                     <p class="perror mb-2" id="error5" style="display: none;"></p>
                                     <label for="offer">Offer</label>
                                     <select name="offer" class="form-control" id="offer" >
+                                        <% if(locals.prodata.offer_id != null){ %>
                                         <option value="<%= locals.prodata.offer_id %>"><%= locals.prodata.offer_id.offertitle %></option>
+                                        <% }else{ %>
+                                            <option value="NA">NA</option>
+                                        <% } %>    
                                         <% if(locals.offer && locals.offer.length > 0){ locals.offer.forEach(element => { %>
                                         <option value="<%= element._id %>"><%= element.offertitle %></option>    
                                             <% }); } %>

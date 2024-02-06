@@ -54,7 +54,7 @@ const loadhome = async (req, res) => {
       },
       { $count: "users" },
     ]);
-    const ucount = userCount[0].users.toString();
+    const ucount = userCount.length > 0 ?userCount[0].users.toString() : 0;
     const orderCount = await Order.aggregate([
       {
         $match: {
@@ -64,7 +64,7 @@ const loadhome = async (req, res) => {
       },
       { $count: "orders" },
     ]);
-    const ocount = orderCount[0].orders.toString();
+    const ocount = orderCount.length > 0 ? orderCount[0].orders.toString() : 0;
     const productCount = await Order.aggregate([
       {
         $match: {
@@ -76,7 +76,7 @@ const loadhome = async (req, res) => {
       { $group: { _id: null, qty: { $sum: "$products.qty" } } },
       { $project: { _id: 0, qty: 1 } },
     ]);
-    const pcount = productCount[0].qty.toString();
+    const pcount = productCount.length > 0 ? productCount[0].qty.toString() : 0;
     const prodet = await Product.aggregate([
       { $match: { isBlocked: 0 } },
       { $sort: { date: -1 } },
@@ -139,9 +139,9 @@ const loadhome = async (req, res) => {
       productCount: pcount,
       products: prodet,
       prosold: proSold,
-      totalProducts: totalProCount[0].proCount,
+      totalProducts: totalProCount.length > 0 ? totalProCount[0].proCount : 0,
       currentPage: currentPage,
-      totalStock: prodetCount[0].stock,
+      totalStock: prodetCount.length > 0 ? prodetCount[0].stock : 0,
     });
   } catch (err) {
     console.log(err.message);

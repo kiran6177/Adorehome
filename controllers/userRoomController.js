@@ -17,7 +17,7 @@ const loadRoom = async (req, res) => {
     ]);
     const udata = await User.findById({ _id: uid }).populate("cart.product_id");
     const rdata = await Room.find({ status: "1" });
-    if (rdata.length > 0) {
+    if (rdata) {
       res.render("user/room", {
         footcdata,
         footrdata,

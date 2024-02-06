@@ -4,7 +4,7 @@
     <section class="products pt-5 pt-sm-5">
       <div class="container ">
           <div class="row p-4 p-sm-0">
-            <div class="wallhead"><h2 class="fw-bold my-4">WALLET</h2><h6 class="my-4">WALLET BALANCE :<span style="color: #ff3f00;"> Rs.<% if(locals.udata && locals.udata.walletamount){ %> <%= locals.udata.walletamount %> <% } %></span></h6></div>
+            <div class="wallhead"><h2 class="fw-bold my-4">WALLET</h2><h6 class="my-4">WALLET BALANCE :<span style="color: #ff3f00;"> Rs.<% if(locals.udata && locals.udata.walletamount){ %> <%= locals.udata.walletamount %> <% }else{ %>0<% } %></span></h6></div>
             
             <div class="card walletmain p-0 ">
                 <div class="card-body">
@@ -20,7 +20,18 @@
                         <tr><th>Refund Amount</th><td>Rs.<%= element.refundamount %></td></tr>
                         <tr><th>Method</th><td><%= element.payment_method %></td></tr>
                         <tr><td></td><td></td></tr>
-                    <% }); }%>
+                    <% }); }else{ %>
+                        <div class="cart  col-lg-12 mt-4">
+                            <div class="card m-auto border-0 h-100 ">
+                              <div class="card-body h-100 d-flex justify-content-center align-items-center">
+                                <div class="card-title d-flex flex-column justify-content-center align-items-center ">
+                                  <img src="/public/images/favicon.png" alt="" width="300rem" height="300rem">
+                                  <h2>No Transactions.</h2>
+                                </div>
+                              </div>
+                            </div>
+                            </div>
+                    <% } %>
                     </table>
                 </div>
             </div>

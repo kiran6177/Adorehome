@@ -14,7 +14,18 @@
                 <a href="/offer/products?id=<%= element._id %>">Shop Now</a></div>
                 <div class="offerdatabg"></div>
             </div>
-            <%  }); } %>
+            <%  }); }else{ %>
+                <div class="cart  col-lg-12 mt-4">
+                    <div class="card m-auto border-0 h-100 ">
+                      <div class="card-body h-100 d-flex justify-content-center align-items-center">
+                        <div class="card-title d-flex flex-column justify-content-center align-items-center ">
+                          <img src="/public/images/favicon.png" alt="" width="300rem" height="300rem">
+                          <h2>Offers is Empty!!</h2>
+                        </div>
+                      </div>
+                    </div>
+                    </div>
+            <% } %>
                     </div>
               </div>
 

@@ -54,7 +54,7 @@ const loadOrders = async (req, res) => {
     const orderdata = await Order.find({ user_id: uid, payment_status: "Paid" })
       .populate("products.product_id")
       .sort({ date: "desc" });
-    console.log(orderdata[0].date);
+    // console.log(orderdata[0].date);
     if (orderdata.length > 0) {
       res.render("user/orders", {
         footcdata,

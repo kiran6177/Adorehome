@@ -6,7 +6,7 @@
           <div class="container">
               <div class="row p-3">
                   <h2>Brands</h2>
-                <% if(locals.branddata) { for(let i = 0; i< locals.branddata.length ; i++) { %>
+                <% if(locals.branddata && locals.branddata.length > 0) { for(let i = 0; i< locals.branddata.length ; i++) { %>
 
                   <div class="category col-sm-6 col-md-3 mt-4">
                       <div class="card">
@@ -19,8 +19,19 @@
                         </div>
                   </div>
                   
-                  <% } } %>
-
+                  <% } }else{ %>
+                    <div class="cart  col-lg-12 mt-4">
+              
+                      <div class="card m-auto border-0 h-100 ">
+                        <div class="card-body h-100 d-flex justify-content-center align-items-center">
+                          <div class="card-title d-flex flex-column justify-content-center align-items-center ">
+                            <img src="/public/images/favicon.png" alt="" width="300rem" height="300rem">
+                            <h2>Brands is Empty!!</h2>
+                          </div>
+                        </div>
+                      </div>
+                      </div>
+                  <% } %>
               </div>
           </div>
       </section>

@@ -14,7 +14,7 @@
 
                 </select></div></div>
                 <input type="hidden" id="totalproductscount" name="totalproductscount" <% if(locals.pcount){ %> value="<%= locals.pcount %>" <% } %>>
-                <% if(locals.products) { locals.products.forEach(el => { %>
+                <% if(locals.products && locals.products.length > 0) { locals.products.forEach(el => { %>
                 <% let desc = el.description.split('.')[0] %>
                 <% let pname = el.productname.split(' ')[0] %>
                 <div class="product product1 col-md-3 mt-4">
@@ -40,7 +40,18 @@
                           <% } %>
                     </div>
                 </div>
-                <% })  } %>              
+                <% })  }else{ %>
+                  <div class="cart  col-lg-12 mt-4">
+                    <div class="card m-auto border-0 h-100 ">
+                      <div class="card-body h-100 d-flex justify-content-center align-items-center">
+                        <div class="card-title d-flex flex-column justify-content-center align-items-center ">
+                          <img src="/public/images/favicon.png" alt="" width="300rem" height="300rem">
+                          <h2>Products is Empty!!</h2>
+                        </div>
+                      </div>
+                    </div>
+                    </div>
+                  <% } %>              
             </div>
             <div class="pagemain my-4"><div class="pageblock" id="pgmain"></div></div>
         </div>
