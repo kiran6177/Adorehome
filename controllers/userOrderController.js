@@ -116,16 +116,14 @@ const cancelOrder = async (req, res) => {
     console.log(cancelData);
     if (cancelData != null) {
       let qtytoupdate = 0;
+      let tot = 0;
       cancelData.products.forEach((el) => {
         if (el.product_id == pid && el.status == "Cancelled") {
           qtytoupdate = el.qty;
+          tot = el.price
         }
       });
-      let tot = 0;
-      let productdet = await Product.findById({ _id: pid });
-      if (productdet) {
-        tot = productdet.price;
-      }
+
       let totamount = cancelData.total_amount - tot * qtytoupdate;
       console.log(totamount);
       if (cancelData.coupon_id != "Nil") {
@@ -232,16 +230,13 @@ const returnOrder = async (req, res) => {
     console.log(returndata);
     if (returndata != null) {
       let qtytoupdate = 0;
+      let tot = 0;
       returndata.products.forEach((el) => {
         if (el.product_id == pid && el.status == "Returned") {
           qtytoupdate = el.qty;
+          tot = el.price
         }
       });
-      let tot = 0;
-      let productdet = await Product.findById({ _id: pid });
-      if (productdet) {
-        tot = productdet.price;
-      }
       let totamount = returndata.total_amount - tot * qtytoupdate;
       console.log(totamount);
       if (returndata.coupon_id != "Nil") {

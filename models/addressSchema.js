@@ -36,6 +36,10 @@ const addressSchema = new mongoose.Schema({
     landmark:{
         type:String,
         required:true
+    },
+    isListed:{
+        type:Number,
+        default:0
     }
 })
 

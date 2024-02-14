@@ -18,7 +18,7 @@ const loadCheckout = async (req, res) => {
       path: "cart.product_id",
       populate: { path: "offer_id", model: "offer" },
     });
-    const addData = await Address.find({ user_id: uid });
+    const addData = await Address.find({ user_id: uid ,isListed:0});
 
     if (addData) {
       res.render("user/checkout", {

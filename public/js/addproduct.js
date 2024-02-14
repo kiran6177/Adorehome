@@ -123,27 +123,35 @@ function mainval(data,mmtype)
 function imgsval(data,files)
 {   
     let imgdat = []
-    for(let element of files){
-        if(!element.type.startsWith('image/'))
-        {
-            imgdat.push(element) 
-        }
-    }
-    console.log(imgdat)
-    if(data !== 4)
-    {
-        error7.innerHTML = "Please select 4 Images."
-        error7.style.display = "block"
-    }
-    else if(imgdat.length > 0)
+    if(data == 0)
     {   
-        error7.innerHTML = "Please select  Images Only."
+        error7.innerHTML = "Please select Images."
         error7.style.display = "block"
     }
     else{
-        error7.innerHTML = ""
-        error7.style.display = "none"
+        for(let element of files){
+            if(!element.type.startsWith('image/'))
+            {
+                imgdat.push(element) 
+            }
+        }
+        console.log(imgdat)
+        if(data !== 4)
+        {
+            error7.innerHTML = "Please select 4 Images."
+            error7.style.display = "block"
+        }
+        else if(imgdat.length > 0)
+        {   
+            error7.innerHTML = "Please select  Images Only."
+            error7.style.display = "block"
+        }
+        else{
+            error7.innerHTML = ""
+            error7.style.display = "none"
+        }
     }
+    
 }
 
 
@@ -216,10 +224,10 @@ proform.addEventListener('submit',(e)=>{
     const sdata = stock.value
     const mdata = main.files.length
     const i1data = imgs.files.length
-    const mtype = main.files[0].type
+    const fileval = imgs.files
+    const mtype = main.files.length > 0 ? main.files[0].type : null
 
-
-    imgsval(i1data)
+    imgsval(i1data,fileval)
     mainval(mdata,mtype)
     stockval(sdata)
     priceval(prdata)

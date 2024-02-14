@@ -458,7 +458,7 @@ const sendEmail = async (req, res) => {
       const payload = { id: isRegisteredUser._id };
       const secret = process.env.JWT_secret + isRegisteredUser.password;
       const token = jwt.sign(payload, secret, { expiresIn: "10m" });
-      const link = `http://localhost:3003/resetpassword?id=${isRegisteredUser._id}&token=${token}`;
+      const link = `https://www.adorehome.site/resetpassword?id=${isRegisteredUser._id}&token=${token}`;
       console.log(link);
       const mailSend = forgotMailer.sendForgotmail(
         isRegisteredUser.email,

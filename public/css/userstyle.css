@@ -3103,7 +3103,7 @@ transition: top 200ms ease-in;
     }
 }
 .zoomContainer{
-    width:80% !important;
+    width:50% !important;
     left: 20% !important;
 }
 .zoomWindow{

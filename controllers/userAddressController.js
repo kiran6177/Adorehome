@@ -15,7 +15,7 @@ const loadAddress = async (req, res) => {
       { $limit: 4 },
     ]);
     const udata = await User.findById({ _id: uid }).populate("cart.product_id");
-    const addData = await Address.find({ user_id: uid });
+    const addData = await Address.find({ user_id: uid ,isListed:0});
     if (addData.length > 0) {
       res.render("user/manageaddress", {
         footcdata,
@@ -156,7 +156,7 @@ const editAddress = async (req, res) => {
 const removeAddress = async (req, res) => {
   try {
     const addId = req.query.id;
-    const remAdd = await Address.findByIdAndDelete({ _id: addId });
+    const remAdd = await Address.findByIdAndUpdate({ _id: addId },{$set:{isListed:1}});
     if (remAdd != null) {
       res.redirect("/address");
     }

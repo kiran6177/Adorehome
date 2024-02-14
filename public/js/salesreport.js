@@ -492,7 +492,7 @@ async function rangeReport(day1,day2,month1,month2,year1,year2){
   try {
     const res = await fetch(`/admin/salesreport/getrangereport?day1=${day1}&month1=${month1}&year1=${year1}&day2=${day2}&month2=${month2}&year2=${year2}`)
     const data = await res.json()
-    if (data.proSold.length > 0) {
+    if (data.proSold && data.proSold.length > 0) {
       const newdata = document.querySelectorAll(".newdata");
       if (newdata) {
         newdata.forEach((el) => el.remove());
