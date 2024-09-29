@@ -2,7 +2,10 @@ const Offer = require("../models/offerSchema");
 const path = require("path");
 const Jimp = require("jimp");
 const { ObjectId } = require("bson");
+const { cropAndSave } = require("../utils/crop");
+const { uploadToCloudinary, destroyFromCloudinary } = require("../utils/cloudinary");
 const fs = require("fs").promises;
+const OFFER_FOLDER = "adorehome/offers";
 
 const loadOffer = async (req, res) => {
   try {
@@ -20,36 +23,19 @@ const addOffer = async (req, res) => {
 
     let croppedoffer = croppeddata ? JSON.parse(croppeddata) : null;
 
-    async function cropAndSave(inputPath, outputFilePath, x, y, width, height) {
-      try {
-        const image = await Jimp.read(inputPath);
-        image.crop(x, y, width, height);
-        await image.writeAsync(outputFilePath);
-        console.log("Image saved successfully!");
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    }
+    let imageUrl = "";
 
     if (croppedoffer != null) {
-      const inputImagePath = path.join(
-        __dirname,
-        "../assets",
-        req.file.filename
-      );
-      const outputImagePath = path.join(
-        __dirname,
-        "../assets",
-        req.file.filename
-      );
-      cropAndSave(
-        inputImagePath,
-        outputImagePath,
-        croppedoffer.x,
-        croppedoffer.y,
-        croppedoffer.width,
-        croppedoffer.height
-      );
+      console.log("crop",croppedoffer);
+      const { x , y , width , height } = croppedoffer;
+      const croppedBuffer = await cropAndSave(x , y , width , height,req.file.buffer);
+      console.log("CROPEDBUFF",croppedBuffer);
+      const url = await uploadToCloudinary(croppedBuffer,req.file.mimetype,OFFER_FOLDER) 
+      imageUrl = url;
+    }else if(req.file){
+      console.log(req.file);
+      const url = await uploadToCloudinary(req.file.buffer,req.file.mimetype,OFFER_FOLDER) 
+      imageUrl = url;
     }
 
     const offerdata = {
@@ -57,7 +43,7 @@ const addOffer = async (req, res) => {
       status,
       description,
       discount: percentage,
-      offerimage: req.file.filename,
+      offerimage:imageUrl,
     };
 
     const offerAdd = await Offer.create(offerdata);
@@ -90,57 +76,31 @@ const editOffer = async (req, res) => {
     if (req.file) {
       let croppedoffer = croppeddata ? JSON.parse(croppeddata) : null;
 
-      async function cropAndSave(
-        inputPath,
-        outputFilePath,
-        x,
-        y,
-        width,
-        height
-      ) {
-        try {
-          const image = await Jimp.read(inputPath);
-          image.crop(x, y, width, height);
-          await image.writeAsync(outputFilePath);
-          console.log("Image saved successfully!");
-        } catch (error) {
-          console.error("Error:", error);
-        }
-      }
+      let imageUrl = "";
 
-      if (croppedoffer != null) {
-        const inputImagePath = path.join(
-          __dirname,
-          "../assets",
-          req.file.filename
-        );
-        const outputImagePath = path.join(
-          __dirname,
-          "../assets",
-          req.file.filename
-        );
-        cropAndSave(
-          inputImagePath,
-          outputImagePath,
-          croppedoffer.x,
-          croppedoffer.y,
-          croppedoffer.width,
-          croppedoffer.height
-        );
-      }
+    if (croppedoffer != null) {
+      console.log("crop",croppedoffer);
+      const { x , y , width , height } = croppedoffer;
+      const croppedBuffer = await cropAndSave(x , y , width , height,req.file.buffer);
+      console.log("CROPEDBUFF",croppedBuffer);
+      const url = await uploadToCloudinary(croppedBuffer,req.file.mimetype,OFFER_FOLDER) 
+      imageUrl = url;
+    }else if(req.file){
+      console.log(req.file);
+      const url = await uploadToCloudinary(req.file.buffer,req.file.mimetype,OFFER_FOLDER) 
+      imageUrl = url;
+    }
       offerdata = {
         offertitle,
         status,
         description,
         discount: percentage,
-        offerimage: req.file.filename,
+        offerimage: imageUrl,
       };
       const getImgName = await Offer.findById({ _id: id });
 
-      const deleted = await fs.unlink(
-        path.join(__dirname, "../assets", getImgName.offerimage)
-      );
-      console.log("del" + deleted);
+      await destroyFromCloudinary(getImgName.offerimage,OFFER_FOLDER);
+
     } else {
       offerdata = {
         offertitle,
@@ -169,9 +129,8 @@ const deleteOffer = async (req, res) => {
     const deleteOffer = await Offer.findByIdAndDelete({ _id: id });
     console.log(deleteOffer);
     if (deleteOffer) {
-      const deleted = await fs.unlink(
-        path.join(__dirname, "../assets", deleteOffer.offerimage)
-      );
+      await destroyFromCloudinary(deleteOffer.offerimage,OFFER_FOLDER);
+
       res.redirect("/admin/offer");
     }
   } catch (error) {

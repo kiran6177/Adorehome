@@ -11,7 +11,7 @@
             <div class="cart col-md-6 col-lg-12 mt-4">
                   <div class="card cartcard" >
                       <div class="card-body cartbody">
-                        <a href="/products/viewproduct?id=<%= element.product_id._id %>"><img src="/assets/<%= element.product_id.mainimage %>" alt="" width="200px" height="200px"></a>
+                        <a href="/products/viewproduct?id=<%= element.product_id._id %>"><img src="<%= element.product_id.mainimage %>" alt="" width="200px" height="200px"></a>
                         <div class="cartdetails">
                             <h4 class="card-title prohead fw-bold "><%= element.product_id.productname %></h4>
                             <p><%= element.product_id.description.split('.')[0] %></p>

@@ -1,7 +1,8 @@
 const Brand = require("../models/brandSchema");
 const fs = require("fs").promises;
 const path = require("path");
-
+const { uploadToCloudinary, destroyFromCloudinary } = require("../utils/cloudinary");
+const PRODUCT_FOLDER = "adorehome/products"
 const loadbrand = async (req, res) => {
   try {
     const getbrand = await Brand.find({ isListed: 0 });
@@ -20,7 +21,9 @@ const brandadd = async (req, res) => {
   try {
     const brandname = req.body.brandname;
     const status = req.body.status;
-    const image = req.file.filename;
+
+    let image = await uploadToCloudinary(req.file.buffer,req.file.mimetype,PRODUCT_FOLDER);
+
     const data = {
       brandname,
       status,
@@ -54,11 +57,12 @@ const editBrand = async (req, res) => {
     let brandData;
     if (req.file) {
       const brands = await Brand.findById({ _id: id });
-      await fs.unlink(path.join(__dirname, "../assets", brands.image));
+      await destroyFromCloudinary(brands.image,PRODUCT_FOLDER);
+      let image = await uploadToCloudinary(req.file.buffer,req.file.mimetype,PRODUCT_FOLDER);
       brandData = {
         brandname,
         status,
-        image: req.file.filename,
+        image,
       };
     } else {
       brandData = {

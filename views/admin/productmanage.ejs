@@ -29,7 +29,7 @@
                                 <% let pname = locals.products[i].productname.split(' ')[0] %>
                                 <div class="product col-md-3">
                                     <div class="card my-4">
-                                        <a href=""><img src="/assets/<%= locals.products[i].mainimage %>" class="card-img-top" alt="..."></a>
+                                        <a href=""><img src="<%= locals.products[i].mainimage %>" class="card-img-top" alt="..."></a>
                                         <div class="card-body">
                                           <h5 class="card-title cardhead"><%= pname %></h5>
                                           <div class="carddesc"><p class="card-text"><%= desc %></p></div>

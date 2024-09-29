@@ -58,7 +58,7 @@
                                                     <div class="w-50"><label for="catimage">Category Image</label>
                                                 <input type="file" id="catimage" name="catimage" class="form-control"></div>
                                                 <div class="w-25">
-                                                    <img src="/assets/<%= locals.cat.image %>" alt="" height="150px">
+                                                    <img src="<%= locals.cat.image %>" alt="" height="150px">
                                                     <input type="hidden" name="oldimage" value="<%= locals.cat.image %>">
                                                     <input type="hidden" name="catid" value="<%= locals.cat._id %>">
                                                     <p>Preview</p>

@@ -11,7 +11,7 @@
                       <% if(locals.orderdata ) { %>
                         <div class="card-body ordersumbody">
                                 <% locals.orderdata.products.forEach(element => { %>
-                                <div class="prodiv w-100"><img src="/assets/<%= element.product_id.mainimage %>" alt="" width="350px" height="350px">
+                                <div class="prodiv w-100"><img src="<%= element.product_id.mainimage %>" alt="" width="350px" height="350px">
                                 <h4><%= element.product_id.productname %></h4>
                                 <h6><%= element.product_id.description.split('.')[0] %></h6>
                                 <h6>Rs.<%= element.product_id.price %></h6>

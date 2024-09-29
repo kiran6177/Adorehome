@@ -5,7 +5,7 @@ const unblockbtn = document.querySelectorAll('#unblockbtn1')
 
 function block(id){
 
-    fetch(`http://localhost:3003/admin/users/blockuser?id=${id}`)
+    fetch(`/admin/users/blockuser?id=${id}`)
     .then(res=>{
         return res.json()
     })
@@ -34,7 +34,7 @@ function block(id){
                 }).then(res=>{
                   if(res.isConfirmed)
                   {
-                      window.location.href = "http://localhost:3003/admin/users"
+                      window.location.href = "/admin/users"
                   }
                 })
             }
@@ -51,7 +51,7 @@ function block(id){
 
 function unblock(id){
 
-    fetch(`http://localhost:3003/admin/users/unblockuser?id=${id}`)
+    fetch(`/admin/users/unblockuser?id=${id}`)
     .then(res=>{
         return res.json()
     })
@@ -82,7 +82,7 @@ function unblock(id){
                   }).then(res=>{
                     if(res.isConfirmed)
                     {
-                        window.location.href = "http://localhost:3003/admin/users"
+                        window.location.href = "/admin/users"
                     }
                   })
             }

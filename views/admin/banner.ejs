@@ -76,7 +76,7 @@
                             <h4 class="fw-bold">Banner Details</h4>
                             <hr class="my-4">
                         <% if(locals.banner && locals.banner.length > 0){ locals.banner.forEach(element => { %>
-                            <div class="catitem"><img src="/assets/<%= element.bannerimage %>" width="80px" height="45px" alt=""><h6 class="my-auto fw-normal" title="" id="">&nbsp;&nbsp;<%= element.bannertitle %></h6><a href="/admin/banner/edit?id=<%= element._id %>"><button type="button" >Edit</button></a><a href="/admin/banner/delete?id=<%= element._id %>"><button type="button" >Delete</button></a></div>
+                            <div class="catitem"><img src="<%= element.bannerimage %>" width="80px" height="45px" alt=""><h6 class="my-auto fw-normal" title="" id="">&nbsp;&nbsp;<%= element.bannertitle %></h6><a href="/admin/banner/edit?id=<%= element._id %>"><button type="button" >Edit</button></a><a href="/admin/banner/delete?id=<%= element._id %>"><button type="button" >Delete</button></a></div>
                             <hr class="my-3">
                         <% });} %>
                         </div>

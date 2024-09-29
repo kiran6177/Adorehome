@@ -145,7 +145,7 @@ window.onload = async function(){
                 }
                 bannerdata.push(obj)
 
-                imagearray.push(`/assets/${el.bannerimage}`)
+                imagearray.push(`${el.bannerimage}`)
             })
             insertBanner(0)
             let i = 0   
@@ -174,8 +174,8 @@ function insertBanner(pos){
     }
 setTimeout(()=>{ bannerimg.src  = imagearray[pos]
     bannerimg.style.opacity = '1'
-    bannercontent.getElementsByTagName('h1')[0].innerHTML = bannerdata[pos].head
-    bannercontent.getElementsByTagName('p')[0].innerHTML = bannerdata[pos].desc
+    bannercontent.getElementsByTagName('h1')[0].innerHTML = bannerdata[pos]?.head
+    bannercontent.getElementsByTagName('p')[0].innerHTML = bannerdata[pos]?.desc
     bannercontent.style.opacity = '1'
 
 },200)

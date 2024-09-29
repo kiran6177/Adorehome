@@ -30,7 +30,7 @@
                                             <input type="hidden" name="orderid" id="orderid" value="<%= locals.orderdetail._id %>">
                                                 <% if(locals.orderdetail.products && locals.orderdetail.products.length > 0) { locals.orderdetail.products.forEach(element => { %>
                                                     <% if(element.status === "Returned") {%><div class="refund"><button type="button" class="refundbtn" data-proid="<%= element.product_id._id %>">Initiate Refund</button></div><% } %>
-                                                <div class="prodiv w-100"><img src="/assets/<%= element.product_id.mainimage %>" alt="" width="350px" height="350px">
+                                                <div class="prodiv w-100"><img src="<%= element.product_id.mainimage %>" alt="" width="350px" height="350px">
                                                 <div class="protext">
                                                 <h5><span>Product Name :</span><%= element.product_id.productname %></h5>
                                                 <h6><span>Description :</span> <%= element.product_id.description.split('.')[0] %></h6>

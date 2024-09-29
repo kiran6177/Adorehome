@@ -18,7 +18,7 @@ const loginload = async (req, res) => {
 const login = async (req, res) => {
   const email = req.body.email;
   const pwd = req.body.password;
-
+  
   const admin = await User.findOne({ email: email, type: "admin" });
   if (admin != null) {
     const isAdmin = await bcrypt.compare(pwd, admin.password);

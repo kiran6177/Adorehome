@@ -263,7 +263,7 @@ function productPageLoop(totalproductpages, currentPage) {
             const newdiv1 = document.createElement('div')
             newdiv1.classList.add('card')
             newdiv1.innerHTML = `
-            <a href="/products/viewproduct?id=${data.products[i]._id }"><img src="/assets/${data.products[i].mainimage }" class="card-img-top" alt="..."></a>
+            <a href="/products/viewproduct?id=${data.products[i]._id }"><img src="${data.products[i].mainimage }" class="card-img-top" alt="..."></a>
             <div class="card-body">
               <h5 class="card-title cardhead">${pname}</h5>
               <div class="carddesc"><p class="card-text">${desc}</p></div>

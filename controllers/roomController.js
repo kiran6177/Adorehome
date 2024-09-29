@@ -1,6 +1,8 @@
 const Room = require("../models/roomSchema");
 const fs = require("fs").promises;
 const path = require("path");
+const { uploadToCloudinary, destroyFromCloudinary } = require("../utils/cloudinary");
+const ROOM_FOLDER = "adorehome/rooms";
 
 const loadroom = async (req, res) => {
   try {
@@ -20,11 +22,11 @@ const roomadd = async (req, res) => {
   try {
     const roomname = req.body.roomname;
     const status = req.body.status;
-    const image = req.file.filename;
+    let image = await uploadToCloudinary(req.file.buffer,req.file.mimetype,ROOM_FOLDER);
     const data = {
       roomname: roomname,
       status: status,
-      image: image,
+      image,
     };
 
     const roomdata = await Room.create(data);
@@ -51,11 +53,13 @@ const editRoom = async (req, res) => {
     let roomData;
     if (req.file) {
       const rooms = await Room.findById({ _id: id });
-      await fs.unlink(path.join(__dirname, "../assets", rooms.image));
+      await destroyFromCloudinary(rooms.image,ROOM_FOLDER);
+      let image = await uploadToCloudinary(req.file.buffer,req.file.mimetype,ROOM_FOLDER);
+
       roomData = {
         roomname,
         status,
-        image: req.file.filename,
+        image,
       };
     } else {
       roomData = {

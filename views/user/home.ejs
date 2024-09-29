@@ -34,7 +34,7 @@
                     <% let pname = element.productname.split(' ')[0] %>
                     <div class="product col-md-3 mt-4"> 
                         <div class="card">
-                            <a href="/products/viewproduct?id=<%= element._id %>"><img src="/assets/<%= element.mainimage %>" class="card-img-top" alt="..."></a>
+                            <a href="/products/viewproduct?id=<%= element._id %>"><img src="<%= element.mainimage %>" class="card-img-top" alt="..."></a>
                             <div class="card-body">
                               <h5 class="card-title cardhead"><%= pname %></h5>
                               <div class="carddesc"><p class="card-text"><%= desc %></p></div>
@@ -77,7 +77,7 @@
             <% if(locals.cdata && locals.cdata.length > 0){ locals.cdata.forEach(element => { %>
             <div class="category col-sm-6 col-md-4 mt-4">
               <div class="card">
-                  <a href="/category/products?id=<%= element._id %>"><img src="/assets/<%= element.image %>" class="card-img-top" alt="..."></a>
+                  <a href="/category/products?id=<%= element._id %>"><img src="<%= element.image %>" class="card-img-top" alt="..."></a>
                   <div class="card-body">
                     <h5 class="card-title cardhead"><%= element.categoryname %></h5>
                     <div class="carddesc"><button type="button"><p class="card-text"><a href="/category/products?id=<%= element._id %>">Explore Now</a></p></button></div>
@@ -100,7 +100,7 @@
             <% if(locals.rdata && locals.rdata.length > 0){ locals.rdata.forEach(element => {%>
             <div class="room col-md-6 mt-4">
               <div class="card">
-                  <a href="/room/products?id=<%= element._id %>"><img src="/assets/<%= element.image %>" class="card-img-top" alt="..."></a>
+                  <a href="/room/products?id=<%= element._id %>"><img src="<%= element.image %>" class="card-img-top" alt="..."></a>
                   <div class="card-body">
                     <h5 class="card-title cardhead"><%= element.roomname %></h5>
                     <div class="carddesc"><button type="button"><p class="card-text"><a href="/room/products?id=<%= element._id %>">Explore Now</a></p></button></div>

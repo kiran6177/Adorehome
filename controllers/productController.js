@@ -6,6 +6,8 @@ const Offer = require("../models/offerSchema");
 const Jimp = require("jimp");
 const fs = require("fs").promises;
 const path = require("path");
+const { uploadToCloudinary, destroyFromCloudinary } = require("../utils/cloudinary");
+const PRODUCT_FOLDER = "adorehome/product";
 
 const loadproducts = async (req, res) => {
   try {
@@ -60,130 +62,54 @@ const addproducts = async (req, res) => {
       const cropped3 = cropvaluesimg3 ? JSON.parse(cropvaluesimg3) : null;
       const cropped4 = cropvaluesimg4 ? JSON.parse(cropvaluesimg4) : null;
 
-      async function cropAndSave(
-        inputPath,
-        outputFilePath,
-        x,
-        y,
-        width,
-        height
-      ) {
-        try {
-          const image = await Jimp.read(inputPath);
-          image.crop(x, y, width, height);
-          await image.writeAsync(outputFilePath);
-          console.log("Image saved successfully!");
-        } catch (error) {
-          console.error("Error:", error);
-        }
-      }
+      let mainUrl = "";
+      let imagesUrl = [];
+
+      
 
       if (croppedmain != null) {
-        const inputImagePath = path.join(
-          __dirname,
-          "../assets",
-          req.files["mainimage"][0].filename
-        );
-        const outputImagePath = path.join(
-          __dirname,
-          "../assets",
-          req.files["mainimage"][0].filename
-        );
-        cropAndSave(
-          inputImagePath,
-          outputImagePath,
-          croppedmain.x,
-          croppedmain.y,
-          croppedmain.width,
-          croppedmain.height
-        );
+        const { x , y , width , height } = croppedmain;
+        const croppedBuffer = await cropAndSave(x , y , width , height,req.file.buffer);
+        console.log("CROPEDBUFF",croppedBuffer);
+        mainUrl = await uploadToCloudinary(croppedBuffer,req.files["mainimage"][0].mimetype,PRODUCT_FOLDER); 
+      }else{
+        mainUrl = await uploadToCloudinary(req.files["mainimage"][0].buffer,req.files["mainimage"][0].mimetype,PRODUCT_FOLDER); 
       }
       if (cropped1 != null) {
-        const inputImagePath = path.join(
-          __dirname,
-          "../assets",
-          req.files["imgs"][0].filename
-        );
-        const outputImagePath = path.join(
-          __dirname,
-          "../assets",
-          req.files["imgs"][0].filename
-        );
-        cropAndSave(
-          inputImagePath,
-          outputImagePath,
-          cropped1.x,
-          cropped1.y,
-          cropped1.width,
-          cropped1.height
-        );
+        const { x , y , width , height } = cropped1;
+        const croppedBuffer = await cropAndSave(x , y , width , height,req.file.buffer);
+        console.log("CROPEDBUFF",croppedBuffer);
+        imagesUrl[0] = await uploadToCloudinary(croppedBuffer,req.files["imgs"][0].mimetype,PRODUCT_FOLDER);
+      }else{
+        imagesUrl[0] = await uploadToCloudinary(req.files["imgs"][0].buffer,req.files["imgs"][0].mimetype,PRODUCT_FOLDER);
       }
       if (cropped2 != null) {
-        const inputImagePath = path.join(
-          __dirname,
-          "../assets",
-          req.files["imgs"][1].filename
-        );
-        const outputImagePath = path.join(
-          __dirname,
-          "../assets",
-          req.files["imgs"][1].filename
-        );
-        cropAndSave(
-          inputImagePath,
-          outputImagePath,
-          cropped2.x,
-          cropped2.y,
-          cropped2.width,
-          cropped2.height
-        );
+        const { x , y , width , height } = cropped2;
+        const croppedBuffer = await cropAndSave(x , y , width , height,req.file.buffer);
+        console.log("CROPEDBUFF",croppedBuffer);
+        imagesUrl[1] = await uploadToCloudinary(croppedBuffer,req.files["imgs"][1].mimetype,PRODUCT_FOLDER);
+      }else{
+        imagesUrl[1] = await uploadToCloudinary(req.files["imgs"][1].buffer,req.files["imgs"][1].mimetype,PRODUCT_FOLDER);
       }
       if (cropped3 != null) {
-        const inputImagePath = path.join(
-          __dirname,
-          "../assets",
-          req.files["imgs"][2].filename
-        );
-        const outputImagePath = path.join(
-          __dirname,
-          "../assets",
-          req.files["imgs"][2].filename
-        );
-        cropAndSave(
-          inputImagePath,
-          outputImagePath,
-          cropped3.x,
-          cropped3.y,
-          cropped3.width,
-          cropped3.height
-        );
+        const { x , y , width , height } = cropped3;
+        const croppedBuffer = await cropAndSave(x , y , width , height,req.file.buffer);
+        console.log("CROPEDBUFF",croppedBuffer);
+        imagesUrl[2] = await uploadToCloudinary(croppedBuffer,req.files["imgs"][2].mimetype,PRODUCT_FOLDER);
+      }else{
+        imagesUrl[2] = await uploadToCloudinary(req.files["imgs"][2].buffer,req.files["imgs"][2].mimetype,PRODUCT_FOLDER);
       }
       if (cropped4 != null) {
-        const inputImagePath = path.join(
-          __dirname,
-          "../assets",
-          req.files["imgs"][3].filename
-        );
-        const outputImagePath = path.join(
-          __dirname,
-          "../assets",
-          req.files["imgs"][3].filename
-        );
-        cropAndSave(
-          inputImagePath,
-          outputImagePath,
-          cropped4.x,
-          cropped4.y,
-          cropped4.width,
-          cropped4.height
-        );
+        const { x , y , width , height } = cropped4;
+        const croppedBuffer = await cropAndSave(x , y , width , height,req.file.buffer);
+        console.log("CROPEDBUFF",croppedBuffer);
+        imagesUrl[3] = await uploadToCloudinary(croppedBuffer,req.files["imgs"][3].mimetype,PRODUCT_FOLDER);
+      }else{
+        imagesUrl[3] = await uploadToCloudinary(req.files["imgs"][3].buffer,req.files["imgs"][3].mimetype,PRODUCT_FOLDER);
       }
 
-      const main = req.files["mainimage"][0].filename;
-      let img = [];
-      req.files["imgs"].forEach((element) => {
-        img.push(element.filename);
-      });
+      const main = mainUrl;
+      let img = imagesUrl;
       console.log(main);
       console.log(img);
       const prodata = {
@@ -293,10 +219,10 @@ const editproducts = async (req, res) => {
       // console.log(req.files)
       if (req.files.mainimage) {
         if (oldmain !== "") {
-          await fs.unlink(path.join(__dirname, "../assets", oldmain));
+          await destroyFromCloudinary(oldmain,PRODUCT_FOLDER)
         }
         console.log("entrerd");
-        main = req.files.mainimage[0].filename;
+        main = await uploadToCloudinary(req.files.mainimage[0].buffer,req.files.mainimage[0].mimetype,PRODUCT_FOLDER);
         console.log("entrerd1");
       } else {
         main = null;
@@ -305,27 +231,27 @@ const editproducts = async (req, res) => {
         console.log(req.files);
         if (req.files.img1) {
           if (oldimg1 !== "") {
-            await fs.unlink(path.join(__dirname, "../assets", oldimg1));
+            await destroyFromCloudinary(oldimg1,PRODUCT_FOLDER)
           }
-          img1 = req.files.img1[0].filename;
+          img1 = await uploadToCloudinary(req.files.img1[0].buffer,req.files.img1[0].mimetype,PRODUCT_FOLDER);
         }
         if (req.files.img2) {
           if (oldimg2 !== "") {
-            await fs.unlink(path.join(__dirname, "../assets", oldimg2));
+            await destroyFromCloudinary(oldimg2,PRODUCT_FOLDER)
           }
-          img2 = req.files.img2[0].filename;
+          img2 = await uploadToCloudinary(req.files.img2[0].buffer,req.files.img2[0].mimetype,PRODUCT_FOLDER);
         }
         if (req.files.img3) {
           if (oldimg3 !== "") {
-            await fs.unlink(path.join(__dirname, "../assets", oldimg3));
+            await destroyFromCloudinary(oldimg3,PRODUCT_FOLDER)
           }
-          img3 = req.files.img3[0].filename;
+          img3 = await uploadToCloudinary(req.files.img3[0].buffer,req.files.img3[0].mimetype,PRODUCT_FOLDER);
         }
         if (req.files.img4) {
           if (oldimg4 !== "") {
-            await fs.unlink(path.join(__dirname, "../assets", oldimg4));
+            await destroyFromCloudinary(oldimg4,PRODUCT_FOLDER)
           }
-          img4 = req.files.img4[0].filename;
+          img4 = await uploadToCloudinary(req.files.img4[0].buffer,req.files.img4[0].mimetype,PRODUCT_FOLDER);
         }
       }
       console.log("hdhhd");

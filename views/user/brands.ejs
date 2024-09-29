@@ -10,7 +10,7 @@
 
                   <div class="category col-sm-6 col-md-3 mt-4">
                       <div class="card">
-                          <a href="/brand/products?id=<%= locals.branddata[i]._id %>"><img src="/assets/<%= locals.branddata[i].image %>" class="card-img-top" alt="..."></a>
+                          <a href="/brand/products?id=<%= locals.branddata[i]._id %>"><img src="<%= locals.branddata[i].image %>" class="card-img-top" alt="..."></a>
                           <div class="card-body">
                             <h5 class="card-title cardhead"><%= locals.branddata[i].brandname %></h5>
                             <div class="carddesc"><button type="button"><p class="card-text"><a href="/brand/products?id=<%= locals.branddata[i]._id %>">Explore Now</a></p></button></div>

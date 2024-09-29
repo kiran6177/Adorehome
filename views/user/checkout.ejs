@@ -60,7 +60,7 @@
                                  <%  }else{ %> data-price="<%= element.product_id.price %>"<% } %> data-qty="<%= element.qty %>">
                                     <div class="card-body checkpro">
                                     <input type="hidden" class="productsId" value="<%= element.product_id._id %>,<%= element.qty %>,<%= element.product_id.price %>">
-                                    <a href=""><img src="/assets/<%= element.product_id.mainimage %>" alt="" width="70px" height="70px"></a>
+                                    <a href=""><img src="<%= element.product_id.mainimage %>" alt="" width="70px" height="70px"></a>
                                         <div class="checkprodet"><h5><%= element.product_id.productname %></h5> <p><%= element.product_id.description.split(',')[0] %></p><p><%= element.product_id.price %></p></div>
                                         <div class="checkproqty mt-2 mt-sm-0"><h6>Quantity</h6><p><%= element.qty %> Items</p></div>
                                     </div>

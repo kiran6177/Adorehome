@@ -7,7 +7,7 @@
               <h2 class=" mt-4 mb-3">OFFERS</h2>
               <% if(locals.offer && locals.offer.length > 0) { locals.offer.forEach(element => { %>
               <div class="offer my-4 col-md-6">
-                <div class="offerdiv"><img src="/assets/<%= element.offerimage %>" alt=""></div>
+                <div class="offerdiv"><img src="<%= element.offerimage %>" alt=""></div>
                 <div class="offerdata1"><h3><u><%= element.offertitle %></u></h3>
                 <p><%= element.description %></p>
                 <p>Flat <span class="rateoffer"><%= element.discount %>%</span>Off!!</p>

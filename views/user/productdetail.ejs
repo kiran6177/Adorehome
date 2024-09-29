@@ -7,12 +7,12 @@
         <div class="container">
             <div class="row">
                 <div class="proimg col-md-8 mt-5 pb-5">
-                    <img src="/assets/<%= locals.product.mainimage %>" class="mainimg " id="zoom_01" alt="">
+                    <img src="<%= locals.product.mainimage %>" class="mainimg " id="zoom_01" alt="">
                     <div class="subimg">
-                    <img src="/assets/<%= locals.product.image[0] %>" class="img"    alt="">
-                    <img src="/assets/<%= locals.product.image[1] %>" class="img"   alt="">
-                    <img src="/assets/<%= locals.product.image[2] %>" class="img"   alt="">
-                    <img src="/assets/<%= locals.product.image[3] %>" class="img"   alt="">
+                    <img src="<%= locals.product.image[0] %>" class="img"    alt="">
+                    <img src="<%= locals.product.image[1] %>" class="img"   alt="">
+                    <img src="<%= locals.product.image[2] %>" class="img"   alt="">
+                    <img src="<%= locals.product.image[3] %>" class="img"   alt="">
                 </div>
                 </div>
                 <div class="prodesc mt-5  col-md-4">
@@ -85,7 +85,7 @@
                     <% let pname = locals.rel[i].productname.split(' ')[0] %>
                 <div class="product col-md-3 mt-3">   
                     <div class="card">
-                        <a href="/products/viewproduct?id=<%= locals.rel[i]._id %>"><img src="/assets/<%= locals.rel[i].mainimage %>" class="card-img-top" alt="..."></a>
+                        <a href="/products/viewproduct?id=<%= locals.rel[i]._id %>"><img src="<%= locals.rel[i].mainimage %>" class="card-img-top" alt="..."></a>
                         <div class="card-body">
                           <h5 class="card-title cardhead"><%= pname %></h5>
                           <div class="carddesc"><p class="card-text"><%= desc %></p></div>

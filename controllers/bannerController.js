@@ -3,6 +3,10 @@ const path = require("path");
 const Jimp = require("jimp");
 const fs = require("fs").promises;
 const { ObjectId } = require("mongodb");
+const { uploadToCloudinary, destroyFromCloudinary } = require("../utils/cloudinary");
+const { cropAndSave } = require("../utils/crop");
+const BANNER_FOLDER = "adorehome/banner";
+
 const loadBanner = async (req, res) => {
   try {
     const findBanner = await Banner.find();
@@ -20,52 +24,36 @@ const addBanner = async (req, res) => {
       bannertitle,
       description,
       status,
-      req.file.filename,
       croppeddata
     );
     let croppedbanner = croppeddata ? JSON.parse(croppeddata) : null;
 
-    async function cropAndSave(inputPath, outputFilePath, x, y, width, height) {
-      try {
-        const image = await Jimp.read(inputPath);
-        image.crop(x, y, width, height);
-        await image.writeAsync(outputFilePath);
-        console.log("Image saved successfully!");
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    }
+    let imageUrl = "";
 
     if (croppedbanner != null) {
-      const inputImagePath = path.join(
-        __dirname,
-        "../assets",
-        req.file.filename
-      );
-      const outputImagePath = path.join(
-        __dirname,
-        "../assets",
-        req.file.filename
-      );
-      cropAndSave(
-        inputImagePath,
-        outputImagePath,
-        croppedbanner.x,
-        croppedbanner.y,
-        croppedbanner.width,
-        croppedbanner.height
-      );
+      console.log("crop",croppedbanner);
+      const { x , y , width , height } = croppedbanner;
+      const croppedBuffer = await cropAndSave(x , y , width , height,req.file.buffer);
+      console.log("CROPEDBUFF",croppedBuffer);
+      const url = await uploadToCloudinary(croppedBuffer,req.file.mimetype,BANNER_FOLDER) 
+      imageUrl = url;
+    }else if(req.file){
+      console.log(req.file);
+      const url = await uploadToCloudinary(req.file.buffer,req.file.mimetype,BANNER_FOLDER) 
+      imageUrl = url;
     }
 
     const bannertoSave = {
       bannertitle,
       description,
       status,
-      bannerimage: req.file.filename,
+      bannerimage: imageUrl,
     };
+    console.log(bannertoSave);
+    
     const savedBanner = await Banner.create(bannertoSave);
     console.log(savedBanner);
-    if (savedBanner) {
+    if ("savedBanner") {
       res.redirect("/admin/banner");
     } else {
       res.render("admin/banner", { message: "Cannot add Banner!!" });
@@ -102,54 +90,29 @@ const editBanner = async (req, res) => {
 
     if (req.file) {
       const bannerdata = await Banner.findById({ _id: bannerid });
-      await fs.unlink(
-        path.join(__dirname, "../assets", bannerdata.bannerimage)
-      );
+      if(bannerdata?.bannerimage){
+        await destroyFromCloudinary(bannerdata.bannerimage,BANNER_FOLDER)
+      }
       let croppedbanner = croppeddata ? JSON.parse(croppeddata) : null;
 
-      async function cropAndSave(
-        inputPath,
-        outputFilePath,
-        x,
-        y,
-        width,
-        height
-      ) {
-        try {
-          const image = await Jimp.read(inputPath);
-          image.crop(x, y, width, height);
-          await image.writeAsync(outputFilePath);
-          console.log("Image saved successfully!");
-        } catch (error) {
-          console.error("Error:", error);
-        }
-      }
+      let imageUrl = "";
 
       if (croppedbanner != null) {
-        const inputImagePath = path.join(
-          __dirname,
-          "../assets",
-          req.file.filename
-        );
-        const outputImagePath = path.join(
-          __dirname,
-          "../assets",
-          req.file.filename
-        );
-        cropAndSave(
-          inputImagePath,
-          outputImagePath,
-          croppedbanner.x,
-          croppedbanner.y,
-          croppedbanner.width,
-          croppedbanner.height
-        );
+        console.log("crop",croppedbanner);
+        const { x , y , width , height } = croppedbanner;
+        const croppedBuffer = await cropAndSave(x , y , width , height,req.file.buffer);
+        console.log("CROPEDBUFF",croppedBuffer);
+        const url = await uploadToCloudinary(croppedBuffer,req.file.mimetype,BANNER_FOLDER) 
+        imageUrl = url;
+      }else{
+        const url = await uploadToCloudinary(req.file.buffer,req.file.mimetype,BANNER_FOLDER) 
+        imageUrl = url;
       }
       bannerToedit = {
         bannertitle,
         description,
         status,
-        bannerimage: req.file.filename,
+        bannerimage:imageUrl,
       };
     } else {
       bannerToedit = {
@@ -178,6 +141,9 @@ const deleteBanner = async (req, res) => {
   try {
     const { id } = req.query;
     const deleteData = await Banner.findByIdAndDelete({ _id: id });
+    if(deleteData?.bannerimage){
+      await destroyFromCloudinary(deleteData.bannerimage,BANNER_FOLDER)
+    }
     if (deleteData) {
       res.redirect("/admin/banner");
     } else {

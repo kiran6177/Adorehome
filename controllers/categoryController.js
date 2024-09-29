@@ -2,6 +2,8 @@ const path = require("path");
 const fs = require("fs").promises;
 const Category = require("../models/categorySchema");
 const Product = require("../models/productSchema");
+const { uploadToCloudinary, destroyFromCloudinary } = require("../utils/cloudinary");
+const CATEGORY_FOLDER = "adorehome/category";
 
 const loadcategory = async (req, res) => {
   try {
@@ -19,17 +21,19 @@ const loadcategory = async (req, res) => {
 const categoryadd = async (req, res) => {
   try {
     const { catname, status } = req.body;
-    const image = req.file.filename;
-    const data = {
-      categoryname: catname,
-      status: status,
-      image: image,
-    };
+
     const catExist = await Category.find({
       categoryname: catname,
       isListed: 0,
     });
     if (catExist.length === 0) {
+      let image = await uploadToCloudinary(req.file.buffer,req.file.mimetype,CATEGORY_FOLDER);
+
+      const data = {
+        categoryname: catname,
+        status: status,
+        image: image,
+      };
       const catdata = await Category.create(data);
       if (catdata != null) {
         res.redirect("/admin/category");
@@ -70,9 +74,10 @@ const editcategory = async (req, res) => {
     let imag;
     if (req.file != undefined) {
       if (oldimage != "" || oldimage !== undefined) {
-        await fs.unlink(path.join(__dirname, "../assets", oldimage));
+        await destroyFromCloudinary(oldimage,CATEGORY_FOLDER);
       }
-      imag = req.file.filename;
+      imag =  await uploadToCloudinary(req.file.buffer,req.file.mimetype,CATEGORY_FOLDER);
+
     } else {
       imag = null;
     }

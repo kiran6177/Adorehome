@@ -51,7 +51,7 @@ otpform.addEventListener('submit',(event)=>{
 
 
 function send(uiddata){
-    fetch(`http://localhost:3003/sendotp?uid=${uiddata}`)
+    fetch(`/sendotp?uid=${uiddata}`)
 .then((res)=>{
     return res.json()
 }).then((data)=>{
