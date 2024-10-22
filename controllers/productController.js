@@ -7,6 +7,7 @@ const Jimp = require("jimp");
 const fs = require("fs").promises;
 const path = require("path");
 const { uploadToCloudinary, destroyFromCloudinary } = require("../utils/cloudinary");
+const { cropAndSave } = require("../utils/crop");
 const PRODUCT_FOLDER = "adorehome/product";
 
 const loadproducts = async (req, res) => {
